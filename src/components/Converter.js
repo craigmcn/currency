@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 
+const ipdataco = process.env.REACT_APP_IPDATA_CO;
+
 class Converter extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ class Converter extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://api.ipstack.com/check?access_key=262120e7db62bcf080801ebe843960cd')
+    fetch(`https://api.ipdata.co?api-key=${ipdataco}`)
       .then(results => results.json())
       .then(data => {
         this.setState(() => ({ country: data.country_code }))
@@ -28,7 +30,7 @@ class Converter extends React.Component {
             a.push({ name: c.currencies[0].name, code: c.currencies[0].code, symbol: c.currencies[0].symbol })
             pushed.push(c.currencies[0].code)
 
-            if (c.alpha2Code === this.state.country) {
+            if (this.state.country === c.alpha2Code) {
               this.setState(() => ({ currencyFrom: c.currencies[0].code }))
             }
           }
@@ -49,19 +51,10 @@ class Converter extends React.Component {
     })
   }
 
-  onCurrencyFromChange = e => {
-    const currencyFrom = e.target.value
-    this.setState(() => ({ currencyFrom, amountTo: 0 }))
-  }
-
-  onCurrencyToChange = e => {
-    const currencyTo = e.target.value
-    this.setState(() => ({ currencyTo, amountTo: 0 }))
-  }
-
-  onAmountFromChange = e => {
-    const amountFrom = e.target.value
-    this.setState(() => ({ amountFrom, amountTo: 0 }))
+  handleChange = e => {
+    const key = e.target.name
+    const value = e.target.value
+    this.setState(() => ({ [key]: value, amountTo: 0 }))
   }
 
   handleSubmit = e => {
@@ -71,7 +64,7 @@ class Converter extends React.Component {
 
   calculateConversion = (currencyFrom, currencyTo, amountFrom) => {
     let rate = 1
-    fetch(`http://data.fixer.io/api/latest?access_key=d9e380fca056eeb88c2f7da76836c0f2&symbols=${currencyFrom},${currencyTo}`)
+    fetch(`https://api.exchangeratesapi.io/latest?symbols=${currencyFrom},${currencyTo}`)
       .then(results => results.json())
       .then(data => {
         if (!data.success) throw new Error(`${data.error.code} ${data.error.type}`)
@@ -105,7 +98,7 @@ class Converter extends React.Component {
 
             <div className="form__group">
               <label className="form__label">Currency from</label>
-              <select id="currencyFrom" name="currencyFrom" className="form__control" value={this.state.currencyFrom} onChange={this.onCurrencyFromChange}>
+              <select id="currencyFrom" name="currencyFrom" className="form__control" value={this.state.currencyFrom} onChange={this.handleChange}>
                 <option value="">Select</option>
                 {this.createSelectItems(this.state.countries)}
               </select>
@@ -113,7 +106,7 @@ class Converter extends React.Component {
 
             <div className="form__group">
               <label className="form__label">Currency to</label>
-              <select id="currencyTo" name="currencyTo" className="form__control" value={this.state.currencyTo} onChange={this.onCurrencyToChange}>
+              <select id="currencyTo" name="currencyTo" className="form__control" value={this.state.currencyTo} onChange={this.handleChange}>
                 <option value="">Select</option>
                 {this.createSelectItems(this.state.countries)}
               </select>
@@ -121,7 +114,7 @@ class Converter extends React.Component {
 
             <div className="form__group">
               <label className="form__label">Amount</label>
-              <input id="amountFrom" name="amountFrom" className="form__control" type="text" value={this.state.amountFrom} onChange={this.onAmountFromChange} />
+              <input id="amountFrom" name="amountFrom" className="form__control" type="text" value={this.state.amountFrom} onChange={this.handleChange} />
             </div>
 
             <div>
