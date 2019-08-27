@@ -11,7 +11,8 @@ class Converter extends React.Component {
       amountFrom: '',
       amountTo: 0,
       country: '',
-      countries: []
+      countries: [],
+      error: ''
     };
   }
 
@@ -67,12 +68,15 @@ class Converter extends React.Component {
     fetch(`https://api.exchangeratesapi.io/latest?symbols=${currencyFrom},${currencyTo}`)
       .then(results => results.json())
       .then(data => {
-        if (!data.success) throw new Error(`${data.error.code} ${data.error.type}`)
+        if (data.error) {
+          throw new Error(`${data.error}`)
+        }
         rate = data.rates[currencyTo] / data.rates[currencyFrom]
-        this.setState(() => ({ currencyFrom, currencyTo, amountFrom: parseFloat(amountFrom).toFixed(2), amountTo: (amountFrom * rate).toFixed(2) }))
+        this.setState(() => ({ error: '', currencyFrom, currencyTo, amountFrom: parseFloat(amountFrom).toFixed(2), amountTo: (amountFrom * rate).toFixed(2) }))
       })
       .catch(error => {
         console.error(error)
+        this.setState(() => ({ error: error.toString() }))
       })
 
     return true
@@ -81,7 +85,9 @@ class Converter extends React.Component {
   render() {
 
     let result
-    if (this.state.amountTo !== 0) {
+    if (this.state.error) {
+      result = <p className="text--danger">{this.state.error}</p>
+    } else if (this.state.amountTo !== 0) {
       result = <Fragment>
         <p><strong>{this.state.currencyFrom}&#160;{this.state.amountFrom}</strong> equals</p>
         <p className="text--primary text--large"><strong>{this.state.currencyTo}&#160;{this.state.amountTo}</strong></p>
