@@ -10,6 +10,7 @@ class Converter extends React.Component {
       currencyTo: '',
       amountFrom: '',
       amountTo: 0,
+      rate: 0,
       country: '',
       countries: [],
       error: ''
@@ -72,7 +73,7 @@ class Converter extends React.Component {
           throw new Error(`${data.error}`)
         }
         rate = data.rates[currencyTo] / data.rates[currencyFrom]
-        this.setState(() => ({ error: '', currencyFrom, currencyTo, amountFrom: parseFloat(amountFrom).toFixed(2), amountTo: (amountFrom * rate).toFixed(2) }))
+        this.setState(() => ({ error: '', currencyFrom, currencyTo, amountFrom: parseFloat(amountFrom).toFixed(2), amountTo: (amountFrom * rate).toFixed(2), rate }))
       })
       .catch(error => {
         console.error(error)
@@ -91,6 +92,7 @@ class Converter extends React.Component {
       result = <Fragment>
         <p><strong>{this.state.currencyFrom}&#160;{this.state.amountFrom}</strong> equals</p>
         <p className="text--primary text--large"><strong>{this.state.currencyTo}&#160;{this.state.amountTo}</strong></p>
+        <p className="text--muted">Exchange rate: {this.state.currencyFrom}&#160;1 = {this.state.currencyTo}&#160;{this.state.rate.toPrecision(5)}</p>
       </Fragment>
     } else {
       result = <p>Please enter values</p>
