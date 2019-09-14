@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ipdataco = process.env.REACT_APP_IPDATA_CO;
 
@@ -87,7 +88,7 @@ class Converter extends React.Component {
 
     let result
     if (this.state.error) {
-      result = <p className="text--danger">{this.state.error}</p>
+      result = <p className="text--danger"><FontAwesomeIcon icon={['far', 'exclamation-triangle']} /> {this.state.error}</p>
     } else if (this.state.amountTo !== 0) {
       result = <Fragment>
         <p><strong>{this.state.currencyFrom}&#160;{this.state.amountFrom}</strong> equals</p>
@@ -95,7 +96,7 @@ class Converter extends React.Component {
         <p className="text--muted">Exchange rate: {this.state.currencyFrom}&#160;1 = {this.state.currencyTo}&#160;{this.state.rate.toPrecision(5)}</p>
       </Fragment>
     } else {
-      result = <p>Please enter values</p>
+      result = <p><FontAwesomeIcon icon={['far', 'play-circle']} /> Please enter values</p>
     }
 
     return (
@@ -126,7 +127,7 @@ class Converter extends React.Component {
             </div>
 
             <div>
-              <button className="button button--primary button--large">Convert</button>
+              <button className="button button--primary button--large"><FontAwesomeIcon icon={['far', 'sync-alt']} /> Convert</button>
             </div>
 
           </form>
