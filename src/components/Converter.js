@@ -19,17 +19,23 @@ class Converter extends React.Component {
   }
 
   componentDidMount() {
+    let currencies = []
     fetch(`https://api.ipdata.co?api-key=${ipdataco}`)
       .then(results => results.json())
       .then(data => {
         this.setState(() => ({ country: data.country_code }))
+        return fetch('https://api.exchangeratesapi.io/latest')
+      })
+      .then(results => results.json())
+      .then(data => {
+        currencies = Object.keys(data.rates)
         return fetch('https://restcountries.eu/rest/v2/all')
       })
       .then(results => results.json())
       .then(data => {
         let pushed = []
         const countries = data.reduce((a, c) => {
-          if (c.currencies[0].name && c.currencies[0].code && !pushed.includes(c.currencies[0].code)) {
+          if (c.currencies[0].name && c.currencies[0].code && !pushed.includes(c.currencies[0].code) && currencies.includes(c.currencies[0].code)) {
             a.push({ name: c.currencies[0].name, code: c.currencies[0].code, symbol: c.currencies[0].symbol })
             pushed.push(c.currencies[0].code)
 
