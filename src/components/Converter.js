@@ -106,9 +106,9 @@ class Converter extends React.Component {
     }
 
     return (
-      <div className="flex flex--container">
+      <div className="flex flex--grid">
 
-        <div className="flex__contained">
+        <div className="flex__item flex__item--12 flex__item--6-sm flex__item--4-md">
           <form className="form" onSubmit={this.handleSubmit}>
 
             <div className="form__group">
@@ -139,7 +139,7 @@ class Converter extends React.Component {
           </form>
         </div>
 
-        <div className="card card--primary flex__contained flex--grow">
+        <div className="card card--primary flex__item">
           <div className="card__title">
             <h3>Conversion</h3>
           </div>
