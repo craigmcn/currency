@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { useAsync } from 'react-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { setConverterData } from '../actions/converter'
 import { getConverterData } from '../selectors/converter'
@@ -36,12 +37,12 @@ export class ConverterForm extends React.Component {
 
             if (country === c.alpha2Code) {
               currencyFrom = c.currencies[0].code
-              console.log(country, countries, currencies, currencyFrom)
+              //console.log(country, countries, currencies, currencyFrom)
             }
           }
           return a
         }, [])
-        //console.log(country, countries, currencies, currencyFrom)
+        console.log(country, countries, currencies, currencyFrom)
         countries.sort((a, b) => {
           if (a.name < b.name) { return -1; }
           if (a.name > b.name) { return 1; }
