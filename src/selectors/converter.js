@@ -14,8 +14,3 @@ export const getResult = ({ currencyFrom = '', currencyTo = '', amountFrom = 0, 
     return <p><FontAwesomeIcon icon={['far', 'play-circle']} /> Please enter values</p>
   }
 }
-
-export const getConverterData = ({ currencyFrom, currencyTo, amountFrom, country, countries }) => {
-  //return (!state) ? { currencyFrom: '', currencyTo: '', amountFrom: 0, countries: [] } : { currencyFrom, currencyTo, amountFrom, countries }
-  return { currencyFrom, currencyTo, amountFrom, country, countries }
-}
