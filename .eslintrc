@@ -1,0 +1,52 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "semi": "error",
+        "comma-dangle": ["error", "always-multiline"],
+        "no-trailing-spaces": "error",
+        "react/jsx-curly-spacing": [2, "always"],
+        "react/jsx-indent": "error",
+        "react/jsx-no-bind": "error",
+        "react/jsx-wrap-multilines": ["error", { 
+            "declaration": "parens-new-line",
+            "assignment": "parens-new-line",
+            "return": "parens-new-line",
+            "arrow": "parens-new-line",
+            "condition": "ignore",
+            "logical": "ignore",
+            "prop": "parens-new-line"
+        }],
+        "react/jsx-props-no-multi-spaces": "error",
+        "react/jsx-pascal-case": "error",
+        "react/jsx-space-before-closing": "error",
+        "react/prop-types": "off",
+        "@typescript-eslint/interface-name-prefix": ["error", {
+            "prefixWithI": "always",
+            "allowUnderscorePrefix": false
+        }],
+        "@typescript-eslint/member-ordering": "error",
+        "@typescript-eslint/no-unused-vars": ["error", { 
+            "ignoreRestSiblings": true
+        }]
+    }
+}
