@@ -5,7 +5,7 @@ import { faSyncAlt, faExclamationTriangle, faPlayCircle } from '@fortawesome/pro
 
 import Header from './components/Header';
 import Main from './components/Main';
-import Converter from './components/Converter';
+import Converter from './containers/Converter';
 
 library.add(faSyncAlt, faExclamationTriangle, faPlayCircle)
 
