@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
 module.exports = {
@@ -12,14 +13,15 @@ module.exports = {
     port: 4000,
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     path: __dirname + '/dist',
-    publicPath: '/',
+    publicPath: './',
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+    new LodashModuleReplacementPlugin(),
     new Dotenv(),
   ],
   resolve: {
@@ -44,6 +46,29 @@ module.exports = {
         ],
       },
     ],
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          // cacheGroupKey here is `commons` as the key of the cacheGroup
+          name(module, chunks, cacheGroupKey) {
+            const moduleFileName = module
+              .identifier()
+              .split('/')
+              .reduceRight(item => item)
+            const allChunksNames = chunks.map(item => item.name).join('~')
+            return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`
+          },
+          chunks: 'all',
+        },
+        defaultVendors: {
+          enforce: true,
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
   //target: 'node'
   node: {
