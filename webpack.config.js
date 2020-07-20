@@ -1,3 +1,4 @@
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
@@ -14,7 +15,7 @@ module.exports = {
   },
   output: {
     filename: '[name].[contenthash].bundle.js',
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'dist/'),
     publicPath: './',
   },
   plugins: [
@@ -57,8 +58,8 @@ module.exports = {
             const moduleFileName = module
               .identifier()
               .split('/')
-              .reduceRight(item => item)
-            const allChunksNames = chunks.map(item => item.name).join('~')
+              .reduceRight((item) => item)
+            const allChunksNames = chunks.map((item) => item.name).join('~')
             return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`
           },
           chunks: 'all',
