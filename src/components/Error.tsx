@@ -1,5 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationTriangle } from '@fortawesome/pro-regular-svg-icons/faExclamationTriangle'
 
 interface IProps {
     error: string
@@ -7,7 +8,7 @@ interface IProps {
 
 export const Error: React.FC<IProps> = ({ error }) => (
     <p className="text--danger">
-        <FontAwesomeIcon icon={['far', 'exclamation-triangle']} /> { error }
+        <FontAwesomeIcon icon={ faExclamationTriangle } /> { error }
     </p>
 )
 

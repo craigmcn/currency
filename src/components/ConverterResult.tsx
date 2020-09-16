@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import Error from './Error'
 import Card from './Card'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlayCircle } from '@fortawesome/pro-regular-svg-icons/faPlayCircle'
 import { IConversionData } from '../types'
 
 interface IProps {
@@ -37,7 +38,7 @@ const ConverterResult: React.FC<IProps> = (props) => {
 
           :
 
-            <p><FontAwesomeIcon icon={['far', 'play-circle']} /> Please enter values</p>
+            <p><FontAwesomeIcon icon={ faPlayCircle } /> Please enter values</p>
 
       }
       
