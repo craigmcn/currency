@@ -2,33 +2,33 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
+const Dotenv = require('dotenv-webpack') // 2.0.0 until https://github.com/mrsteele/dotenv-webpack/issues/240 resolved
 
 module.exports = {
     entry: {
-        app: './src/index.tsx',
+        app: "./src/index.tsx",
     },
-    devtool: 'inline-source-map',
+    devtool: "inline-source-map",
     devServer: {
-        contentBase: './dist',
+        contentBase: "./dist",
         port: 4000,
-        publicPath: '/',
+        publicPath: "/",
     },
     output: {
-        filename: '[name].[hash].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: './',
+        filename: "[name].[hash].bundle.js",
+        path: path.resolve(__dirname, "dist"),
+        publicPath: "./",
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: "./src/index.html",
         }),
         new LodashModuleReplacementPlugin(),
         new Dotenv(),
     ],
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     module: {
         rules: [
@@ -36,7 +36,7 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: [/node_modules/, /temp/],
                 use: {
-                    loader: 'babel-loader',
+                    loader: "babel-loader",
                 },
             },
             {
@@ -44,7 +44,7 @@ module.exports = {
                 exclude: [/node_modules/, /temp/],
                 use: [
                     {
-                        loader: 'ts-loader',
+                        loader: "ts-loader",
                     },
                 ],
             },
@@ -60,15 +60,15 @@ module.exports = {
                     name(module, chunks, cacheGroupKey) {
                         const moduleFileName = module
                             .identifier()
-                            .replace(/\\/g, '/')
-                            .split('/')
-                            .reduceRight((item) => item)
+                            .replace(/\\/g, "/")
+                            .split("/")
+                            .reduceRight(item => item);
                         const allChunksNames = chunks
-                            .map((item) => item.name)
-                            .join('~')
-                        return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`
+                            .map(item => item.name)
+                            .join("~");
+                        return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
                     },
-                    chunks: 'all',
+                    chunks: "all",
                 },
                 defaultVendors: {
                     enforce: true,
@@ -79,6 +79,6 @@ module.exports = {
     },
     //target: 'node'
     node: {
-        fs: 'empty',
+        fs: "empty",
     },
-}
+};
