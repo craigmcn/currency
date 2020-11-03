@@ -133,13 +133,19 @@ const fetchCurrencies = async (
             dispatch({ type: "SET_CURRENCY_LIST", payload: countryOptions });
         } else {
             const error = "No country list available";
-            dispatch({ type: "SET_ERROR", payload: error });
+            dispatch({
+                type: "SET_ERRORS",
+                payload: { errors: { _error: error } },
+            });
             throw new Error(error);
         }
 
         dispatch({ type: "SET_LOADING", payload: false });
     } catch (err) {
-        dispatch({ type: "SET_ERROR", payload: err.toString() });
+        dispatch({
+            type: "SET_ERRORS",
+            payload: { errors: { _error: err.toString() } },
+        });
         dispatch({ type: "SET_LOADING", payload: false });
         throw new Error(err.toString());
     }

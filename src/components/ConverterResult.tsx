@@ -7,18 +7,20 @@ import { faPlayCircle } from "@fortawesome/pro-regular-svg-icons/faPlayCircle";
 
 const ConverterResult: React.FC = () => {
     const {
-        currencyFrom,
-        currencyTo,
-        amountFrom,
-        amountTo,
-        rate,
-        error,
-    } = useContext(ConverterContext).state.data;
+        errors,
+        data: {
+            currencyFrom,
+            currencyTo,
+            amountFrom,
+            amountTo,
+            rate,
+        },
+    } = useContext(ConverterContext).state;
 
     return (
         <Card title="Conversion" type="primary">
-            {error ? (
-                <Error error={error} />
+            {errors._error ? (
+                <Error error={errors._error} />
             ) : amountTo ? (
                 <Fragment>
                     <p>

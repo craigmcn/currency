@@ -2,15 +2,23 @@ import { IConversionState, IConverterAction } from "../types";
 
 export const defaultState: IConversionState = {
     loading: true,
-    error: "",
+    errors: {
+        _error: "",
+        amountFrom: "",
+        currencyFrom: "",
+        currencyTo: "",
+    },
     data: {
         amountFrom: undefined,
         amountTo: undefined,
         currencyFrom: undefined,
         currencyTo: undefined,
-        valid: false,
-        error: "",
         rate: 1,
+    },
+    invalid: {
+        amountFrom: undefined,
+        currencyFrom: undefined,
+        currencyTo: undefined,
     },
     currencies: [],
     currencyList: [],
@@ -47,6 +55,19 @@ const converterReducer = (
                     ...state.data,
                     currencyFrom: action.payload,
                 },
+                invalid: {
+                    ...state.invalid,
+                    currencyFrom: undefined,
+                },
+            };
+
+        case "SET_INVALID_CURRENCY_FROM":
+            return {
+                ...state,
+                invalid: {
+                    ...state.invalid,
+                    currencyFrom: action.payload,
+                },
             };
 
         case "SET_CURRENCY_TO":
@@ -56,6 +77,19 @@ const converterReducer = (
                     ...state.data,
                     currencyTo: action.payload,
                 },
+                invalid: {
+                    ...state.invalid,
+                    currencyTo: undefined,
+                },
+            };
+
+        case "SET_INVALID_CURRENCY_TO":
+            return {
+                ...state,
+                invalid: {
+                    ...state.invalid,
+                    currencyTo: action.payload,
+                },
             };
 
         case "SET_AMOUNT_FROM":
@@ -63,6 +97,19 @@ const converterReducer = (
                 ...state,
                 data: {
                     ...state.data,
+                    amountFrom: action.payload,
+                },
+                invalid: {
+                    ...state.invalid,
+                    amountFrom: undefined,
+                },
+            };
+
+        case "SET_INVALID_AMOUNT_FROM":
+            return {
+                ...state,
+                invalid: {
+                    ...state.invalid,
                     amountFrom: action.payload,
                 },
             };
@@ -94,16 +141,31 @@ const converterReducer = (
                 },
             };
 
+        case "SET_DATA_ERROR":
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    error: action.payload,
+                },
+            };
+
         case "SET_LOADING":
             return {
                 ...state,
                 loading: action.payload,
             };
 
-        case "SET_ERROR":
+        case "SET_ERRORS":
             return {
                 ...state,
-                error: action.payload,
+                errors: action.payload,
+            };
+
+        case "RESET_ERRORS":
+            return {
+                ...state,
+                errors: "",
             };
 
         default:

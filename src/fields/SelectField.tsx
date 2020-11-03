@@ -10,6 +10,7 @@ interface IProps {
     label?: string;
     selectedOption?: ISelectOption;
     options?: ISelectOption[];
+    error?: string;
     handleChange?: (value: ValueType<ISelectOption>) => void;
     formatOptionLabel?: (value: ISelectOption) => JSX.Element;
 }
@@ -26,7 +27,12 @@ const customStyles = {
         backgroundColor: grey600,
     }),
     placeholder: (provided: object) => ({ ...provided, color: grey600 }),
-    singleValue: (provided: object) => ({ ...provided, overflow: "visible" }),
+    singleValue: (provided: object) => ({
+        ...provided,
+        overflow: "visible",
+        paddingRight: "0.5em",
+        width: "100%",
+    }),
 };
 
 export const SelectField: React.FC<TProps> = ({
@@ -34,6 +40,7 @@ export const SelectField: React.FC<TProps> = ({
     label,
     selectedOption,
     options,
+    error,
     handleChange,
     formatOptionLabel
 }) => (
@@ -41,6 +48,10 @@ export const SelectField: React.FC<TProps> = ({
         <label className="form__label" htmlFor={id}>
             {label}
         </label>
+        {
+            error &&
+            <div className="form__control-error">{ error }</div>
+        }
         <Select
             id={id}
             name={id}

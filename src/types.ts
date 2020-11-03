@@ -8,15 +8,23 @@ export interface IConverterAction {
 
 export interface IConversionState {
     loading: boolean;
-    error: string;
+    errors: {
+        _error: string;
+        amountFrom: string;
+        currencyFrom: string;
+        currencyTo: string;
+    };
     data: {
         amountFrom?: number;
         amountTo?: number;
         currencyFrom?: ICurrencyOption;
         currencyTo?: ICurrencyOption;
-        valid: boolean;
-        error: string;
         rate: number;
+    };
+    invalid: {
+        amountFrom?: number;
+        currencyFrom?: ICurrencyOption;
+        currencyTo?: ICurrencyOption;
     };
     currencies: ICurrency[];
     currencyList: ISelectOption[];

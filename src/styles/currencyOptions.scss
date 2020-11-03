@@ -1,0 +1,17 @@
+.option {
+    display: flex;
+
+    &__image {
+        border: 1px solid #ebebef; // AlbertCSS silver
+        margin-right: 4px;
+        max-height: 24px;
+        max-width: 32px;
+    }
+
+    &__label {
+        &--secondary {
+            color: #5e5e62; // AlbertCSS grey-700
+            margin-left: auto;
+        }
+    }
+}
