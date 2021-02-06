@@ -88,9 +88,12 @@ const ConverterForm: React.FC = () => {
     }, [currencies, currencyFrom, currencyTo, amountFrom]);
 
     const handleCurrencyFromChange = (
-        value: ValueType<ICurrencyOption>
+        value: ValueType<ICurrencyOption, false>
     ): void => {
-        if ((!invalidCurrencyTo && isEqual(value, currencyTo)) || (invalidCurrencyTo && isEqual(value, invalidCurrencyTo))) {
+        if (
+            (!invalidCurrencyTo && isEqual(value, currencyTo)) ||
+            (invalidCurrencyTo && isEqual(value, invalidCurrencyTo))
+        ) {
             setErrors({ currencyFrom: "Currencies must be different" });
             dispatch({ type: "SET_INVALID_CURRENCY_FROM", payload: value });
         } else {
@@ -103,15 +106,18 @@ const ConverterForm: React.FC = () => {
     };
 
     const handleCurrencyToChange = (
-        value: ValueType<ICurrencyOption>
+        value: ValueType<ICurrencyOption, false>
     ): void => {
-        if ((!invalidCurrencyFrom && isEqual(value, currencyFrom)) || (invalidCurrencyFrom && isEqual(value, invalidCurrencyFrom))) {
+        if (
+            (!invalidCurrencyFrom && isEqual(value, currencyFrom)) ||
+            (invalidCurrencyFrom && isEqual(value, invalidCurrencyFrom))
+        ) {
             setErrors({ currencyTo: "Currencies must be different" });
             dispatch({ type: "SET_INVALID_CURRENCY_TO", payload: value });
         } else {
             setErrors({ currencyFrom: "", currencyTo: "" });
             dispatch({ type: "SET_CURRENCY_TO", payload: value });
-            
+
             restoreInvalid("SET_CURRENCY_FROM");
             restoreInvalid("SET_AMOUNT_FROM");
         }

@@ -11,7 +11,7 @@ interface IProps {
     selectedOption?: ISelectOption;
     options?: ISelectOption[];
     error?: string;
-    handleChange?: (value: ValueType<ISelectOption>) => void;
+    handleChange?: (value: ValueType<ISelectOption, false>) => void;
     formatOptionLabel?: (value: ISelectOption) => JSX.Element;
 }
 
