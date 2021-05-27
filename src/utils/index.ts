@@ -9,6 +9,7 @@ import {
 } from "../types";
 
 const ipdataco = process.env.REACT_APP_IPDATA_CO ?? "";
+const exchangeratesapi = process.env.REACT_APP_EXCHANGERATES_API ?? "";
 
 const currencyCountries: { [key: string]: string } = {
     CAD: "CAN",
@@ -63,11 +64,13 @@ const fetchCurrencies = async (
     let countries: ICurrency[] = [];
 
     try {
-        const currencies = await fetch(`https://api.exchangeratesapi.io/latest`)
+        const currencies = await fetch(
+            `http://api.exchangeratesapi.io/v1/latest?access_key=${exchangeratesapi}`
+        )
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    throw new Error(`${data.error}`);
+                    throw new Error(`${data.error.message}`);
                 }
                 return data.rates;
             });
@@ -135,7 +138,7 @@ const fetchCurrencies = async (
             const error = "No country list available";
             dispatch({
                 type: "SET_ERRORS",
-                payload: { errors: { _error: error } },
+                payload: { _error: error },
             });
             throw new Error(error);
         }
@@ -144,7 +147,7 @@ const fetchCurrencies = async (
     } catch (err) {
         dispatch({
             type: "SET_ERRORS",
-            payload: { errors: { _error: err.toString() } },
+            payload: { _error: err.toString() },
         });
         dispatch({ type: "SET_LOADING", payload: false });
         throw new Error(err.toString());
