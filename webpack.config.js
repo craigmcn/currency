@@ -11,13 +11,14 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
+    openPage: 'currency/',
     port: 4000,
-    publicPath: '/',
+    publicPath: '/currency',
   },
   output: {
     filename: '[name].[contenthash].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: './',
+    path: path.resolve(__dirname, 'dist', 'currency'),
+    publicPath: '/currency',
   },
   plugins: [
     new CleanWebpackPlugin(),
