@@ -25,7 +25,7 @@ module.exports = {
       template: './src/index.html',
     }),
     new LodashModuleReplacementPlugin(),
-    new Dotenv(),
+    new Dotenv({ systemvars: true }),
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
