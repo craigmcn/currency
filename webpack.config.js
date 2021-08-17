@@ -4,21 +4,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
-module.exports = {
+const config = {
   entry: {
     app: './src/index.tsx',
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './dist',
-    openPage: 'currency/',
+    contentBase: './tmp',
     port: 4000,
-    publicPath: '/currency',
+    publicPath: '/',
   },
   output: {
     filename: '[name].[contenthash].bundle.js',
-    path: path.resolve(__dirname, 'dist', 'currency'),
-    publicPath: '/currency',
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -92,4 +89,30 @@ module.exports = {
     __filename: false,
     __dirname: false,
   },
+}
+
+module.exports = (env) => {
+  const distConfig = Object.assign({}, config, {
+    output: {
+      path: path.resolve(__dirname, 'dist'),
+      publicPath: './',
+    },
+  })
+
+  const netlifyRootConfig = Object.assign({}, config, {
+    output: {
+      path: path.resolve(__dirname, 'netlify'),
+      publicPath: './',
+    },
+  })
+
+  const netlifySubConfig = Object.assign({}, config, {
+    output: {
+      filename: '[name].[contenthash].bundle.js',
+      path: path.resolve(__dirname, 'netlify', 'currency'),
+      publicPath: './currency',
+    },
+  })
+
+  return env.netlify ? [netlifyRootConfig, netlifySubConfig] : distConfig
 }

@@ -5,6 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "build": "webpack --mode production",
+    "build:netlify": "webpack --mode production --env netlify",
     "start": "webpack serve --mode development --open --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
