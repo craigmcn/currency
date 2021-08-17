@@ -16,6 +16,7 @@ const config = {
   },
   output: {
     filename: '[name].[contenthash].bundle.js',
+    publicPath: './',
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -95,22 +96,18 @@ module.exports = (env) => {
   const distConfig = Object.assign({}, config, {
     output: {
       path: path.resolve(__dirname, 'dist'),
-      publicPath: './',
     },
   })
 
   const netlifyRootConfig = Object.assign({}, config, {
     output: {
       path: path.resolve(__dirname, 'netlify'),
-      publicPath: './',
     },
   })
 
   const netlifySubConfig = Object.assign({}, config, {
     output: {
-      filename: '[name].[contenthash].bundle.js',
       path: path.resolve(__dirname, 'netlify', 'currency'),
-      publicPath: './currency',
     },
   })
 
