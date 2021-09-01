@@ -40,11 +40,18 @@
         "react/jsx-pascal-case": "error",
         "react/jsx-space-before-closing": "error",
         "react/prop-types": "off",
-        "@typescript-eslint/interface-name-prefix": ["error", {
-            "prefixWithI": "always",
-            "allowUnderscorePrefix": false
-        }],
         "@typescript-eslint/member-ordering": "error",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+              "selector": "interface",
+              "format": ["PascalCase"],
+              "custom": {
+                "regex": "^I[A-Z]",
+                "match": true
+              }
+            }
+          ],
         "@typescript-eslint/no-unused-vars": ["error", { 
             "ignoreRestSiblings": true
         }]
