@@ -23,6 +23,7 @@
     "rules": {
         "semi": "error",
         "comma-dangle": ["error", "always-multiline"],
+        "no-console": "warn",
         "no-trailing-spaces": "error",
         "react/jsx-curly-spacing": [2, "always"],
         "react/jsx-indent": "error",

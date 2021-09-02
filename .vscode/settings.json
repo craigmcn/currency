@@ -28,5 +28,14 @@
     ],
     "files.eol": "\n",
     "files.insertFinalNewline": true,
+    "cSpell.words": [
+        "favicon",
+        "fontawesome",
+        "fortawesome",
+        "ipdata",
+        "msapplication",
+        "noscript",
+        "stylesheet"
+    ],
   }
   

@@ -134,15 +134,6 @@ const converterReducer = (
                 },
             };
 
-        case "SET_VALID":
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    ...action.payload,
-                },
-            };
-
         case "SET_LOADING":
             return {
                 ...state,

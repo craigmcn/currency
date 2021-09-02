@@ -103,7 +103,10 @@ const ConverterForm: React.FC = () => {
             restoreInvalid("SET_CURRENCY_TO");
             restoreInvalid("SET_AMOUNT_FROM");
         }
-    }, []);
+    }, [
+        invalidCurrencyTo,
+        currencyTo,
+    ]);
 
     const handleCurrencyToChange = useCallback((
         value: ValueType<ICurrencyOption, false>
@@ -121,11 +124,14 @@ const ConverterForm: React.FC = () => {
             restoreInvalid("SET_CURRENCY_FROM");
             restoreInvalid("SET_AMOUNT_FROM");
         }
-    }, []);
+    }, [
+        invalidCurrencyFrom,
+        currencyFrom,
+    ]);
 
     const handleAmountChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
         const amount = Number(e.currentTarget.value);
-        if (isNaN(amount)) {
+        if (isNaN(amount) || amount === 0) {
             setErrors({ amountFrom: "Amount must be a number." });
         } else if (errors.currencyFrom || errors.currencyTo) {
             dispatch({ type: "SET_INVALID_AMOUNT_FROM", payload: amount });
@@ -136,7 +142,9 @@ const ConverterForm: React.FC = () => {
             restoreInvalid("SET_CURRENCY_FROM");
             restoreInvalid("SET_CURRENCY_TO");
         }
-    }, []);
+    }, [
+        errors,
+    ]);
 
     return (
         <div className="flex__item flex__item--12 flex__item--4-md">

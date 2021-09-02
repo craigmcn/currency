@@ -12,7 +12,7 @@ export const TextField: React.FC<TProps> = ({ id, label, error, handleChange }) 
     return (
         <div className="form__group">
             <label className="form__label" htmlFor={ id }>
-                {label}
+                { label }
             </label>
             { error &&
                 <div className="form__control-error">{ error }</div>
