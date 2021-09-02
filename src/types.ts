@@ -8,12 +8,7 @@ export interface IConverterAction {
 
 export interface IConversionState {
     loading: boolean;
-    errors: {
-        _error: string;
-        amountFrom: string;
-        currencyFrom: string;
-        currencyTo: string;
-    };
+    errors: IConversionErrors;
     data: {
         amountFrom?: number;
         amountTo?: number;
@@ -35,6 +30,13 @@ export interface IConversionState {
             code: string;
         };
     };
+}
+
+export interface IConversionErrors {
+    _error: string;
+    amountFrom: string;
+    currencyFrom: string;
+    currencyTo: string;
 }
 
 export interface ICurrency {

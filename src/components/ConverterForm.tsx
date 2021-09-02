@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect } from "react";
+import React, { ChangeEvent, useCallback, useContext, useEffect } from "react";
 import { ValueType } from "react-select";
 import Loader from "./Loader";
 import { TextField } from "../fields/TextField";
@@ -17,10 +17,10 @@ const formatCurrencySelectOption = ({
     flag,
 }: ICurrencyOption): JSX.Element => (
     <div className="option">
-        <img src={flag} width="32" className="option__image" />
+        <img src={ flag } width="32" className="option__image" />
         <span className="option__label">{label}</span>
         <span className="option__label option__label--secondary">
-            {value} {symbol}
+            { value } { symbol }
         </span>
     </div>
 );
@@ -65,11 +65,11 @@ const ConverterForm: React.FC = () => {
         if (payload) {
             dispatch({ type, payload });
         }
-    }
+    };
 
     useEffect(() => {
-        const hasErrors = errors.currencyFrom || errors.currencyTo || errors.amountFrom
-        const hasValues = currencyFrom && currencyTo && amountFrom
+        const hasErrors = errors.currencyFrom || errors.currencyTo || errors.amountFrom;
+        const hasValues = currencyFrom && currencyTo && amountFrom;
         if (!hasErrors && hasValues) {
             const rateFrom =
                 currencies?.find(
@@ -87,7 +87,7 @@ const ConverterForm: React.FC = () => {
         }
     }, [currencies, currencyFrom, currencyTo, amountFrom]);
 
-    const handleCurrencyFromChange = (
+    const handleCurrencyFromChange = useCallback((
         value: ValueType<ICurrencyOption, false>
     ): void => {
         if (
@@ -103,9 +103,9 @@ const ConverterForm: React.FC = () => {
             restoreInvalid("SET_CURRENCY_TO");
             restoreInvalid("SET_AMOUNT_FROM");
         }
-    };
+    }, []);
 
-    const handleCurrencyToChange = (
+    const handleCurrencyToChange = useCallback((
         value: ValueType<ICurrencyOption, false>
     ): void => {
         if (
@@ -121,9 +121,9 @@ const ConverterForm: React.FC = () => {
             restoreInvalid("SET_CURRENCY_FROM");
             restoreInvalid("SET_AMOUNT_FROM");
         }
-    };
+    }, []);
 
-    const handleAmountChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const handleAmountChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
         const amount = Number(e.currentTarget.value);
         if (isNaN(amount)) {
             setErrors({ amountFrom: "Amount must be a number." });
@@ -132,11 +132,11 @@ const ConverterForm: React.FC = () => {
         } else {
             setErrors({ amountFrom: "" });
             dispatch({ type: "SET_AMOUNT_FROM", payload: amount });
-        
+
             restoreInvalid("SET_CURRENCY_FROM");
             restoreInvalid("SET_CURRENCY_TO");
         }
-    };
+    }, []);
 
     return (
         <div className="flex__item flex__item--12 flex__item--4-md">
@@ -145,7 +145,7 @@ const ConverterForm: React.FC = () => {
             ) : errors._error ? (
                 <div className="alert alert--danger">
                     <div className="alert__icon" aria-hidden="true">
-                        <FontAwesomeIcon icon={faExclamationCircle} size="2x" />
+                        <FontAwesomeIcon icon={ faExclamationCircle } size="2x" />
                     </div>
                     <div className="alert__text">{errors._error}</div>
                 </div>
@@ -154,27 +154,27 @@ const ConverterForm: React.FC = () => {
                     <SelectField
                         id="currencyFrom"
                         label="Convert from currency"
-                        options={currencyList}
-                        handleChange={handleCurrencyFromChange}
-                        selectedOption={currencyFromValue}
-                        formatOptionLabel={formatCurrencySelectOption}
-                        error={errors.currencyFrom}
+                        options={ currencyList }
+                        handleChange={ handleCurrencyFromChange }
+                        selectedOption={ currencyFromValue }
+                        formatOptionLabel={ formatCurrencySelectOption }
+                        error={ errors.currencyFrom }
                     />
 
                     <SelectField
                         id="currencyTo"
                         label="To currency"
-                        options={currencyList}
-                        handleChange={handleCurrencyToChange}
-                        formatOptionLabel={formatCurrencySelectOption}
-                        error={errors.currencyTo}
+                        options={ currencyList }
+                        handleChange={ handleCurrencyToChange }
+                        formatOptionLabel={ formatCurrencySelectOption }
+                        error={ errors.currencyTo }
                     />
 
                     <TextField
                         id="amountFrom"
                         label="Amount"
-                        handleChange={handleAmountChange}
-                        error={errors.amountFrom}
+                        handleChange={ handleAmountChange }
+                        error={ errors.amountFrom }
                     />
                 </form>
             )}

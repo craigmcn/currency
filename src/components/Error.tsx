@@ -8,7 +8,7 @@ interface IProps {
 
 export const Error: React.FC<IProps> = ({ error }) => (
     <p className="text--danger">
-        <FontAwesomeIcon icon={faExclamationTriangle} /> {error}
+        <FontAwesomeIcon icon={ faExclamationTriangle } /> {error}
     </p>
 );
 

@@ -18,16 +18,16 @@ interface IProps {
 type TProps = Partial<HTMLInputElement> & IProps;
 
 // react-select override styles
-const grey600: string = "#7a7a7a"; // AlbertCSS
+const grey600 = "#7a7a7a"; // AlbertCSS
 const customStyles = {
-    control: (provided: object) => ({ ...provided, borderColor: grey600 }),
-    dropdownIndicator: (provided: object) => ({ ...provided, color: grey600 }),
-    indicatorSeparator: (provided: object) => ({
+    control: (provided: Record<string, unknown>) => ({ ...provided, borderColor: grey600 }),
+    dropdownIndicator: (provided: Record<string, unknown>) => ({ ...provided, color: grey600 }),
+    indicatorSeparator: (provided: Record<string, unknown>) => ({
         ...provided,
         backgroundColor: grey600,
     }),
-    placeholder: (provided: object) => ({ ...provided, color: grey600 }),
-    singleValue: (provided: object) => ({
+    placeholder: (provided: Record<string, unknown>) => ({ ...provided, color: grey600 }),
+    singleValue: (provided: Record<string, unknown>) => ({
         ...provided,
         overflow: "visible",
         paddingRight: "0.5em",
@@ -42,23 +42,22 @@ export const SelectField: React.FC<TProps> = ({
     options,
     error,
     handleChange,
-    formatOptionLabel
+    formatOptionLabel,
 }) => (
     <div className="form__group">
-        <label className="form__label" htmlFor={id}>
-            {label}
+        <label className="form__label" htmlFor={ id }>
+            { label }
         </label>
-        {
-            error &&
+        { error &&
             <div className="form__control-error">{ error }</div>
         }
         <Select
-            id={id}
-            name={id}
-            options={options}
-            styles={customStyles}
-            onChange={handleChange}
-            value={selectedOption}
+            id={ id }
+            name={ id }
+            options={ options }
+            styles={ customStyles }
+            onChange={ handleChange }
+            value={ selectedOption }
             formatOptionLabel={ formatOptionLabel }
         />
     </div>

@@ -19,8 +19,8 @@ const ConverterResult: React.FC = () => {
 
     return (
         <Card title="Conversion" type="primary">
-            {errors._error ? (
-                <Error error={errors._error} />
+            { errors._error ? (
+                <Error error={ errors._error } />
             ) : amountTo ? (
                 <Fragment>
                     <p>
@@ -45,9 +45,9 @@ const ConverterResult: React.FC = () => {
                 </Fragment>
             ) : (
                 <p>
-                    <FontAwesomeIcon icon={faPlayCircle} /> Please enter values
+                    <FontAwesomeIcon icon={ faPlayCircle } /> Please enter values
                 </p>
-            )}
+            ) }
         </Card>
     );
 };

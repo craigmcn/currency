@@ -5,7 +5,7 @@ import { faSyncAlt } from "@fortawesome/pro-regular-svg-icons/faSyncAlt";
 export const Loader: React.FC = () => (
     <div className="alert alert--info">
         <div className="alert__text">
-            <FontAwesomeIcon icon={faSyncAlt} spin /> Loading &hellip;
+            <FontAwesomeIcon icon={ faSyncAlt } spin /> Loading &hellip;
         </div>
     </div>
 );

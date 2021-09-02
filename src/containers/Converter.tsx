@@ -31,7 +31,7 @@ const Converter: React.FC = () => {
     }, [user, currencies]);
 
     return (
-        <ConverterContext.Provider value={{ state, dispatch }}>
+        <ConverterContext.Provider value={ { state, dispatch } }>
             <div className="flex flex--grid">
                 <ConverterForm />
                 <ConverterResult />
