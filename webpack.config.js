@@ -1,8 +1,8 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const config = {
   entry: {
@@ -72,9 +72,9 @@ const config = {
               .identifier()
               .replace(/\\/g, '/')
               .split('/')
-              .reduceRight((item) => item)
-            const allChunksNames = chunks.map((item) => item.name).join('~')
-            return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`
+              .reduceRight((item) => item);
+            const allChunksNames = chunks.map((item) => item.name).join('~');
+            return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
           },
           chunks: 'all',
         },
@@ -90,26 +90,26 @@ const config = {
     __filename: false,
     __dirname: false,
   },
-}
+};
 
 module.exports = (env) => {
   const distConfig = Object.assign({}, config, {
     output: {
       path: path.resolve(__dirname, 'dist'),
     },
-  })
+  });
 
   const netlifyRootConfig = Object.assign({}, config, {
     output: {
       path: path.resolve(__dirname, 'netlify'),
     },
-  })
+  });
 
   const netlifySubConfig = Object.assign({}, config, {
     output: {
       path: path.resolve(__dirname, 'netlify', 'currency'),
     },
-  })
+  });
 
-  return env.netlify ? [netlifyRootConfig, netlifySubConfig] : distConfig
-}
+  return env.netlify ? [netlifyRootConfig, netlifySubConfig] : distConfig;
+};

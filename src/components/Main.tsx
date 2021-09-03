@@ -1,14 +1,14 @@
 import * as React from "react";
 
 interface IProps {
-    layout?: string;
+    fixed?: boolean;
 }
 
-const Main: React.FC<IProps> = ({ layout, children }) => {
-    const mainLayout = layout ? ` main--${layout}` : "";
+const Main: React.FC<IProps> = ({ fixed, children }) => {
+    const mainFixed = fixed ? " main--fixed" : "";
 
     return (
-        <main className={ `main${mainLayout}` }>
+        <main className={ `main${mainFixed}` }>
             { children }
         </main>
     );

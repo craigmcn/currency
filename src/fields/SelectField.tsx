@@ -35,30 +35,34 @@ const customStyles = {
     }),
 };
 
-export const SelectField: React.FC<TProps> = ({
-    id,
-    label,
-    selectedOption,
-    options,
-    error,
-    handleChange,
-    formatOptionLabel,
-}) => (
-    <div className="form__group">
-        <label className="form__label" htmlFor={ id }>
-            { label }
-        </label>
-        { error &&
-            <div className="form__control-error">{ error }</div>
-        }
-        <Select
-            id={ id }
-            name={ id }
-            options={ options }
-            styles={ customStyles }
-            onChange={ handleChange }
-            value={ selectedOption }
-            formatOptionLabel={ formatOptionLabel }
-        />
-    </div>
-);
+export const SelectField = (props: TProps): JSX.Element => {
+    const {
+        id,
+        label,
+        selectedOption,
+        options,
+        error,
+        handleChange,
+        formatOptionLabel,
+    } = props;
+
+    return (
+        <div className="form__group">
+            <label className="form__label" htmlFor={ id }>
+                { label }
+            </label>
+            { error &&
+                <div className="form__control-error">{ error }</div>
+            }
+            <Select
+                id={ id }
+                name={ id }
+                options={ options }
+                styles={ customStyles }
+                onChange={ handleChange }
+                value={ selectedOption }
+                formatOptionLabel={ formatOptionLabel }
+            />
+        </div>
+    );
+};

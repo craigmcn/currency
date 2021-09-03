@@ -23,19 +23,27 @@
         "javascript",
         "typescript"
     ],
+    "eslint.options": {
+        "ignorePattern": "webpack.config.js",
+    },
     "stylelint.validate": [
         "css"
     ],
     "files.eol": "\n",
     "files.insertFinalNewline": true,
     "cSpell.words": [
+        "craigmcn",
         "favicon",
         "fontawesome",
         "fortawesome",
         "ipdata",
+        "ipdataco",
         "msapplication",
         "noscript",
         "stylesheet"
+    ],
+    "cSpell.ignorePaths": [
+        "webpack.config.js",
     ],
   }
   

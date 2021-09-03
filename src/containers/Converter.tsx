@@ -6,7 +6,7 @@ import { ICurrency } from "../types";
 import ConverterForm from "../components/ConverterForm";
 import ConverterResult from "../components/ConverterResult";
 
-const Converter: React.FC = () => {
+const Converter = (): JSX.Element => {
     const [state, dispatch] = useReducer(converterReducer, defaultState);
     const { currencies, user } = state;
 

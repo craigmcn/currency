@@ -9,30 +9,25 @@ export interface IConverterAction {
 export interface IConversionState {
     loading: boolean;
     errors: IConversionErrors;
-    data: {
-        amountFrom?: number;
-        amountTo?: number;
-        currencyFrom?: ICurrencyOption;
-        currencyTo?: ICurrencyOption;
-        rate: number;
-    };
-    invalid: {
-        amountFrom?: number;
-        currencyFrom?: ICurrencyOption;
-        currencyTo?: ICurrencyOption;
-    };
+    data: IConversionData;
+    invalid: IConversionBase;
     currencies: ICurrency[];
     currencyList: ISelectOption[];
-    user?: {
-        message?: string;
-        currency?: {
-            name: string;
-            code: string;
-        };
-    };
+    user?: IUser;
 }
 
-export interface IConversionErrors {
+interface IConversionBase {
+    amountFrom?: number;
+    currencyFrom?: ICurrencyOption;
+    currencyTo?: ICurrencyOption;
+}
+
+interface IConversionData extends IConversionBase {
+    amountTo?: number;
+    rate: number;
+}
+
+interface IConversionErrors {
     _error: string;
     amountFrom: string;
     currencyFrom: string;
@@ -60,4 +55,12 @@ export interface IRestCountry {
 
 export interface IIpData extends LookupResponse {
     message?: string;
+}
+
+interface IUser {
+    message?: string;
+    currency?: {
+        name: string;
+        code: string;
+    };
 }

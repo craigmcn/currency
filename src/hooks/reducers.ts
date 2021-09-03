@@ -1,15 +1,13 @@
-import { IConversionErrors, IConversionState, IConverterAction } from "../types";
-
-const defaultErrors: IConversionErrors = {
-    _error: "",
-    amountFrom: "",
-    currencyFrom: "",
-    currencyTo: "",
-};
+import { IConversionState, IConverterAction } from "../types";
 
 export const defaultState: IConversionState = {
     loading: true,
-    errors: defaultErrors,
+    errors: {
+        _error: "",
+        amountFrom: "",
+        currencyFrom: "",
+        currencyTo: "",
+    },
     data: {
         amountFrom: undefined,
         amountTo: undefined,
@@ -144,12 +142,6 @@ const converterReducer = (
             return {
                 ...state,
                 errors: action.payload,
-            };
-
-        case "RESET_ERRORS":
-            return {
-                ...state,
-                errors: defaultErrors,
             };
 
         default:

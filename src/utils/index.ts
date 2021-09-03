@@ -50,7 +50,7 @@ const fetchUserData = (dispatch: Dispatch<IConverterAction>): void => {
 
     ipdata.lookup().then((data: IIpData) => {
         if (data.message) {
-            console.error(data.message);
+            console.warn(data.message);
         }
 
         dispatch({ type: 'SET_USER', payload: data });

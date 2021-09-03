@@ -5,7 +5,7 @@ interface IProps {
     title: string;
 }
 
-const Header: React.FC<IProps> = ({ title }) => (
+const Header = ({ title }: IProps): JSX.Element => (
     <header className="header">
         <div className="brand">
             <a href="/">

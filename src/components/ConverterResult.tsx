@@ -5,7 +5,7 @@ import Card from "./Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlayCircle } from "@fortawesome/pro-regular-svg-icons/faPlayCircle";
 
-const ConverterResult: React.FC = () => {
+const ConverterResult = (): JSX.Element => {
     const {
         errors,
         data: {
@@ -20,27 +20,27 @@ const ConverterResult: React.FC = () => {
     return (
         <Card title="Conversion" type="primary">
             { errors._error ? (
-                <Error error={ errors._error } />
+                <Error>{ errors._error }</Error>
             ) : amountTo ? (
                 <Fragment>
                     <p>
                         <strong>
-                            {currencyFrom?.symbol}{" "}
-                            {amountFrom}{" "}
-                            {currencyFrom?.value}
+                            { currencyFrom?.symbol }{" "}
+                            { amountFrom }{" "}
+                            { currencyFrom?.value }
                         </strong>{" "}
                         equals
                     </p>
                     <p className="text--primary text--large">
                         <strong>
-                            {currencyTo?.symbol}{" "}
-                            {Number(amountTo).toFixed(3)}{" "}
-                            {currencyTo?.value}
+                            { currencyTo?.symbol }{" "}
+                            { Number(amountTo).toFixed(3) }{" "}
+                            { currencyTo?.value }
                         </strong>
                     </p>
                     <p className="text--muted">
-                        Exchange rate: {currencyFrom?.value} 1 ={" "}
-                        {currencyTo?.value} {rate.toPrecision(4)}
+                        Exchange rate: { currencyFrom?.value } 1 ={" "}
+                        { currencyTo?.value } { rate.toPrecision(4) }
                     </p>
                 </Fragment>
             ) : (

@@ -25,7 +25,7 @@ const formatCurrencySelectOption = ({
     </div>
 );
 
-const ConverterForm: React.FC = () => {
+const ConverterForm = (): JSX.Element => {
     const {
         state: { data, invalid, loading, errors, currencies, currencyList },
         dispatch,
