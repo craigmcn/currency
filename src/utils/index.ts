@@ -45,79 +45,75 @@ const currencyCountries: { [key: string]: string } = {
     MYR: 'MYS',
 };
 
-const fetchUserData = (dispatch: Dispatch<IConverterAction>): void => {
+const fetchUserData = async (dispatch: Dispatch<IConverterAction>): Promise<void> => {
     const ipdata = new IPData(ipdataco);
+    const data: IIpData = await ipdata?.lookup();
 
-    ipdata.lookup().then((data: IIpData) => {
-        if (data.message) {
-            console.warn(data.message);
-        }
+    if (data?.message) {
+        console.warn(data.message);
+    }
 
-        dispatch({ type: 'SET_USER', payload: data });
-    });
+    dispatch({ type: 'SET_USER', payload: data });
 };
 
 const fetchCurrencies = async (
     dispatch: Dispatch<IConverterAction>
 ): Promise<void> => {
+    let currencies: { [code: string]: number };
     let countries: ICurrency[] = [];
 
     try {
-        const currencies = await fetch(
+        const fetchRates = await fetch(
             'https://api.craigmcn.com/exchange-rates/v1/latest'
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.error) {
-                    throw new Error(data.error.message);
-                }
-                return data.rates;
-            });
+        );
+        const fetchRatesJson = await fetchRates?.json();
+
+        if (fetchRatesJson?.error) {
+            throw new Error(fetchRatesJson?.error?.message);
+        }
+        currencies = fetchRatesJson?.rates;
 
         if (currencies) {
-            countries = await fetch(
+            const fetchCountries = await fetch(
                 'https://restcountries.eu/rest/v2/all?fields=alpha3Code;currencies;flag'
-            )
-                .then((res) => res.json())
-                .then((data: IRestCountry[]) => {
-                    const countryList = data.reduce(
-                        (a: ICurrency[], c: IRestCountry) => {
-                            const { code } = c.currencies[0];
-                            if (c.alpha3Code === currencyCountries[code]) {
-                                a.push({
-                                    name: c.currencies[0].name,
-                                    code: c.currencies[0].code,
-                                    symbol: c.currencies[0].symbol,
-                                    flag: c.flag,
-                                    rate: currencies[c.currencies[0].code],
-                                });
-                            }
-                            return a;
-                        },
-                        [
-                            {
-                                // EUR is the base currency, not included in currencies data
-                                name: 'European euro',
-                                code: 'EUR',
-                                symbol: '€',
-                                flag: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg',
-                                rate: 1,
-                            },
-                        ]
-                    );
+            );
+            const fetchCountriesJson = await fetchCountries?.json();
 
-                    countryList.sort((a: ICurrency, b: ICurrency) => {
-                        if (a.name < b.name) {
-                            return -1;
-                        }
-                        if (a.name > b.name) {
-                            return 1;
-                        }
-                        return 0;
-                    });
+            countries = fetchCountriesJson?.reduce(
+                (a: ICurrency[], c: IRestCountry) => {
+                    const { code } = c?.currencies[0];
+                    if (c.alpha3Code === currencyCountries[code]) {
+                        a.push({
+                            name: c.currencies[0].name,
+                            code: c.currencies[0].code,
+                            symbol: c.currencies[0].symbol,
+                            flag: c.flag,
+                            rate: currencies[c.currencies[0].code],
+                        });
+                    }
+                    return a;
+                },
+                [
+                    {
+                        // EUR is the base currency, not included in currencies data
+                        name: 'European euro',
+                        code: 'EUR',
+                        symbol: '€',
+                        flag: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg',
+                        rate: 1,
+                    },
+                ]
+            );
 
-                    return countryList;
-                });
+            countries.sort((a: ICurrency, b: ICurrency) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
         }
 
         dispatch({ type: 'SET_CURRENCIES', payload: countries });
