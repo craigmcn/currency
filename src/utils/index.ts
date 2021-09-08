@@ -72,6 +72,7 @@ const fetchCurrencies = async (
             throw new Error(fetchRatesJson?.error?.message);
         }
         currencies = fetchRatesJson?.rates;
+        dispatch({ type: 'SET_TIMESTAMP', payload: fetchRatesJson?.timestamp });
 
         if (currencies) {
             const fetchCountries = await fetch(

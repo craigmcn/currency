@@ -8,6 +8,7 @@ import { faPlayCircle } from "@fortawesome/pro-regular-svg-icons/faPlayCircle";
 const ConverterResult = (): JSX.Element => {
     const {
         errors,
+        timestamp,
         data: {
             currencyFrom,
             currencyTo,
@@ -16,6 +17,8 @@ const ConverterResult = (): JSX.Element => {
             rate,
         },
     } = useContext(ConverterContext).state;
+
+    const asOf = timestamp ? new Date(timestamp * 1000) : 0;
 
     return (
         <Card title="Conversion" type="primary">
@@ -30,17 +33,18 @@ const ConverterResult = (): JSX.Element => {
                             { currencyFrom?.value }
                         </strong>{" "}
                         equals
-                    </p>
-                    <p className="text--primary text--large">
-                        <strong>
-                            { currencyTo?.symbol }{" "}
-                            { Number(amountTo).toFixed(3) }{" "}
-                            { currencyTo?.value }
-                        </strong>
+                        <span className="text--primary text--large m-t-md m-b-xl" style={ { display: "block" } }>
+                            <strong>
+                                { currencyTo?.symbol }{" "}
+                                { Number(amountTo).toFixed(3) }{" "}
+                                { currencyTo?.value }
+                            </strong>
+                        </span>
                     </p>
                     <p className="text--muted">
                         Exchange rate: { currencyFrom?.value } 1 ={" "}
-                        { currencyTo?.value } { rate.toPrecision(4) }
+                        { currencyTo?.value } { rate.toPrecision(4) }<br />
+                        <small>{ asOf && `As of ${asOf.toUTCString()}` }</small>
                     </p>
                 </Fragment>
             ) : (

@@ -8,6 +8,7 @@ export interface IConverterAction {
 
 export interface IConversionState {
     loading: boolean;
+    timestamp?: number;
     errors: IConversionErrors;
     data: IConversionData;
     invalid: IConversionBase;

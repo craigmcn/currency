@@ -2,6 +2,7 @@ import { IConversionState, IConverterAction } from "../types";
 
 export const defaultState: IConversionState = {
     loading: true,
+    timestamp: undefined,
     errors: {
         _error: "",
         amountFrom: "",
@@ -34,6 +35,12 @@ const converterReducer = (
             return {
                 ...state,
                 user: action.payload,
+            };
+
+        case "SET_TIMESTAMP":
+            return {
+                ...state,
+                timestamp: action.payload,
             };
 
         case "SET_CURRENCIES":
