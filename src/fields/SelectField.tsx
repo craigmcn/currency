@@ -11,6 +11,7 @@ interface IProps {
     selectedOption?: ISelectOption;
     options?: ISelectOption[];
     error?: string;
+    searchable?: boolean;
     handleChange?: (value: ValueType<ISelectOption, false>) => void;
     formatOptionLabel?: (value: ISelectOption) => JSX.Element;
 }
@@ -42,6 +43,7 @@ export const SelectField = (props: TProps): JSX.Element => {
         selectedOption,
         options,
         error,
+        searchable,
         handleChange,
         formatOptionLabel,
     } = props;
@@ -62,6 +64,7 @@ export const SelectField = (props: TProps): JSX.Element => {
                 onChange={ handleChange }
                 value={ selectedOption }
                 formatOptionLabel={ formatOptionLabel }
+                isSearchable={ searchable }
             />
         </div>
     );

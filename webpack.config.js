@@ -10,9 +10,11 @@ const config = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './tmp',
     port: 4000,
-    publicPath: '/',
+    static: {
+        directory: './tmp',
+        publicPath: '/',
+    }
   },
   output: {
     filename: '[name].[contenthash].bundle.js',

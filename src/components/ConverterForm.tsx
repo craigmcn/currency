@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useContext, useEffect } from "react";
+import React, { ChangeEvent, KeyboardEvent, useCallback, useContext, useEffect } from "react";
 import { ValueType } from "react-select";
 import Loader from "./Loader";
 import { TextField } from "../fields/TextField";
@@ -8,6 +8,7 @@ import { ICurrency, ICurrencyOption } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/pro-regular-svg-icons/faExclamationCircle";
 import isEqual from "lodash/isEqual";
+import { isBrowser } from 'react-device-detect';
 import "../styles/currencyOptions.scss";
 
 const formatCurrencySelectOption = ({
@@ -146,6 +147,13 @@ const ConverterForm = (): JSX.Element => {
         errors,
     ]);
 
+
+    const handleAmountEnter = useCallback((e: KeyboardEvent<HTMLInputElement>): void => {
+        if (e.key === "Enter") {
+            (e.target as HTMLInputElement).blur();
+        }
+    }, []);
+
     return (
         <div className="flex__item flex__item--12 flex__item--4-md">
             {loading ? (
@@ -167,6 +175,7 @@ const ConverterForm = (): JSX.Element => {
                         selectedOption={ currencyFromValue }
                         formatOptionLabel={ formatCurrencySelectOption }
                         error={ errors.currencyFrom }
+                        searchable={ isBrowser }
                     />
 
                     <SelectField
@@ -176,12 +185,15 @@ const ConverterForm = (): JSX.Element => {
                         handleChange={ handleCurrencyToChange }
                         formatOptionLabel={ formatCurrencySelectOption }
                         error={ errors.currencyTo }
+                        searchable={ isBrowser }
                     />
 
                     <TextField
                         id="amountFrom"
                         label="Amount"
+                        inputMode="numeric"
                         handleChange={ handleAmountChange }
+                        handleKeyPress={ handleAmountEnter }
                         error={ errors.amountFrom }
                     />
                 </form>
