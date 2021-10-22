@@ -1,5 +1,6 @@
 import React from "react";
-import Select, { SingleValue } from "react-select";
+import Select, { OptionProps, SingleValue } from "react-select";
+import { FormatOptionLabelMeta } from "react-select/dist/declarations/src/Select";
 
 export interface ISelectOption {
     label: string;
@@ -13,19 +14,27 @@ interface IProps {
     error?: string;
     searchable?: boolean;
     handleChange?: (value: SingleValue<ISelectOption>) => void;
-    formatOptionLabel?: (value: ISelectOption) => JSX.Element;
+    formatOptionLabel?: (value: ISelectOption, meta: FormatOptionLabelMeta<ISelectOption>) => JSX.Element;
 }
 
 type TProps = Partial<HTMLInputElement> & IProps;
 
 // react-select override styles
-const grey600 = "#7a7a7a"; // AlbertCSS
+const grey600 = "#727276"; // AlbertCSS
 const customStyles = {
     control: (provided: Record<string, unknown>) => ({ ...provided, borderColor: grey600 }),
     dropdownIndicator: (provided: Record<string, unknown>) => ({ ...provided, color: grey600 }),
     indicatorSeparator: (provided: Record<string, unknown>) => ({
         ...provided,
         backgroundColor: grey600,
+    }),
+    option: (provided: Record<string, unknown>, state: OptionProps<ISelectOption, false>) => ({
+        ...provided,
+        backgroundColor: state.isSelected
+            ? "#005b99"
+            : state.isFocused
+                ? "rgba(0, 91, 153, 0.1)"
+                : "",
     }),
     placeholder: (provided: Record<string, unknown>) => ({ ...provided, color: grey600 }),
     singleValue: (provided: Record<string, unknown>) => ({

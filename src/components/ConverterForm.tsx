@@ -1,5 +1,6 @@
 import React, { ChangeEvent, KeyboardEvent, useCallback, useContext, useEffect } from "react";
 import { SingleValue } from "react-select";
+import { FormatOptionLabelMeta } from "react-select/dist/declarations/src/Select";
 import Loader from "./Loader";
 import { TextField } from "../fields/TextField";
 import { SelectField } from "../fields/SelectField";
@@ -16,15 +17,23 @@ const formatCurrencySelectOption = ({
     label,
     symbol,
     flag,
-}: ICurrencyOption): JSX.Element => (
-    <div className="option">
-        <span className="option__image">{ flag }</span>
-        <span className="option__label">{label}</span>
-        <span className="option__label option__label--secondary">
-            { value } { symbol }
-        </span>
-    </div>
-);
+}: ICurrencyOption,
+{
+    context,
+    selectValue,
+}: FormatOptionLabelMeta<ICurrencyOption>): JSX.Element => {
+    const hl = context === "menu" && selectValue?.[0]?.value === value ? " option__label--secondary-hl" : "";
+
+    return (
+        <div className="option">
+            <span className="option__image">{ flag }</span>
+            <span className="option__label">{ label }</span>
+            <span className={ `option__label option__label--secondary${hl}` }>
+                { value } { symbol }
+            </span>
+        </div>
+    );
+};
 
 const ConverterForm = (): JSX.Element => {
     const {

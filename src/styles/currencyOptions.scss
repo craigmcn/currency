@@ -10,8 +10,12 @@
 
     &__label {
         &--secondary {
-            color: #5e5e62; // AlbertCSS grey-700
+            color: #868690; // AlbertCSS grey-500
             margin-left: auto;
+
+            &-hl {
+                color: #d7d7db; // AlbertCSS grey-100
+            }
         }
     }
 }
