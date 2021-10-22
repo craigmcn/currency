@@ -1,5 +1,5 @@
 import React from "react";
-import Select, { ValueType } from "react-select";
+import Select, { SingleValue } from "react-select";
 
 export interface ISelectOption {
     label: string;
@@ -12,7 +12,7 @@ interface IProps {
     options?: ISelectOption[];
     error?: string;
     searchable?: boolean;
-    handleChange?: (value: ValueType<ISelectOption, false>) => void;
+    handleChange?: (value: SingleValue<ISelectOption>) => void;
     formatOptionLabel?: (value: ISelectOption) => JSX.Element;
 }
 

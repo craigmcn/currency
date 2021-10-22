@@ -1,5 +1,5 @@
 import React, { ChangeEvent, KeyboardEvent, useCallback, useContext, useEffect } from "react";
-import { ValueType } from "react-select";
+import { SingleValue } from "react-select";
 import Loader from "./Loader";
 import { TextField } from "../fields/TextField";
 import { SelectField } from "../fields/SelectField";
@@ -89,7 +89,7 @@ const ConverterForm = (): JSX.Element => {
     }, [currencies, currencyFrom, currencyTo, amountFrom]);
 
     const handleCurrencyFromChange = useCallback((
-        value: ValueType<ICurrencyOption, false>
+        value: SingleValue<ICurrencyOption>
     ): void => {
         if (
             (!invalidCurrencyTo && isEqual(value, currencyTo)) ||
@@ -110,7 +110,7 @@ const ConverterForm = (): JSX.Element => {
     ]);
 
     const handleCurrencyToChange = useCallback((
-        value: ValueType<ICurrencyOption, false>
+        value: SingleValue<ICurrencyOption>
     ): void => {
         if (
             (!invalidCurrencyFrom && isEqual(value, currencyFrom)) ||
