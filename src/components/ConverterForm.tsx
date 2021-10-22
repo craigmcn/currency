@@ -18,7 +18,7 @@ const formatCurrencySelectOption = ({
     flag,
 }: ICurrencyOption): JSX.Element => (
     <div className="option">
-        <img src={ flag } width="32" className="option__image" />
+        <span className="option__image">{ flag }</span>
         <span className="option__label">{label}</span>
         <span className="option__label option__label--secondary">
             { value } { symbol }

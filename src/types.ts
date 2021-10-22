@@ -43,14 +43,21 @@ export interface ICurrency {
     rate?: number;
 }
 
+export interface ICurrencies {
+    [code: string]: {
+        name: string;
+        symbol: string;
+    }
+}
+
 export interface ICurrencyOption extends ISelectOption {
     symbol?: string;
     flag?: string;
 }
 
 export interface IRestCountry {
-    alpha3Code: string;
-    currencies: ICurrency[];
+    cca3: string;
+    currencies: ICurrencies;
     flag?: string;
 }
 

@@ -76,20 +76,20 @@ const fetchCurrencies = async (
 
         if (currencies) {
             const fetchCountries = await fetch(
-                'https://restcountries.eu/rest/v2/all?fields=alpha3Code;currencies;flag'
+                'https://restcountries.com/v3.1/all?fields=cca3,currencies,flag'
             );
             const fetchCountriesJson = await fetchCountries?.json();
 
             countries = fetchCountriesJson?.reduce(
                 (a: ICurrency[], c: IRestCountry) => {
-                    const { code } = c?.currencies[0];
-                    if (c.alpha3Code === currencyCountries[code]) {
+                    const code = Object.keys(c?.currencies)[0];
+                    if (c.cca3 === currencyCountries[code]) {
                         a.push({
-                            name: c.currencies[0].name,
-                            code: c.currencies[0].code,
-                            symbol: c.currencies[0].symbol,
+                            name: c.currencies[code].name,
+                            code: code,
+                            symbol: c.currencies[code].symbol,
                             flag: c.flag,
-                            rate: currencies[c.currencies[0].code],
+                            rate: currencies[code],
                         });
                     }
                     return a;
@@ -100,7 +100,7 @@ const fetchCurrencies = async (
                         name: 'European euro',
                         code: 'EUR',
                         symbol: '€',
-                        flag: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg',
+                        flag: '🇪🇺',
                         rate: 1,
                     },
                 ]
