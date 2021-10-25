@@ -1,5 +1,5 @@
-import { LookupResponse } from "ipdata";
-import { ISelectOption } from "./fields/SelectField";
+import { LookupResponse } from 'ipdata'
+import { ISelectOption } from './fields/SelectField'
 
 export interface IConverterAction {
     type: string;

@@ -1,17 +1,17 @@
-import * as React from "react";
+import * as React from 'react'
 
 interface IProps {
     fixed?: boolean;
 }
 
 const Main: React.FC<IProps> = ({ fixed, children }) => {
-    const mainFixed = fixed ? " main--fixed" : "";
+    const mainFixed = fixed ? ' main--fixed' : ''
 
     return (
         <main className={ `main${mainFixed}` }>
             { children }
         </main>
-    );
-};
+    )
+}
 
-export default Main;
+export default Main

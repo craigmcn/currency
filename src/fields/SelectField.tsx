@@ -1,6 +1,6 @@
-import React from "react";
-import Select, { OptionProps, SingleValue } from "react-select";
-import { FormatOptionLabelMeta } from "react-select/dist/declarations/src/Select";
+import React from 'react'
+import Select, { OptionProps, SingleValue } from 'react-select'
+import { FormatOptionLabelMeta } from 'react-select/dist/declarations/src/Select'
 
 export interface ISelectOption {
     label: string;
@@ -20,7 +20,7 @@ interface IProps {
 type TProps = Partial<HTMLInputElement> & IProps;
 
 // react-select override styles
-const grey600 = "#727276"; // AlbertCSS
+const grey600 = '#727276' // AlbertCSS
 const customStyles = {
     control: (provided: Record<string, unknown>) => ({ ...provided, borderColor: grey600 }),
     dropdownIndicator: (provided: Record<string, unknown>) => ({ ...provided, color: grey600 }),
@@ -31,19 +31,19 @@ const customStyles = {
     option: (provided: Record<string, unknown>, state: OptionProps<ISelectOption, false>) => ({
         ...provided,
         backgroundColor: state.isSelected
-            ? "#005b99"
+            ? '#005b99'
             : state.isFocused
-                ? "rgba(0, 91, 153, 0.1)"
-                : "",
+                ? 'rgba(0, 91, 153, 0.1)'
+                : '',
     }),
     placeholder: (provided: Record<string, unknown>) => ({ ...provided, color: grey600 }),
     singleValue: (provided: Record<string, unknown>) => ({
         ...provided,
-        overflow: "visible",
-        paddingRight: "0.5em",
-        width: "100%",
+        overflow: 'visible',
+        paddingRight: '0.5em',
+        width: '100%',
     }),
-};
+}
 
 export const SelectField = (props: TProps): JSX.Element => {
     const {
@@ -55,7 +55,7 @@ export const SelectField = (props: TProps): JSX.Element => {
         searchable,
         handleChange,
         formatOptionLabel,
-    } = props;
+    } = props
 
     return (
         <div className="form__group">
@@ -76,5 +76,5 @@ export const SelectField = (props: TProps): JSX.Element => {
                 isSearchable={ searchable }
             />
         </div>
-    );
-};
+    )
+}

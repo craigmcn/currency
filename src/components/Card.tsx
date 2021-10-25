@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react'
 
 interface IProps {
     title: string;
-    type?: "primary" | "secondary";
+    type?: 'primary' | 'secondary';
 }
 
 export const Card: React.FC<IProps> = ({ title, type, children }) => {
-    const cardType = type ? ` card--${type}` : "";
+    const cardType = type ? ` card--${type}` : ''
 
     return (
         <div
@@ -19,7 +19,7 @@ export const Card: React.FC<IProps> = ({ title, type, children }) => {
                 { children }
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Card;
+export default Card

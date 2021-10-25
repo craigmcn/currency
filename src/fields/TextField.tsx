@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent } from "react";
+import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent } from 'react'
 
 interface IProps {
     label?: string;
@@ -20,11 +20,11 @@ export const TextField = ({ id, label, inputMode, error, handleChange, handleKey
         <input
             id={ id }
             name={ id }
-            className={ `form__control${ error ? " form__control--hasError" : ""}` }
+            className={ `form__control${ error ? ' form__control--hasError' : ''}` }
             type="text"
             inputMode={ inputMode }
             onChange={ handleChange }
             onKeyPress={ handleKeyPress }
         />
     </div>
-);
+)

@@ -1,13 +1,13 @@
-import { IConversionState, IConverterAction } from "../types";
+import { IConversionState, IConverterAction } from '../types'
 
 export const defaultState: IConversionState = {
     loading: true,
     timestamp: undefined,
     errors: {
-        _error: "",
-        amountFrom: "",
-        currencyFrom: "",
-        currencyTo: "",
+        _error: '',
+        amountFrom: '',
+        currencyFrom: '',
+        currencyTo: '',
     },
     data: {
         amountFrom: undefined,
@@ -24,38 +24,38 @@ export const defaultState: IConversionState = {
     currencies: [],
     currencyList: [],
     user: undefined,
-};
+}
 
 const converterReducer = (
     state: IConversionState,
     action: IConverterAction
 ): IConversionState => {
     switch (action.type) {
-        case "SET_USER":
+        case 'SET_USER':
             return {
                 ...state,
                 user: action.payload,
-            };
+            }
 
-        case "SET_TIMESTAMP":
+        case 'SET_TIMESTAMP':
             return {
                 ...state,
                 timestamp: action.payload,
-            };
+            }
 
-        case "SET_CURRENCIES":
+        case 'SET_CURRENCIES':
             return {
                 ...state,
                 currencies: action.payload,
-            };
+            }
 
-        case "SET_CURRENCY_LIST":
+        case 'SET_CURRENCY_LIST':
             return {
                 ...state,
                 currencyList: action.payload,
-            };
+            }
 
-        case "SET_CURRENCY_FROM":
+        case 'SET_CURRENCY_FROM':
             return {
                 ...state,
                 data: {
@@ -66,18 +66,18 @@ const converterReducer = (
                     ...state.invalid,
                     currencyFrom: undefined,
                 },
-            };
+            }
 
-        case "SET_INVALID_CURRENCY_FROM":
+        case 'SET_INVALID_CURRENCY_FROM':
             return {
                 ...state,
                 invalid: {
                     ...state.invalid,
                     currencyFrom: action.payload,
                 },
-            };
+            }
 
-        case "SET_CURRENCY_TO":
+        case 'SET_CURRENCY_TO':
             return {
                 ...state,
                 data: {
@@ -88,18 +88,18 @@ const converterReducer = (
                     ...state.invalid,
                     currencyTo: undefined,
                 },
-            };
+            }
 
-        case "SET_INVALID_CURRENCY_TO":
+        case 'SET_INVALID_CURRENCY_TO':
             return {
                 ...state,
                 invalid: {
                     ...state.invalid,
                     currencyTo: action.payload,
                 },
-            };
+            }
 
-        case "SET_AMOUNT_FROM":
+        case 'SET_AMOUNT_FROM':
             return {
                 ...state,
                 data: {
@@ -110,50 +110,50 @@ const converterReducer = (
                     ...state.invalid,
                     amountFrom: undefined,
                 },
-            };
+            }
 
-        case "SET_INVALID_AMOUNT_FROM":
+        case 'SET_INVALID_AMOUNT_FROM':
             return {
                 ...state,
                 invalid: {
                     ...state.invalid,
                     amountFrom: action.payload,
                 },
-            };
+            }
 
-        case "SET_AMOUNT_TO":
+        case 'SET_AMOUNT_TO':
             return {
                 ...state,
                 data: {
                     ...state.data,
                     amountTo: action.payload,
                 },
-            };
+            }
 
-        case "SET_RATE":
+        case 'SET_RATE':
             return {
                 ...state,
                 data: {
                     ...state.data,
                     rate: action.payload,
                 },
-            };
+            }
 
-        case "SET_LOADING":
+        case 'SET_LOADING':
             return {
                 ...state,
                 loading: action.payload,
-            };
+            }
 
-        case "SET_ERRORS":
+        case 'SET_ERRORS':
             return {
                 ...state,
                 errors: action.payload,
-            };
+            }
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export { converterReducer as default };
+export { converterReducer as default }
