@@ -47,7 +47,7 @@ const ConverterForm = (): JSX.Element => {
         c => invalidCurrencyFrom ? c.value === invalidCurrencyFrom?.value : c.value === currencyFrom?.value
     );
 
-    const setErrors = (error: { [key: string]: string }): void => {
+    const setErrors = useCallback((error: { [key: string]: string }): void => {
         dispatch({
             type: "SET_ERRORS",
             payload: {
@@ -55,9 +55,12 @@ const ConverterForm = (): JSX.Element => {
                 ...error,
             },
         });
-    };
+    }, [
+        dispatch,
+        errors,
+    ]);
 
-    const restoreInvalid = (type: string): void => {
+    const restoreInvalid = useCallback((type: string): void => {
         let payload: number | ICurrencyOption | undefined;
         switch (type) {
             case "SET_AMOUNT_FROM":
@@ -75,7 +78,12 @@ const ConverterForm = (): JSX.Element => {
         if (payload) {
             dispatch({ type, payload });
         }
-    };
+    }, [
+        invalidAmountFrom,
+        invalidCurrencyFrom,
+        invalidCurrencyTo,
+        dispatch,
+    ]);
 
     useEffect(() => {
         const hasErrors = errors.currencyFrom || errors.currencyTo || errors.amountFrom;
@@ -95,7 +103,7 @@ const ConverterForm = (): JSX.Element => {
                 payload: amountFrom && amountFrom * (rateTo / rateFrom),
             });
         }
-    }, [currencies, currencyFrom, currencyTo, amountFrom]);
+    }, [currencies, currencyFrom, currencyTo, amountFrom, errors, dispatch]);
 
     const handleCurrencyFromChange = useCallback((
         value: SingleValue<ICurrencyOption>
@@ -116,6 +124,9 @@ const ConverterForm = (): JSX.Element => {
     }, [
         invalidCurrencyTo,
         currencyTo,
+        setErrors,
+        dispatch,
+        restoreInvalid,
     ]);
 
     const handleCurrencyToChange = useCallback((
@@ -137,6 +148,9 @@ const ConverterForm = (): JSX.Element => {
     }, [
         invalidCurrencyFrom,
         currencyFrom,
+        setErrors,
+        dispatch,
+        restoreInvalid,
     ]);
 
     const handleAmountChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
@@ -154,6 +168,9 @@ const ConverterForm = (): JSX.Element => {
         }
     }, [
         errors,
+        setErrors,
+        dispatch,
+        restoreInvalid,
     ]);
 
 

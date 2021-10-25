@@ -7,6 +7,7 @@
     },
     "plugins": [
         "react",
+        "react-hooks",
         "@typescript-eslint"
     ],
     "extends": [
@@ -41,6 +42,8 @@
         "react/jsx-pascal-case": "error",
         "react/jsx-space-before-closing": "error",
         "react/prop-types": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
         "@typescript-eslint/member-ordering": "error",
         "@typescript-eslint/naming-convention": [
             "error",
