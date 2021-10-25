@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Currency Converter</title>
 
+    <script>
+        (() => !window.location.pathname.endsWith("/") && window.location.replace(window.location.href + "/"))()
+    </script>
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=wAdO0d8bp8">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=wAdO0d8bp8">
     <link rel="icon" type="image/png" sizes="194x194" href="/favicon-194x194.png?v=wAdO0d8bp8">
@@ -19,14 +23,6 @@
     <meta name="theme-color" content="#005b99">
 
     <link rel="stylesheet" href="https://www.craigmcn.com/albertcss/css/albert.min.css">
-
-    <script>
-        (function () {
-            if (!window.location.pathname.endsWith("/")) {
-                window.location = window.location + "/"
-            }
-        }())
-    </script>
 </head>
 
 <body>
