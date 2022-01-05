@@ -1,8 +1,20 @@
+:root {
+    --primaryContrast: #fff;
+    --primaryTransparent: #{rgba(#005b99, 0.1)};
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primaryContrast: #02243c;
+        --primaryTransparent: #{rgba(#4cb5fa, 0.2)};
+    }
+}
+
 .option {
     display: flex;
 
     &__image {
-        background-color: white;
+        background-color: var(--white);
         border-radius: 50%;
         margin-right: 4px;
         padding: 1px;
@@ -10,11 +22,11 @@
 
     &__label {
         &--secondary {
-            color: #868690; // AlbertCSS grey-500
+            color: var(--grey500);
             margin-left: auto;
 
             &-hl {
-                color: #d7d7db; // AlbertCSS grey-100
+                color: var(--grey100);
             }
         }
     }

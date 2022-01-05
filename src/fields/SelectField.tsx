@@ -20,25 +20,30 @@ interface IProps {
 type TProps = Partial<HTMLInputElement> & IProps;
 
 // react-select override styles
-const grey600 = '#727276' // AlbertCSS
 const customStyles = {
-    control: (provided: Record<string, unknown>) => ({ ...provided, borderColor: grey600 }),
-    dropdownIndicator: (provided: Record<string, unknown>) => ({ ...provided, color: grey600 }),
+    control: (provided: Record<string, unknown>) => ({ ...provided, backgroundColor: 'var(--white)', borderColor: 'var(--grey600)', color: 'var(--black)' }),
+    dropdownIndicator: (provided: Record<string, unknown>) => ({ ...provided, color: 'var(--grey600)' }),
     indicatorSeparator: (provided: Record<string, unknown>) => ({
         ...provided,
-        backgroundColor: grey600,
+        backgroundColor: 'var(--grey600)',
+    }),
+    menu: (provided: Record<string, unknown>) => ({
+        ...provided,
+        backgroundColor: 'var(--white)',
     }),
     option: (provided: Record<string, unknown>, state: OptionProps<ISelectOption, false>) => ({
         ...provided,
         backgroundColor: state.isSelected
-            ? '#005b99'
+            ? 'var(--primary)'
             : state.isFocused
-                ? 'rgba(0, 91, 153, 0.1)'
+                ? 'var(--primaryTransparent)'
                 : '',
+        color: state.isSelected ? 'var(--primaryContrast)' : 'var(--black)',
     }),
-    placeholder: (provided: Record<string, unknown>) => ({ ...provided, color: grey600 }),
+    placeholder: (provided: Record<string, unknown>) => ({ ...provided, color: 'var(--grey600)' }),
     singleValue: (provided: Record<string, unknown>) => ({
         ...provided,
+        color: 'var(--black)',
         overflow: 'visible',
         paddingRight: '0.5em',
         width: '100%',
