@@ -4,6 +4,7 @@ const {
     CleanWebpackPlugin
 } = require('clean-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const config = {
     entry: {
@@ -27,6 +28,9 @@ const config = {
             template: './src/index.html',
         }),
         new LodashModuleReplacementPlugin(),
+        new Dotenv({
+            systemvars: true
+        }),
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
