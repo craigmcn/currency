@@ -64,7 +64,7 @@ const fetchCurrencies = async (
 
     try {
         const fetchRates = await fetch(
-            'https://api.craigmcn.com/exchange-rates/v1/latest'
+            'https://api.craigmcn.com/v1/exchange-rates/latest'
         )
         const fetchRatesJson = await fetchRates?.json()
 

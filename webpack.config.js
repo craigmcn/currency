@@ -4,7 +4,6 @@ const {
     CleanWebpackPlugin
 } = require('clean-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 const config = {
     entry: {
@@ -28,9 +27,6 @@ const config = {
             template: './src/index.html',
         }),
         new LodashModuleReplacementPlugin(),
-        new Dotenv({
-            systemvars: true
-        }),
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -53,11 +49,8 @@ const config = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    // Creates `style` nodes from JS strings
                     'style-loader',
-                    // Translates CSS into CommonJS
                     'css-loader',
-                    // Compiles Sass to CSS
                     'sass-loader',
                 ],
             },
@@ -98,18 +91,21 @@ const config = {
 module.exports = (env) => {
     const distConfig = Object.assign({}, config, {
         output: {
+            filename: config.output.filename,
             path: path.resolve(__dirname, 'dist'),
         },
     });
 
     const netlifyRootConfig = Object.assign({}, config, {
         output: {
+            filename: config.output.filename,
             path: path.resolve(__dirname, 'netlify'),
         },
     });
 
     const netlifySubConfig = Object.assign({}, config, {
         output: {
+            filename: config.output.filename,
             path: path.resolve(__dirname, 'netlify', 'currency'),
         },
     });

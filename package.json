@@ -1,11 +1,12 @@
 {
   "name": "currency",
-  "version": "2.2.10",
+  "version": "2.2.11",
   "description": "A very simple currency conversion calculator",
   "main": "index.tsx",
   "scripts": {
     "build": "webpack --mode production",
     "build:netlify": "webpack --mode production --env netlify",
+    "dev": "webpack --mode development",
     "start": "webpack serve --mode development --open --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
