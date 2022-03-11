@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent } from 'react'
+import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent } from 'react';
 
 interface IProps {
     label?: string;
@@ -27,4 +27,4 @@ export const TextField = ({ id, label, inputMode, error, handleChange, handleKey
             onKeyPress={ handleKeyPress }
         />
     </div>
-)
+);

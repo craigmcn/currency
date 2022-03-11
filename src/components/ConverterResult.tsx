@@ -1,9 +1,9 @@
-import React, { Fragment, useContext } from 'react'
-import ConverterContext from '../hooks/context'
-import Error from './Error'
-import Card from './Card'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlayCircle } from '@fortawesome/pro-regular-svg-icons/faPlayCircle'
+import React, { Fragment, useContext } from 'react';
+import ConverterContext from '../hooks/context';
+import Error from './Error';
+import Card from './Card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlayCircle } from '@fortawesome/pro-regular-svg-icons/faPlayCircle';
 
 const ConverterResult = (): JSX.Element => {
     const {
@@ -16,9 +16,9 @@ const ConverterResult = (): JSX.Element => {
             amountTo,
             rate,
         },
-    } = useContext(ConverterContext).state
+    } = useContext(ConverterContext).state;
 
-    const asOf = timestamp ? new Date(timestamp * 1000) : 0
+    const asOf = timestamp ? new Date(timestamp * 1000) : 0;
 
     return (
         <Card title="Conversion" type="primary">
@@ -53,7 +53,7 @@ const ConverterResult = (): JSX.Element => {
                 </p>
             ) }
         </Card>
-    )
-}
+    );
+};
 
-export default ConverterResult
+export default ConverterResult;

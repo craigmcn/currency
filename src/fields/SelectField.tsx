@@ -1,6 +1,6 @@
-import React from 'react'
-import Select, { OptionProps, SingleValue } from 'react-select'
-import { FormatOptionLabelMeta } from 'react-select/dist/declarations/src/Select'
+import React from 'react';
+import Select, { OptionProps, SingleValue } from 'react-select';
+import { FormatOptionLabelMeta } from 'react-select/dist/declarations/src/Select';
 
 export interface ISelectOption {
     label: string;
@@ -48,7 +48,7 @@ const customStyles = {
         paddingRight: '0.5em',
         width: '100%',
     }),
-}
+};
 
 export const SelectField = (props: TProps): JSX.Element => {
     const {
@@ -60,7 +60,7 @@ export const SelectField = (props: TProps): JSX.Element => {
         searchable,
         handleChange,
         formatOptionLabel,
-    } = props
+    } = props;
 
     return (
         <div className="form__group">
@@ -81,5 +81,5 @@ export const SelectField = (props: TProps): JSX.Element => {
                 isSearchable={ searchable }
             />
         </div>
-    )
-}
+    );
+};

@@ -1,5 +1,5 @@
-import React from 'react'
-import Logo from './Logo'
+import React from 'react';
+import Logo from './Logo';
 
 interface IProps {
     title: string;
@@ -15,6 +15,6 @@ const Header = ({ title }: IProps): JSX.Element => (
         </div>
         <h1>{ title }</h1>
     </header>
-)
+);
 
-export default Header
+export default Header;
