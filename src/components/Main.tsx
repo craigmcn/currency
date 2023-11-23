@@ -2,6 +2,7 @@ import * as React from 'react';
 
 interface IProps {
     fixed?: boolean;
+    children?: React.ReactNode;
 }
 
 const Main: React.FC<IProps> = ({ fixed, children }) => {

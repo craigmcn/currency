@@ -3,6 +3,7 @@ import React from 'react';
 interface IProps {
     title: string;
     type?: 'primary' | 'secondary';
+    children?: React.ReactNode;
 }
 
 export const Card: React.FC<IProps> = ({ title, type, children }) => {
