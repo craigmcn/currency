@@ -1,6 +1,6 @@
 {
   "name": "currency",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "description": "A very simple currency conversion calculator",
   "main": "index.tsx",
   "scripts": {
