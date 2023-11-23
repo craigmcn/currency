@@ -6,11 +6,12 @@
         "module": "commonjs",
         "noImplicitAny": true,
         "outDir": "./dist/",
+        "rootDirs": ["src/"],
         "sourceMap": true,
         "strict": true,
         "target": "es6"
     },
     "exclude": [
-      "node_modules"
+      "**/node_modules",
     ]
 }
