@@ -216,7 +216,7 @@ const ConverterForm = (): JSX.Element => {
                     <TextField
                         id="amountFrom"
                         label="Amount"
-                        inputMode="numeric"
+                        inputMode="decimal"
                         handleChange={ handleAmountChange }
                         handleKeyPress={ handleAmountEnter }
                         error={ errors.amountFrom }
