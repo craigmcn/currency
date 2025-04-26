@@ -1,16 +1,18 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/pro-regular-svg-icons/faExclamationTriangle';
+import { faExclamationTriangle } from '@fortawesome/duotone-light-svg-icons/faExclamationTriangle';
 
 interface IErrorProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
-export const Error: React.FC<IErrorProps> = ({ children }) => (
+export function Error({ children }: IErrorProps): React.JSX.Element {
+  return (
     <p className="text--danger">
-        <FontAwesomeIcon icon={ faExclamationTriangle } className="m-r-xs" />
-        {children}
+      <FontAwesomeIcon icon={ faExclamationTriangle } className="m-r-xs" />
+      {children}
     </p>
-);
+  );
+}
 
 export default Error;
