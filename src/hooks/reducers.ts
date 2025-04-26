@@ -99,6 +99,16 @@ const converterReducer = (
                     },
                 };
 
+            case 'SWITCH_CURRENCIES':
+                return {
+                    ...state,
+                    data: {
+                        ...state.data,
+                        currencyFrom: state.data.currencyTo,
+                        currencyTo: state.data.currencyFrom,
+                    },
+                };
+
             case 'SET_AMOUNT_FROM':
                 return {
                     ...state,

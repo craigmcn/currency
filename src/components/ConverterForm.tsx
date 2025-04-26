@@ -8,8 +8,9 @@ import ConverterContext from '../hooks/context';
 import { ICurrency, ICurrencyOption } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/pro-regular-svg-icons/faExclamationCircle';
-import isEqual from 'lodash/isEqual';
+import _isEqual from 'lodash/isEqual';
 import { isBrowser } from 'react-device-detect';
+import SwitchButton from './SwitchButton';
 import '../styles/currencyOptions.scss';
 
 const formatCurrencySelectOption = ({
@@ -45,6 +46,9 @@ const ConverterForm = (): JSX.Element => {
 
     const currencyFromValue = currencyList?.find(
         c => invalidCurrencyFrom ? c.value === invalidCurrencyFrom?.value : c.value === currencyFrom?.value
+    );
+    const currencyToValue = currencyList?.find(
+        c => invalidCurrencyTo ? c.value === invalidCurrencyTo?.value : c.value === currencyTo?.value
     );
 
     const setErrors = useCallback((error: { [key: string]: string }): void => {
@@ -109,8 +113,8 @@ const ConverterForm = (): JSX.Element => {
         value: SingleValue<ICurrencyOption>
     ): void => {
         if (
-            (!invalidCurrencyTo && isEqual(value, currencyTo)) ||
-            (invalidCurrencyTo && isEqual(value, invalidCurrencyTo))
+            (!invalidCurrencyTo && _isEqual(value, currencyTo)) ||
+            (invalidCurrencyTo && _isEqual(value, invalidCurrencyTo))
         ) {
             setErrors({ currencyFrom: 'Currencies must be different' });
             dispatch({ type: 'SET_INVALID_CURRENCY_FROM', payload: value });
@@ -133,8 +137,8 @@ const ConverterForm = (): JSX.Element => {
         value: SingleValue<ICurrencyOption>
     ): void => {
         if (
-            (!invalidCurrencyFrom && isEqual(value, currencyFrom)) ||
-            (invalidCurrencyFrom && isEqual(value, invalidCurrencyFrom))
+            (!invalidCurrencyFrom && _isEqual(value, currencyFrom)) ||
+            (invalidCurrencyFrom && _isEqual(value, invalidCurrencyFrom))
         ) {
             setErrors({ currencyTo: 'Currencies must be different' });
             dispatch({ type: 'SET_INVALID_CURRENCY_TO', payload: value });
@@ -203,11 +207,14 @@ const ConverterForm = (): JSX.Element => {
                         searchable={ isBrowser }
                     />
 
+                    <SwitchButton />
+
                     <SelectField
                         id="currencyTo"
                         label="To currency"
                         options={ currencyList }
                         handleChange={ handleCurrencyToChange }
+                        selectedOption={ currencyToValue }
                         formatOptionLabel={ formatCurrencySelectOption }
                         error={ errors.currencyTo }
                         searchable={ isBrowser }

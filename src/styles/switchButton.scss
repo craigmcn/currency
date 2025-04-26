@@ -1,0 +1,25 @@
+.switch-currencies {
+    display: flex;
+    justify-content: flex-end;
+
+    /* A little magic: Aligns the switch button to the right and between From and To */
+    margin: -0.55rem -0.25rem -1.1rem 0;
+
+    &__button {
+        background-color: transparent;
+        border: none;
+        border-radius: 0.25em;
+        outline: none;
+        padding: 0.25rem;
+
+        &:focus-visible {
+            box-shadow: 0 0 0 0.2rem var(--focusShadow);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    }
+
+}
