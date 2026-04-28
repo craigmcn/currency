@@ -8,7 +8,7 @@ import {
   ICurrencyOption,
 } from '../types';
 
-const ipdataco = process.env.REACT_APP_IPDATA_CO ?? '';
+const ipdataco = import.meta.env.VITE_IPDATA_CO ?? '';
 
 const currencyCountries: { [key: string]: string } = {
   CAD: 'CAN',
