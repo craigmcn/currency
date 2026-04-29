@@ -14,7 +14,11 @@ yarn lint         # ESLint check on src/ (no auto-fix — fails on any error)
 yarn lint:fix     # ESLint with auto-fix on src/
 ```
 
-**Tests:** Not yet added — see modernization tasks below.
+```bash
+yarn test         # Vitest in watch mode
+yarn test:run     # Vitest single run
+yarn coverage     # Vitest with v8 coverage report
+```
 
 ## Architecture
 
@@ -73,15 +77,21 @@ Rules in force:
 
 ## Modernization tasks (in-progress)
 
-Branch `vite-migration` — 6 commits, not yet merged to main:
+Branch `vite-migration` — 7 commits, not yet merged to main:
 
 - [x] Migrate Webpack + Babel → Vite 8; bump Node to 24
 - [x] Replace Sass with plain CSS; remove `sass` devDependency
 - [x] Clean up ESLint — deleted `.eslintrc`; rewrote `eslint.config.mjs` natively; removed `@eslint/compat` and `@eslint/eslintrc`
 - [x] Add Prettier; streamline ESLint to quality rules only; remove `@stylistic/eslint-plugin`
-- [ ] **Vitest + Testing Library + tests** — add `vitest`, `@vitest/coverage-v8`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom`. Good test targets: `converterReducer` (unit — all action types), `fetchCurrencies` (mocked `fetch`), field components.
-- [ ] **`test.yml` CI workflow** — lint → build → coverage, triggered on PR and push to main. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` secrets.
+- [x] **Vitest + Testing Library + tests** — 39 tests covering `converterReducer` (all 15 action types), `fetchCurrencies`/`fetchUserData` (mocked fetch/ipdata), `TextField`, `SelectField`. `vitest.config.ts` uses `mergeConfig` pattern; setup in `tests/setup.ts`; globals type augmentation in `src/types/vitest.d.ts`.
+- [ ] **`test.yml` CI workflow** — lint → build → coverage, triggered on PR and push to main. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` secrets in GitHub repo settings.
 - [ ] **Update README** — add end-user usage section (like `colours`) and developer usage section (like `unixtimestamp`).
 - [ ] **`.github/CODEOWNERS`** — add file containing `* @craigmcn`.
 - [ ] **Branch protection** — require PR, 1 approval with `@craigmcn` bypass, require `test` status check, block force push + deletion, dismiss stale reviews.
 - [ ] **Review favicon** — `index.html` already has full favicon link tags but the actual asset files (`.png`, `.ico`, `.webmanifest`, etc.) are not in the repo. Verify they are present in the Netlify deploy target or add them (see `albertcss` for working example).
+
+## Test suite notes
+
+- **IPData mock** must use `function()` not an arrow function — arrow functions cannot be used as constructors with `new`.
+- **react-select** without `classNamePrefix` uses CSS-in-JS (no `.react-select__control` class). Use `screen.getByRole('combobox')` to find the select input.
+- **"no country list" branch** in `fetchCurrencies` is unreachable — EUR is always present as the reduce accumulator seed; no test needed for it.
