@@ -38,7 +38,7 @@ A single-page React 19 + TypeScript app (Vite 8) that converts amounts between c
 
 **Font Awesome:** Duotone Light icons (`@fortawesome/duotone-light-svg-icons`). The kit requires `FONTAWESOME_NPM_AUTH_TOKEN` set in the environment (registry auth in `.yarnrc.yml` under the `fortawesome` scope).
 
-**Styling:** AlbertCSS served via CDN in `index.html`. Component-level styles in `src/styles/` as Sass (`.scss`) — see modernisation tasks below.
+**Styling:** AlbertCSS served via CDN in `index.html`. Component-level styles in `src/styles/` as plain CSS (`.css`).
 
 **Netlify build:** `build:netlify` runs two sequential Vite builds: one to `netlify/` (serves at the domain root) and one to `netlify/currency/` (serves at the `/currency/` sub-path). Both use `base: './'` for relative asset paths so they work at either location.
 
@@ -52,15 +52,23 @@ Key rules in force:
 - `@typescript-eslint/member-ordering` is enabled.
 - `@typescript-eslint/naming-convention` enforces `I`-prefixed interfaces.
 
+## Key decisions
+
+- **Vite `base: './'`** — both the local `dist/` build and the two Netlify builds use relative asset paths, so the same build config works when the app is served from the domain root or the `/currency/` sub-path.
+- **`REACT_APP_IPDATA_CO` → `VITE_IPDATA_CO`** — Vite only exposes env vars prefixed with `VITE_`; the key was renamed in `.env` and in `src/utils/index.ts` (now uses `import.meta.env.VITE_IPDATA_CO`). Update the Netlify environment variable to match.
+- **Sass removed** — the two `.scss` files had no Sass features beyond nesting and a single `rgba(hex, alpha)` interpolation. BEM nesting was expanded to flat selectors; `#{rgba(#005b99, 0.1)}` became `rgba(0, 91, 153, 0.1)`. No CSS nesting used — kept genuinely plain.
+- **`jsx: "react-jsx"`** in tsconfig — uses the modern JSX transform; existing `import React from 'react'` imports in components are harmless and were left in place.
+
 ## Modernisation tasks (in-progress)
 
-The Vite 8 migration and Node 24 bump are done (branch `vite-migration`, not yet merged). Remaining tasks to complete before this repo is up to standard:
+Branch `vite-migration` — 3 commits, not yet merged to main:
 
-1. **Replace Sass with plain CSS** — convert `src/styles/currencyOptions.scss` and `src/styles/switchButton.scss` to plain `.css` files. `currencyOptions.scss` uses a Sass interpolation trick for `rgba()` (`#{rgba(#005b99, 0.1)}`); replace with a literal `rgba(0, 91, 153, 0.1)` or CSS `color-mix()`.
-2. **Clean up ESLint** — delete `.eslintrc`; rewrite `eslint.config.mjs` natively without `FlatCompat`/`@eslint/eslintrc` (currently uses legacy compat shim).
-3. **Vitest + Testing Library + tests** — add `vitest`, `@vitest/coverage-v8`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom`. Good test targets: `converterReducer` (unit), `fetchCurrencies` (mocked fetch), field components.
-4. **`test.yml` CI workflow** — lint → build → coverage, triggered on PR and push to main. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` secrets.
-5. **Update README** — add end-user usage section (like `colours`) and developer usage section (like `unixtimestamp`).
-6. **`.github/CODEOWNERS`** — add file containing `* @craigmcn`.
-7. **Branch protection** — require PR, 1 approval with `@craigmcn` bypass, require `test` status check, block force push + deletion, dismiss stale reviews.
-8. **Review favicon** — `index.html` already has full favicon link tags but the actual asset files (`.png`, `.ico`, `.webmanifest`, etc.) are not in the repo. Verify they are present in the Netlify deploy target or add them (see `albertcss` for working example).
+- [x] Migrate Webpack + Babel → Vite 8; bump Node to 24
+- [x] Replace Sass with plain CSS; remove `sass` devDependency
+- [ ] **Clean up ESLint** — delete `.eslintrc`; rewrite `eslint.config.mjs` natively without `FlatCompat`/`@eslint/eslintrc` (currently uses legacy compat shim). Also remove `@eslint/compat` and `@eslint/eslintrc` devDependencies once rewritten.
+- [ ] **Vitest + Testing Library + tests** — add `vitest`, `@vitest/coverage-v8`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom`. Good test targets: `converterReducer` (unit — all action types), `fetchCurrencies` (mocked `fetch`), field components.
+- [ ] **`test.yml` CI workflow** — lint → build → coverage, triggered on PR and push to main. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` secrets.
+- [ ] **Update README** — add end-user usage section (like `colours`) and developer usage section (like `unixtimestamp`).
+- [ ] **`.github/CODEOWNERS`** — add file containing `* @craigmcn`.
+- [ ] **Branch protection** — require PR, 1 approval with `@craigmcn` bypass, require `test` status check, block force push + deletion, dismiss stale reviews.
+- [ ] **Review favicon** — `index.html` already has full favicon link tags but the actual asset files (`.png`, `.ico`, `.webmanifest`, etc.) are not in the repo. Verify they are present in the Netlify deploy target or add them (see `albertcss` for working example).
