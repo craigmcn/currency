@@ -45,7 +45,9 @@ const currencyCountries: { [key: string]: string } = {
   MYR: 'MYS',
 };
 
-const fetchUserData = async (dispatch: Dispatch<IConverterAction>): Promise<void> => {
+const fetchUserData = async (
+  dispatch: Dispatch<IConverterAction>,
+): Promise<void> => {
   const ipdata = new IPData(ipdataco);
   const data: IIpData = await ipdata?.lookup();
 
@@ -140,7 +142,8 @@ const fetchCurrencies = async (
 
     dispatch({ type: 'SET_LOADING', payload: false });
   } catch (e) {
-    const _error = (e instanceof Error || e instanceof TypeError) ? e.message : e as string;
+    const _error =
+      e instanceof Error || e instanceof TypeError ? e.message : (e as string);
     dispatch({
       type: 'SET_ERRORS',
       payload: { _error },

@@ -47,7 +47,7 @@ export interface ICurrencies {
   [code: string]: {
     name: string;
     symbol: string;
-  }
+  };
 }
 
 export interface ICurrencyOption extends ISelectOption {

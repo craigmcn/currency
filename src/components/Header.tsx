@@ -14,7 +14,7 @@ function Header({ title }: IProps): React.JSX.Element {
           craigmcn
         </a>
       </div>
-      <h1>{ title }</h1>
+      <h1>{title}</h1>
     </header>
   );
 }

@@ -8,11 +8,7 @@ interface IProps {
 function Main({ fixed, children }: IProps): React.JSX.Element {
   const mainFixed = fixed ? ' main--fixed' : '';
 
-  return (
-    <main className={ `main${mainFixed}` }>
-      { children }
-    </main>
-  );
-};
+  return <main className={`main${mainFixed}`}>{children}</main>;
+}
 
 export default Main;
