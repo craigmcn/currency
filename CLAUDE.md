@@ -90,6 +90,13 @@ Branch `vite-migration` — 9 commits, not yet merged to main:
 - [x] **Branch protection** — require PR, 1 approval, require `test` status check, dismiss stale reviews, block force push + deletion. Owner bypass is implicit (personal repo, `enforce_admins: false`).
 - [x] **Favicon** — no action needed. Favicons are served from the `craigmcnaughton` parent app at `www.craigmcn.com`; sub-path deploys inherit them correctly from the official domain.
 
+## Follow-up items (non-blocking)
+
+- **`onKeyPress` → `onKeyDown`** in `src/fields/TextField.tsx` — `onKeyPress` is deprecated in React 17+ and removed from React 19 synthetic event types. Migrate to `onKeyDown`.
+- **`ConverterForm` integration test** — the same-currency validation logic (`restoreInvalid`, `setErrors` interactions) and the `useEffect` conversion math are currently untested. Worth adding a test for the duplicate-currency error path.
+- **`SelectField` interaction test** — no test for `handleChange` being called when the user selects an option (equivalent of the `TextField` `handleChange` test). Fiddly with react-select but the gap is real.
+- **CI Corepack** — `setup-node` does not enable Corepack automatically; must run `corepack enable` before the cached `setup-node` step so Yarn 4 is available. Already fixed in `test.yml`.
+
 ## Test suite notes
 
 - **IPData mock** must use `function()` not an arrow function — arrow functions cannot be used as constructors with `new`.
