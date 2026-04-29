@@ -45,10 +45,10 @@ function ConverterForm(): React.JSX.Element {
   const { amountFrom: invalidAmountFrom, currencyFrom: invalidCurrencyFrom, currencyTo: invalidCurrencyTo } = invalid;
 
   const currencyFromValue = currencyList?.find(
-    c => invalidCurrencyFrom ? c.value === invalidCurrencyFrom?.value : c.value === currencyFrom?.value
+    c => invalidCurrencyFrom ? c.value === invalidCurrencyFrom?.value : c.value === currencyFrom?.value,
   );
   const currencyToValue = currencyList?.find(
-    c => invalidCurrencyTo ? c.value === invalidCurrencyTo?.value : c.value === currencyTo?.value
+    c => invalidCurrencyTo ? c.value === invalidCurrencyTo?.value : c.value === currencyTo?.value,
   );
 
   const setErrors = useCallback((error: { [key: string]: string }): void => {
@@ -95,7 +95,7 @@ function ConverterForm(): React.JSX.Element {
     if (!hasErrors && hasValues) {
       const rateFrom =
                 currencies?.find(
-                  (c: ICurrency) => c.code === currencyFrom?.value
+                  (c: ICurrency) => c.code === currencyFrom?.value,
                 )?.rate ?? 1;
       const rateTo =
                 currencies?.find((c: ICurrency) => c.code === currencyTo?.value)
@@ -110,7 +110,7 @@ function ConverterForm(): React.JSX.Element {
   }, [currencies, currencyFrom, currencyTo, amountFrom, errors, dispatch]);
 
   const handleCurrencyFromChange = useCallback((
-    value: SingleValue<ICurrencyOption>
+    value: SingleValue<ICurrencyOption>,
   ): void => {
     if (
       (!invalidCurrencyTo && _isEqual(value, currencyTo)) ||
@@ -134,7 +134,7 @@ function ConverterForm(): React.JSX.Element {
   ]);
 
   const handleCurrencyToChange = useCallback((
-    value: SingleValue<ICurrencyOption>
+    value: SingleValue<ICurrencyOption>,
   ): void => {
     if (
       (!invalidCurrencyFrom && _isEqual(value, currencyFrom)) ||

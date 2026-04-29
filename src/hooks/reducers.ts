@@ -28,7 +28,7 @@ export const defaultState: IConversionState = {
 
 const converterReducer = (
   state: IConversionState,
-  action: IConverterAction
+  action: IConverterAction,
 ): IConversionState => {
   switch (action.type) {
       case 'SET_USER':

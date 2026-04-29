@@ -18,7 +18,7 @@ function Converter(): React.JSX.Element {
   useEffect(() => {
     if (!user?.message && currencies) {
       const userCurrency = currencies.find(
-        (c: ICurrency) => c.code === user?.currency?.code
+        (c: ICurrency) => c.code === user?.currency?.code,
       );
       const { code, name, symbol, flag } = userCurrency ?? {};
       const value = code ?? '';

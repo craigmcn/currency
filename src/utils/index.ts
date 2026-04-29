@@ -57,14 +57,14 @@ const fetchUserData = async (dispatch: Dispatch<IConverterAction>): Promise<void
 };
 
 const fetchCurrencies = async (
-  dispatch: Dispatch<IConverterAction>
+  dispatch: Dispatch<IConverterAction>,
 ): Promise<void> => {
   let currencies: { [code: string]: number };
   let countries: ICurrency[] = [];
 
   try {
     const fetchRates = await fetch(
-      'https://api.craigmcn.com/v1/exchange-rates/latest'
+      'https://api.craigmcn.com/v1/exchange-rates/latest',
     );
     const fetchRatesJson = await fetchRates?.json();
 
@@ -76,7 +76,7 @@ const fetchCurrencies = async (
 
     if (currencies) {
       const fetchCountries = await fetch(
-        'https://restcountries.com/v3.1/all?fields=cca3,currencies,flag'
+        'https://restcountries.com/v3.1/all?fields=cca3,currencies,flag',
       );
       const fetchCountriesJson = await fetchCountries?.json();
 
@@ -103,7 +103,7 @@ const fetchCurrencies = async (
             flag: '🇪🇺',
             rate: 1,
           },
-        ]
+        ],
       );
 
       countries.sort((a: ICurrency, b: ICurrency) => {
@@ -126,7 +126,7 @@ const fetchCurrencies = async (
           label: a.name,
           symbol: a.symbol,
           flag: a.flag,
-        })
+        }),
       );
       dispatch({ type: 'SET_CURRENCY_LIST', payload: countryOptions });
     } else {
