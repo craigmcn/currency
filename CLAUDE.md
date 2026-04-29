@@ -77,7 +77,7 @@ Rules in force:
 
 ## Modernization tasks (in-progress)
 
-Branch `vite-migration` — 8 commits, not yet merged to main:
+Branch `vite-migration` — 9 commits, not yet merged to main:
 
 - [x] Migrate Webpack + Babel → Vite 8; bump Node to 24
 - [x] Replace Sass with plain CSS; remove `sass` devDependency
@@ -86,7 +86,7 @@ Branch `vite-migration` — 8 commits, not yet merged to main:
 - [x] **Vitest + Testing Library + tests** — 39 tests covering `converterReducer` (all 15 action types), `fetchCurrencies`/`fetchUserData` (mocked fetch/ipdata), `TextField`, `SelectField`. `vitest.config.ts` uses `mergeConfig` pattern; setup in `tests/setup.ts`; globals type augmentation in `src/types/vitest.d.ts`.
 - [x] **`test.yml` CI workflow** — lint → build → coverage on push to main and on PRs. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` set as secrets in GitHub repo settings.
 - [x] **Update README** — usage, stack, development, testing, and deployment sections.
-- [ ] **`.github/CODEOWNERS`** — add file containing `* @craigmcn`.
+- [x] **`.github/CODEOWNERS`** — `* @craigmcn`.
 - [ ] **Branch protection** — require PR, 1 approval with `@craigmcn` bypass, require `test` status check, block force push + deletion, dismiss stale reviews.
 - [ ] **Review favicon** — `index.html` already has full favicon link tags but the actual asset files (`.png`, `.ico`, `.webmanifest`, etc.) are not in the repo. Verify they are present in the Netlify deploy target or add them (see `albertcss` for working example).
 
