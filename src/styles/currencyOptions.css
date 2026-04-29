@@ -1,0 +1,31 @@
+:root {
+    --primaryContrast: #fff;
+    --primaryTransparent: rgba(0, 91, 153, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primaryContrast: #02243c;
+        --primaryTransparent: rgba(76, 181, 250, 0.2);
+    }
+}
+
+.option {
+    display: flex;
+}
+
+.option__image {
+    background-color: var(--white);
+    border-radius: 50%;
+    margin-right: 4px;
+    padding: 1px;
+}
+
+.option__label--secondary {
+    color: var(--grey500);
+    margin-left: auto;
+}
+
+.option__label--secondary-hl {
+    color: var(--grey100);
+}

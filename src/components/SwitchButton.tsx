@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSwap } from '@fortawesome/duotone-light-svg-icons';
 import ConverterContext from '../hooks/context';
-import '../styles/switchButton.scss';
+import '../styles/switchButton.css';
 
 function SwitchButton(): React.JSX.Element {
   const {

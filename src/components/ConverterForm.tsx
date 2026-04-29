@@ -11,7 +11,7 @@ import { faExclamationCircle } from '@fortawesome/duotone-light-svg-icons/faExcl
 import _isEqual from 'lodash/isEqual';
 import { isBrowser } from 'react-device-detect';
 import SwitchButton from './SwitchButton';
-import '../styles/currencyOptions.scss';
+import '../styles/currencyOptions.css';
 
 const formatCurrencySelectOption = ({
   value,
