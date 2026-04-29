@@ -1,17 +1,19 @@
 {
-    "compilerOptions": {
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "module": "commonjs",
-        "noImplicitAny": true,
-        "outDir": "./dist/",
-        "rootDirs": ["src/"],
-        "sourceMap": true,
-        "strict": true,
-        "target": "es6"
-    },
-    "exclude": [
-      "**/node_modules",
-    ]
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true
+  },
+  "include": ["src", "tests"],
+  "exclude": ["**/node_modules"]
 }

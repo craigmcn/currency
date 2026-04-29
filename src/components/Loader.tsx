@@ -6,7 +6,7 @@ export function Loader(): React.JSX.Element {
   return (
     <div className="alert alert--info">
       <div className="alert__text">
-        <FontAwesomeIcon icon={ faSyncAlt } spin /> Loading &hellip;
+        <FontAwesomeIcon icon={faSyncAlt} spin /> Loading &hellip;
       </div>
     </div>
   );

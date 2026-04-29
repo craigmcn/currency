@@ -14,15 +14,26 @@ interface IProps {
   error?: string;
   searchable?: boolean;
   handleChange?: (value: SingleValue<ISelectOption>) => void;
-  formatOptionLabel?: (value: ISelectOption, meta: FormatOptionLabelMeta<ISelectOption>) => React.JSX.Element;
+  formatOptionLabel?: (
+    value: ISelectOption,
+    meta: FormatOptionLabelMeta<ISelectOption>,
+  ) => React.JSX.Element;
 }
 
 type TProps = Partial<HTMLInputElement> & IProps;
 
 // react-select override styles
 const customStyles = {
-  control: (provided: Record<string, unknown>) => ({ ...provided, backgroundColor: 'var(--white)', borderColor: 'var(--grey600)', color: 'var(--black)' }),
-  dropdownIndicator: (provided: Record<string, unknown>) => ({ ...provided, color: 'var(--grey600)' }),
+  control: (provided: Record<string, unknown>) => ({
+    ...provided,
+    backgroundColor: 'var(--white)',
+    borderColor: 'var(--grey600)',
+    color: 'var(--black)',
+  }),
+  dropdownIndicator: (provided: Record<string, unknown>) => ({
+    ...provided,
+    color: 'var(--grey600)',
+  }),
   indicatorSeparator: (provided: Record<string, unknown>) => ({
     ...provided,
     backgroundColor: 'var(--grey600)',
@@ -31,7 +42,10 @@ const customStyles = {
     ...provided,
     backgroundColor: 'var(--white)',
   }),
-  option: (provided: Record<string, unknown>, state: OptionProps<ISelectOption, false>) => ({
+  option: (
+    provided: Record<string, unknown>,
+    state: OptionProps<ISelectOption, false>,
+  ) => ({
     ...provided,
     backgroundColor: state.isSelected
       ? 'var(--primary)'
@@ -40,7 +54,10 @@ const customStyles = {
         : '',
     color: state.isSelected ? 'var(--primaryContrast)' : 'var(--black)',
   }),
-  placeholder: (provided: Record<string, unknown>) => ({ ...provided, color: 'var(--grey600)' }),
+  placeholder: (provided: Record<string, unknown>) => ({
+    ...provided,
+    color: 'var(--grey600)',
+  }),
   singleValue: (provided: Record<string, unknown>) => ({
     ...provided,
     color: 'var(--black)',
@@ -64,21 +81,19 @@ export function SelectField(props: TProps): React.JSX.Element {
 
   return (
     <div className="form__group">
-      <label className="form__label" htmlFor={ id }>
-        { label }
+      <label className="form__label" htmlFor={id}>
+        {label}
       </label>
-      { error &&
-        <div className="form__control-error">{ error }</div>
-      }
+      {error && <div className="form__control-error">{error}</div>}
       <Select
-        id={ id }
-        name={ id }
-        options={ options }
-        styles={ customStyles }
-        onChange={ handleChange }
-        value={ selectedOption }
-        formatOptionLabel={ formatOptionLabel }
-        isSearchable={ searchable }
+        id={id}
+        name={id}
+        options={options}
+        styles={customStyles}
+        onChange={handleChange}
+        value={selectedOption}
+        formatOptionLabel={formatOptionLabel}
+        isSearchable={searchable}
       />
     </div>
   );

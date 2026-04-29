@@ -1,4 +1,10 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useContext, useEffect } from 'react';
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useCallback,
+  useContext,
+  useEffect,
+} from 'react';
 import { SingleValue } from 'react-select';
 import { FormatOptionLabelMeta } from 'react-select/dist/declarations/src/Select';
 import Loader from './Loader';
@@ -11,26 +17,23 @@ import { faExclamationCircle } from '@fortawesome/duotone-light-svg-icons/faExcl
 import _isEqual from 'lodash/isEqual';
 import { isBrowser } from 'react-device-detect';
 import SwitchButton from './SwitchButton';
-import '../styles/currencyOptions.scss';
+import '../styles/currencyOptions.css';
 
-const formatCurrencySelectOption = ({
-  value,
-  label,
-  symbol,
-  flag,
-}: ICurrencyOption,
-{
-  context,
-  selectValue,
-}: FormatOptionLabelMeta<ICurrencyOption>): React.JSX.Element => {
-  const hl = context === 'menu' && selectValue?.[0]?.value === value ? ' option__label--secondary-hl' : '';
+const formatCurrencySelectOption = (
+  { value, label, symbol, flag }: ICurrencyOption,
+  { context, selectValue }: FormatOptionLabelMeta<ICurrencyOption>,
+): React.JSX.Element => {
+  const hl =
+    context === 'menu' && selectValue?.[0]?.value === value
+      ? ' option__label--secondary-hl'
+      : '';
 
   return (
     <div className="option">
-      <span className="option__image">{ flag }</span>
-      <span className="option__label">{ label }</span>
-      <span className={ `option__label option__label--secondary${hl}` }>
-        { value } { symbol }
+      <span className="option__image">{flag}</span>
+      <span className="option__label">{label}</span>
+      <span className={`option__label option__label--secondary${hl}`}>
+        {value} {symbol}
       </span>
     </div>
   );
@@ -42,31 +45,40 @@ function ConverterForm(): React.JSX.Element {
     dispatch,
   } = useContext(ConverterContext);
   const { currencyFrom, currencyTo, amountFrom } = data;
-  const { amountFrom: invalidAmountFrom, currencyFrom: invalidCurrencyFrom, currencyTo: invalidCurrencyTo } = invalid;
+  const {
+    amountFrom: invalidAmountFrom,
+    currencyFrom: invalidCurrencyFrom,
+    currencyTo: invalidCurrencyTo,
+  } = invalid;
 
-  const currencyFromValue = currencyList?.find(
-    c => invalidCurrencyFrom ? c.value === invalidCurrencyFrom?.value : c.value === currencyFrom?.value
+  const currencyFromValue = currencyList?.find((c) =>
+    invalidCurrencyFrom
+      ? c.value === invalidCurrencyFrom?.value
+      : c.value === currencyFrom?.value,
   );
-  const currencyToValue = currencyList?.find(
-    c => invalidCurrencyTo ? c.value === invalidCurrencyTo?.value : c.value === currencyTo?.value
+  const currencyToValue = currencyList?.find((c) =>
+    invalidCurrencyTo
+      ? c.value === invalidCurrencyTo?.value
+      : c.value === currencyTo?.value,
   );
 
-  const setErrors = useCallback((error: { [key: string]: string }): void => {
-    dispatch({
-      type: 'SET_ERRORS',
-      payload: {
-        ...errors,
-        ...error,
-      },
-    });
-  }, [
-    dispatch,
-    errors,
-  ]);
+  const setErrors = useCallback(
+    (error: { [key: string]: string }): void => {
+      dispatch({
+        type: 'SET_ERRORS',
+        payload: {
+          ...errors,
+          ...error,
+        },
+      });
+    },
+    [dispatch, errors],
+  );
 
-  const restoreInvalid = useCallback((type: string): void => {
-    let payload: number | ICurrencyOption | undefined;
-    switch (type) {
+  const restoreInvalid = useCallback(
+    (type: string): void => {
+      let payload: number | ICurrencyOption | undefined;
+      switch (type) {
         case 'SET_AMOUNT_FROM':
           payload = invalidAmountFrom;
           break;
@@ -78,28 +90,25 @@ function ConverterForm(): React.JSX.Element {
           break;
         default:
           return;
-    }
-    if (payload) {
-      dispatch({ type, payload });
-    }
-  }, [
-    invalidAmountFrom,
-    invalidCurrencyFrom,
-    invalidCurrencyTo,
-    dispatch,
-  ]);
+      }
+      if (payload) {
+        dispatch({ type, payload });
+      }
+    },
+    [invalidAmountFrom, invalidCurrencyFrom, invalidCurrencyTo, dispatch],
+  );
 
   useEffect(() => {
-    const hasErrors = errors.currencyFrom || errors.currencyTo || errors.amountFrom;
+    const hasErrors =
+      errors.currencyFrom || errors.currencyTo || errors.amountFrom;
     const hasValues = currencyFrom && currencyTo && amountFrom;
     if (!hasErrors && hasValues) {
       const rateFrom =
-                currencies?.find(
-                  (c: ICurrency) => c.code === currencyFrom?.value
-                )?.rate ?? 1;
+        currencies?.find((c: ICurrency) => c.code === currencyFrom?.value)
+          ?.rate ?? 1;
       const rateTo =
-                currencies?.find((c: ICurrency) => c.code === currencyTo?.value)
-                  ?.rate ?? 1;
+        currencies?.find((c: ICurrency) => c.code === currencyTo?.value)
+          ?.rate ?? 1;
 
       dispatch({ type: 'SET_RATE', payload: rateTo / rateFrom });
       dispatch({
@@ -109,79 +118,70 @@ function ConverterForm(): React.JSX.Element {
     }
   }, [currencies, currencyFrom, currencyTo, amountFrom, errors, dispatch]);
 
-  const handleCurrencyFromChange = useCallback((
-    value: SingleValue<ICurrencyOption>
-  ): void => {
-    if (
-      (!invalidCurrencyTo && _isEqual(value, currencyTo)) ||
-            (invalidCurrencyTo && _isEqual(value, invalidCurrencyTo))
-    ) {
-      setErrors({ currencyFrom: 'Currencies must be different' });
-      dispatch({ type: 'SET_INVALID_CURRENCY_FROM', payload: value });
-    } else {
-      setErrors({ currencyFrom: '', currencyTo: '' });
-      dispatch({ type: 'SET_CURRENCY_FROM', payload: value });
+  const handleCurrencyFromChange = useCallback(
+    (value: SingleValue<ICurrencyOption>): void => {
+      if (
+        (!invalidCurrencyTo && _isEqual(value, currencyTo)) ||
+        (invalidCurrencyTo && _isEqual(value, invalidCurrencyTo))
+      ) {
+        setErrors({ currencyFrom: 'Currencies must be different' });
+        dispatch({ type: 'SET_INVALID_CURRENCY_FROM', payload: value });
+      } else {
+        setErrors({ currencyFrom: '', currencyTo: '' });
+        dispatch({ type: 'SET_CURRENCY_FROM', payload: value });
 
-      restoreInvalid('SET_CURRENCY_TO');
-      restoreInvalid('SET_AMOUNT_FROM');
-    }
-  }, [
-    invalidCurrencyTo,
-    currencyTo,
-    setErrors,
-    dispatch,
-    restoreInvalid,
-  ]);
+        restoreInvalid('SET_CURRENCY_TO');
+        restoreInvalid('SET_AMOUNT_FROM');
+      }
+    },
+    [invalidCurrencyTo, currencyTo, setErrors, dispatch, restoreInvalid],
+  );
 
-  const handleCurrencyToChange = useCallback((
-    value: SingleValue<ICurrencyOption>
-  ): void => {
-    if (
-      (!invalidCurrencyFrom && _isEqual(value, currencyFrom)) ||
-            (invalidCurrencyFrom && _isEqual(value, invalidCurrencyFrom))
-    ) {
-      setErrors({ currencyTo: 'Currencies must be different' });
-      dispatch({ type: 'SET_INVALID_CURRENCY_TO', payload: value });
-    } else {
-      setErrors({ currencyFrom: '', currencyTo: '' });
-      dispatch({ type: 'SET_CURRENCY_TO', payload: value });
+  const handleCurrencyToChange = useCallback(
+    (value: SingleValue<ICurrencyOption>): void => {
+      if (
+        (!invalidCurrencyFrom && _isEqual(value, currencyFrom)) ||
+        (invalidCurrencyFrom && _isEqual(value, invalidCurrencyFrom))
+      ) {
+        setErrors({ currencyTo: 'Currencies must be different' });
+        dispatch({ type: 'SET_INVALID_CURRENCY_TO', payload: value });
+      } else {
+        setErrors({ currencyFrom: '', currencyTo: '' });
+        dispatch({ type: 'SET_CURRENCY_TO', payload: value });
 
-      restoreInvalid('SET_CURRENCY_FROM');
-      restoreInvalid('SET_AMOUNT_FROM');
-    }
-  }, [
-    invalidCurrencyFrom,
-    currencyFrom,
-    setErrors,
-    dispatch,
-    restoreInvalid,
-  ]);
+        restoreInvalid('SET_CURRENCY_FROM');
+        restoreInvalid('SET_AMOUNT_FROM');
+      }
+    },
+    [invalidCurrencyFrom, currencyFrom, setErrors, dispatch, restoreInvalid],
+  );
 
-  const handleAmountChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
-    const amount = Number(e.currentTarget.value);
-    if (isNaN(amount) || amount === 0) {
-      setErrors({ amountFrom: 'Amount must be a number.' });
-    } else if (errors.currencyFrom || errors.currencyTo) {
-      dispatch({ type: 'SET_INVALID_AMOUNT_FROM', payload: amount });
-    } else {
-      setErrors({ amountFrom: '' });
-      dispatch({ type: 'SET_AMOUNT_FROM', payload: amount });
+  const handleAmountChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      const amount = Number(e.currentTarget.value);
+      if (isNaN(amount) || amount === 0) {
+        setErrors({ amountFrom: 'Amount must be a number.' });
+      } else if (errors.currencyFrom || errors.currencyTo) {
+        dispatch({ type: 'SET_INVALID_AMOUNT_FROM', payload: amount });
+      } else {
+        setErrors({ amountFrom: '' });
+        dispatch({ type: 'SET_AMOUNT_FROM', payload: amount });
 
-      restoreInvalid('SET_CURRENCY_FROM');
-      restoreInvalid('SET_CURRENCY_TO');
-    }
-  }, [
-    errors,
-    setErrors,
-    dispatch,
-    restoreInvalid,
-  ]);
+        restoreInvalid('SET_CURRENCY_FROM');
+        restoreInvalid('SET_CURRENCY_TO');
+      }
+    },
+    [errors, setErrors, dispatch, restoreInvalid],
+  );
 
-  const handleAmountEnter = useCallback((e: KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'Enter') {
-      (e.target as HTMLInputElement).blur();
-    }
-  }, []);
+  const handleAmountEnter = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>): void => {
+      if (e.key === 'Enter') {
+        (e.target as HTMLInputElement).blur();
+      }
+    },
+    [],
+  );
 
   return (
     <div className="flex__item flex__item--12 flex__item--4-md">
@@ -190,7 +190,7 @@ function ConverterForm(): React.JSX.Element {
       ) : errors._error ? (
         <div className="alert alert--danger">
           <div className="alert__icon" aria-hidden="true">
-            <FontAwesomeIcon icon={ faExclamationCircle } size="2x" />
+            <FontAwesomeIcon icon={faExclamationCircle} size="2x" />
           </div>
           <div className="alert__text">{errors._error}</div>
         </div>
@@ -199,12 +199,12 @@ function ConverterForm(): React.JSX.Element {
           <SelectField
             id="currencyFrom"
             label="Convert from currency"
-            options={ currencyList }
-            handleChange={ handleCurrencyFromChange }
-            selectedOption={ currencyFromValue }
-            formatOptionLabel={ formatCurrencySelectOption }
-            error={ errors.currencyFrom }
-            searchable={ isBrowser }
+            options={currencyList}
+            handleChange={handleCurrencyFromChange}
+            selectedOption={currencyFromValue}
+            formatOptionLabel={formatCurrencySelectOption}
+            error={errors.currencyFrom}
+            searchable={isBrowser}
           />
 
           <SwitchButton />
@@ -212,21 +212,21 @@ function ConverterForm(): React.JSX.Element {
           <SelectField
             id="currencyTo"
             label="To currency"
-            options={ currencyList }
-            handleChange={ handleCurrencyToChange }
-            selectedOption={ currencyToValue }
-            formatOptionLabel={ formatCurrencySelectOption }
-            error={ errors.currencyTo }
-            searchable={ isBrowser }
+            options={currencyList}
+            handleChange={handleCurrencyToChange}
+            selectedOption={currencyToValue}
+            formatOptionLabel={formatCurrencySelectOption}
+            error={errors.currencyTo}
+            searchable={isBrowser}
           />
 
           <TextField
             id="amountFrom"
             label="Amount"
             inputMode="decimal"
-            handleChange={ handleAmountChange }
-            handleKeyPress={ handleAmountEnter }
-            error={ errors.amountFrom }
+            handleChange={handleAmountChange}
+            handleKeyPress={handleAmountEnter}
+            error={errors.amountFrom}
           />
         </form>
       )}

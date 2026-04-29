@@ -9,7 +9,7 @@ interface IErrorProps {
 export function Error({ children }: IErrorProps): React.JSX.Element {
   return (
     <p className="text--danger">
-      <FontAwesomeIcon icon={ faExclamationTriangle } className="m-r-xs" />
+      <FontAwesomeIcon icon={faExclamationTriangle} className="m-r-xs" />
       {children}
     </p>
   );

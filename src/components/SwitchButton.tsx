@@ -2,11 +2,13 @@ import React, { useCallback, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSwap } from '@fortawesome/duotone-light-svg-icons';
 import ConverterContext from '../hooks/context';
-import '../styles/switchButton.scss';
+import '../styles/switchButton.css';
 
 function SwitchButton(): React.JSX.Element {
   const {
-    state: { data: { currencyFrom, currencyTo } },
+    state: {
+      data: { currencyFrom, currencyTo },
+    },
     dispatch,
   } = useContext(ConverterContext);
 
@@ -14,23 +16,20 @@ function SwitchButton(): React.JSX.Element {
     if (currencyFrom && currencyTo) {
       dispatch({ type: 'SWITCH_CURRENCIES' });
     }
-  }, [
-    currencyFrom,
-    currencyTo,
-    dispatch,
-  ]);
+  }, [currencyFrom, currencyTo, dispatch]);
 
   return (
     <div className="switch-currencies">
-      <button type="button"
+      <button
+        type="button"
         className="switch-currencies__button"
         title="Switch currencies"
-        onClick={ handleCurrencySwitch }
-        disabled={ !currencyFrom || !currencyTo }
+        onClick={handleCurrencySwitch}
+        disabled={!currencyFrom || !currencyTo}
         aria-label="Switch currencies"
       >
         <span aria-hidden="true">
-          <FontAwesomeIcon icon={ faSwap } />
+          <FontAwesomeIcon icon={faSwap} />
         </span>
       </button>
     </div>

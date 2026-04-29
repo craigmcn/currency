@@ -18,7 +18,7 @@ function Converter(): React.JSX.Element {
   useEffect(() => {
     if (!user?.message && currencies) {
       const userCurrency = currencies.find(
-        (c: ICurrency) => c.code === user?.currency?.code
+        (c: ICurrency) => c.code === user?.currency?.code,
       );
       const { code, name, symbol, flag } = userCurrency ?? {};
       const value = code ?? '';
@@ -31,7 +31,7 @@ function Converter(): React.JSX.Element {
   }, [user, currencies]);
 
   return (
-    <ConverterContext.Provider value={ { state, dispatch } }>
+    <ConverterContext.Provider value={{ state, dispatch }}>
       <div className="flex flex--grid">
         <ConverterForm />
         <ConverterResult />
