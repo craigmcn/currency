@@ -77,15 +77,15 @@ Rules in force:
 
 ## Modernization tasks (in-progress)
 
-Branch `vite-migration` — 7 commits, not yet merged to main:
+Branch `vite-migration` — 8 commits, not yet merged to main:
 
 - [x] Migrate Webpack + Babel → Vite 8; bump Node to 24
 - [x] Replace Sass with plain CSS; remove `sass` devDependency
 - [x] Clean up ESLint — deleted `.eslintrc`; rewrote `eslint.config.mjs` natively; removed `@eslint/compat` and `@eslint/eslintrc`
 - [x] Add Prettier; streamline ESLint to quality rules only; remove `@stylistic/eslint-plugin`
 - [x] **Vitest + Testing Library + tests** — 39 tests covering `converterReducer` (all 15 action types), `fetchCurrencies`/`fetchUserData` (mocked fetch/ipdata), `TextField`, `SelectField`. `vitest.config.ts` uses `mergeConfig` pattern; setup in `tests/setup.ts`; globals type augmentation in `src/types/vitest.d.ts`.
-- [ ] **`test.yml` CI workflow** — lint → build → coverage, triggered on PR and push to main. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` secrets in GitHub repo settings.
-- [ ] **Update README** — add end-user usage section (like `colours`) and developer usage section (like `unixtimestamp`).
+- [x] **`test.yml` CI workflow** — lint → build → coverage on push to main and on PRs. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` set as secrets in GitHub repo settings.
+- [x] **Update README** — usage, stack, development, testing, and deployment sections.
 - [ ] **`.github/CODEOWNERS`** — add file containing `* @craigmcn`.
 - [ ] **Branch protection** — require PR, 1 approval with `@craigmcn` bypass, require `test` status check, block force push + deletion, dismiss stale reviews.
 - [ ] **Review favicon** — `index.html` already has full favicon link tags but the actual asset files (`.png`, `.ico`, `.webmanifest`, etc.) are not in the repo. Verify they are present in the Netlify deploy target or add them (see `albertcss` for working example).
