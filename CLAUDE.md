@@ -87,8 +87,8 @@ Branch `vite-migration` — 9 commits, not yet merged to main:
 - [x] **`test.yml` CI workflow** — lint → build → coverage on push to main and on PRs. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` set as secrets in GitHub repo settings.
 - [x] **Update README** — usage, stack, development, testing, and deployment sections.
 - [x] **`.github/CODEOWNERS`** — `* @craigmcn`.
-- [ ] **Branch protection** — require PR, 1 approval with `@craigmcn` bypass, require `test` status check, block force push + deletion, dismiss stale reviews.
-- [ ] **Review favicon** — `index.html` already has full favicon link tags but the actual asset files (`.png`, `.ico`, `.webmanifest`, etc.) are not in the repo. Verify they are present in the Netlify deploy target or add them (see `albertcss` for working example).
+- [x] **Branch protection** — require PR, 1 approval, require `test` status check, dismiss stale reviews, block force push + deletion. Owner bypass is implicit (personal repo, `enforce_admins: false`).
+- [x] **Favicon** — no action needed. Favicons are served from the `craigmcnaughton` parent app at `www.craigmcn.com`; sub-path deploys inherit them correctly from the official domain.
 
 ## Test suite notes
 
