@@ -7,13 +7,15 @@
     "build:netlify": "vite build --outDir netlify && vite build --outDir netlify/currency",
     "dev": "vite",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "coverage": "vitest run --coverage",
     "preview": "vite preview",
     "start": "vite",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "prepare": "husky"
   },
   "keywords": [
     "currency",
@@ -52,6 +54,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "husky": "^9.1.7",
     "jsdom": "^29.1.0",
     "prettier": "^3.8.3",
     "typescript": "^5.8.3",
@@ -62,5 +65,5 @@
     "type": "git",
     "url": "https://github.com/craigmcn/currency.git"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.14.1"
 }

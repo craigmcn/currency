@@ -1,48 +1,48 @@
-import { Dispatch } from 'react';
-import IPData from 'ipdata';
+import { Dispatch } from "react";
+import IPData from "ipdata";
 import {
   IConverterAction,
   IIpData,
   ICurrency,
   IRestCountry,
   ICurrencyOption,
-} from '../types';
+} from "../types";
 
-const ipdataco = import.meta.env.VITE_IPDATA_CO ?? '';
+const ipdataco = import.meta.env.VITE_IPDATA_CO ?? "";
 
 const currencyCountries: { [key: string]: string } = {
-  CAD: 'CAN',
-  HKD: 'HKG',
-  ISK: 'ISL',
-  PHP: 'PHL',
-  DKK: 'DNK',
-  HUF: 'HUN',
-  CZK: 'CZE',
-  AUD: 'AUS',
-  RON: 'ROU',
-  SEK: 'SWE',
-  IDR: 'IDN',
-  INR: 'IND',
-  BRL: 'BRA',
-  RUB: 'RUS',
-  HRK: 'HRV',
-  JPY: 'JPN',
-  THB: 'THA',
-  CHF: 'CHE',
-  SGD: 'SGP',
-  PLN: 'POL',
-  BGN: 'BGR',
-  TRY: 'TUR',
-  CNY: 'CHN',
-  NOK: 'NOR',
-  NZD: 'NZL',
-  ZAR: 'ZAF',
-  USD: 'USA',
-  MXN: 'MEX',
-  ILS: 'ISR',
-  GBP: 'GBR',
-  KRW: 'KOR',
-  MYR: 'MYS',
+  CAD: "CAN",
+  HKD: "HKG",
+  ISK: "ISL",
+  PHP: "PHL",
+  DKK: "DNK",
+  HUF: "HUN",
+  CZK: "CZE",
+  AUD: "AUS",
+  RON: "ROU",
+  SEK: "SWE",
+  IDR: "IDN",
+  INR: "IND",
+  BRL: "BRA",
+  RUB: "RUS",
+  HRK: "HRV",
+  JPY: "JPN",
+  THB: "THA",
+  CHF: "CHE",
+  SGD: "SGP",
+  PLN: "POL",
+  BGN: "BGR",
+  TRY: "TUR",
+  CNY: "CHN",
+  NOK: "NOR",
+  NZD: "NZL",
+  ZAR: "ZAF",
+  USD: "USA",
+  MXN: "MEX",
+  ILS: "ISR",
+  GBP: "GBR",
+  KRW: "KOR",
+  MYR: "MYS",
 };
 
 const fetchUserData = async (
@@ -55,7 +55,7 @@ const fetchUserData = async (
     console.warn(data.message); // eslint-disable-line no-console
   }
 
-  dispatch({ type: 'SET_USER', payload: data });
+  dispatch({ type: "SET_USER", payload: data });
 };
 
 const fetchCurrencies = async (
@@ -66,7 +66,7 @@ const fetchCurrencies = async (
 
   try {
     const fetchRates = await fetch(
-      'https://api.craigmcn.com/v1/exchange-rates/latest',
+      "https://api.craigmcn.com/v1/exchange-rates/latest",
     );
     const fetchRatesJson = await fetchRates?.json();
 
@@ -74,11 +74,11 @@ const fetchCurrencies = async (
       throw new Error(fetchRatesJson?.error?.message);
     }
     currencies = fetchRatesJson?.rates;
-    dispatch({ type: 'SET_TIMESTAMP', payload: fetchRatesJson?.timestamp });
+    dispatch({ type: "SET_TIMESTAMP", payload: fetchRatesJson?.timestamp });
 
     if (currencies) {
       const fetchCountries = await fetch(
-        'https://restcountries.com/v3.1/all?fields=cca3,currencies,flag',
+        "https://restcountries.com/v3.1/all?fields=cca3,currencies,flag",
       );
       const fetchCountriesJson = await fetchCountries?.json();
 
@@ -99,10 +99,10 @@ const fetchCurrencies = async (
         [
           {
             // EUR is the base currency, not included in currencies data
-            name: 'European euro',
-            code: 'EUR',
-            symbol: '€',
-            flag: '🇪🇺',
+            name: "European euro",
+            code: "EUR",
+            symbol: "€",
+            flag: "🇪🇺",
             rate: 1,
           },
         ],
@@ -119,7 +119,7 @@ const fetchCurrencies = async (
       });
     }
 
-    dispatch({ type: 'SET_CURRENCIES', payload: countries });
+    dispatch({ type: "SET_CURRENCIES", payload: countries });
 
     if (countries?.length) {
       const countryOptions = countries.map(
@@ -130,25 +130,25 @@ const fetchCurrencies = async (
           flag: a.flag,
         }),
       );
-      dispatch({ type: 'SET_CURRENCY_LIST', payload: countryOptions });
+      dispatch({ type: "SET_CURRENCY_LIST", payload: countryOptions });
     } else {
-      const error = 'No country list available';
+      const error = "No country list available";
       dispatch({
-        type: 'SET_ERRORS',
+        type: "SET_ERRORS",
         payload: { _error: error },
       });
       throw new Error(error);
     }
 
-    dispatch({ type: 'SET_LOADING', payload: false });
+    dispatch({ type: "SET_LOADING", payload: false });
   } catch (e) {
     const _error =
       e instanceof Error || e instanceof TypeError ? e.message : (e as string);
     dispatch({
-      type: 'SET_ERRORS',
+      type: "SET_ERRORS",
       payload: { _error },
     });
-    dispatch({ type: 'SET_LOADING', payload: false });
+    dispatch({ type: "SET_LOADING", payload: false });
     throw new Error(_error);
   }
 };

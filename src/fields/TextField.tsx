@@ -3,7 +3,7 @@ import React, {
   DetailedHTMLProps,
   InputHTMLAttributes,
   KeyboardEvent,
-} from 'react';
+} from "react";
 
 interface IProps {
   label?: string;
@@ -37,7 +37,7 @@ export function TextField({
       <input
         id={id}
         name={id}
-        className={`form__control${error ? ' form__control--hasError' : ''}`}
+        className={`form__control${error ? " form__control--hasError" : ""}`}
         type="text"
         inputMode={inputMode}
         onChange={handleChange}

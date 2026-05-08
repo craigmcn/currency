@@ -1,6 +1,6 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/duotone-light-svg-icons/faExclamationTriangle';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/duotone-light-svg-icons/faExclamationTriangle";
 
 interface IErrorProps {
   children: React.ReactNode;

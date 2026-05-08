@@ -1,6 +1,6 @@
-import { createContext } from 'react';
-import { IConversionState } from '../types';
-import { defaultState } from '../hooks/reducers';
+import { createContext } from "react";
+import { IConversionState } from "../types";
+import { defaultState } from "../hooks/reducers";
 
 interface IContextProps {
   state: IConversionState;

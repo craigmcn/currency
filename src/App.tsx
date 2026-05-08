@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
-import Header from './components/Header';
-import Main from './components/Main';
-import Converter from './containers/Converter';
+import React, { Fragment } from "react";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Converter from "./containers/Converter";
 
 function App(): React.JSX.Element {
   return (
