@@ -1,6 +1,6 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSyncAlt } from '@fortawesome/duotone-light-svg-icons/faSyncAlt';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSyncAlt } from "@fortawesome/duotone-light-svg-icons/faSyncAlt";
 
 export function Loader(): React.JSX.Element {
   return (

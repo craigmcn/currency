@@ -1,58 +1,56 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { TextField } from './TextField';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { TextField } from "./TextField";
 
-describe('TextField', () => {
-  it('renders a label and input', () => {
+describe("TextField", () => {
+  it("renders a label and input", () => {
     render(<TextField id="amount" label="Amount" />);
-    expect(screen.getByLabelText('Amount')).toBeInTheDocument();
+    expect(screen.getByLabelText("Amount")).toBeInTheDocument();
   });
 
-  it('does not render an error message when no error prop is given', () => {
+  it("does not render an error message when no error prop is given", () => {
     render(<TextField id="amount" label="Amount" />);
-    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     expect(
-      document.querySelector('.form__control-error'),
+      document.querySelector(".form__control-error"),
     ).not.toBeInTheDocument();
   });
 
-  it('renders the error message when an error prop is given', () => {
+  it("renders the error message when an error prop is given", () => {
     render(<TextField id="amount" label="Amount" error="Required" />);
-    expect(screen.getByText('Required')).toBeInTheDocument();
+    expect(screen.getByText("Required")).toBeInTheDocument();
   });
 
-  it('applies the error class to the input when an error is given', () => {
+  it("applies the error class to the input when an error is given", () => {
     render(<TextField id="amount" label="Amount" error="Required" />);
-    expect(screen.getByLabelText('Amount')).toHaveClass('form__control--hasError');
-  });
-
-  it('does not apply the error class when no error', () => {
-    render(<TextField id="amount" label="Amount" />);
-    expect(screen.getByLabelText('Amount')).not.toHaveClass(
-      'form__control--hasError',
+    expect(screen.getByLabelText("Amount")).toHaveClass(
+      "form__control--hasError",
     );
   });
 
-  it('calls handleChange when the input value changes', async () => {
+  it("does not apply the error class when no error", () => {
+    render(<TextField id="amount" label="Amount" />);
+    expect(screen.getByLabelText("Amount")).not.toHaveClass(
+      "form__control--hasError",
+    );
+  });
+
+  it("calls handleChange when the input value changes", async () => {
     const handleChange = vi.fn();
     render(
       <TextField id="amount" label="Amount" handleChange={handleChange} />,
     );
-    await userEvent.type(screen.getByLabelText('Amount'), '42');
+    await userEvent.type(screen.getByLabelText("Amount"), "42");
     expect(handleChange).toHaveBeenCalled();
   });
 
-  it('calls handleKeyPress when a key is pressed', async () => {
+  it("calls handleKeyPress when a key is pressed", async () => {
     const handleKeyPress = vi.fn();
     render(
-      <TextField
-        id="amount"
-        label="Amount"
-        handleKeyPress={handleKeyPress}
-      />,
+      <TextField id="amount" label="Amount" handleKeyPress={handleKeyPress} />,
     );
-    await userEvent.type(screen.getByLabelText('Amount'), '{Enter}');
+    await userEvent.type(screen.getByLabelText("Amount"), "{Enter}");
     expect(handleKeyPress).toHaveBeenCalled();
   });
 });

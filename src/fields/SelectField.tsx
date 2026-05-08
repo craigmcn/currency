@@ -1,6 +1,9 @@
-import React from 'react';
-import Select, { OptionProps, SingleValue } from 'react-select';
-import { FormatOptionLabelMeta } from 'react-select/dist/declarations/src/Select';
+import React from "react";
+import Select, {
+  FormatOptionLabelMeta,
+  OptionProps,
+  SingleValue,
+} from "react-select";
 
 export interface ISelectOption {
   label: string;
@@ -26,21 +29,21 @@ type TProps = Partial<HTMLInputElement> & IProps;
 const customStyles = {
   control: (provided: Record<string, unknown>) => ({
     ...provided,
-    backgroundColor: 'var(--white)',
-    borderColor: 'var(--grey600)',
-    color: 'var(--black)',
+    backgroundColor: "var(--white)",
+    borderColor: "var(--grey600)",
+    color: "var(--black)",
   }),
   dropdownIndicator: (provided: Record<string, unknown>) => ({
     ...provided,
-    color: 'var(--grey600)',
+    color: "var(--grey600)",
   }),
   indicatorSeparator: (provided: Record<string, unknown>) => ({
     ...provided,
-    backgroundColor: 'var(--grey600)',
+    backgroundColor: "var(--grey600)",
   }),
   menu: (provided: Record<string, unknown>) => ({
     ...provided,
-    backgroundColor: 'var(--white)',
+    backgroundColor: "var(--white)",
   }),
   option: (
     provided: Record<string, unknown>,
@@ -48,22 +51,22 @@ const customStyles = {
   ) => ({
     ...provided,
     backgroundColor: state.isSelected
-      ? 'var(--primary)'
+      ? "var(--primary)"
       : state.isFocused
-        ? 'var(--primaryTransparent)'
-        : '',
-    color: state.isSelected ? 'var(--primaryContrast)' : 'var(--black)',
+        ? "var(--primaryTransparent)"
+        : "",
+    color: state.isSelected ? "var(--primaryContrast)" : "var(--black)",
   }),
   placeholder: (provided: Record<string, unknown>) => ({
     ...provided,
-    color: 'var(--grey600)',
+    color: "var(--grey600)",
   }),
   singleValue: (provided: Record<string, unknown>) => ({
     ...provided,
-    color: 'var(--black)',
-    overflow: 'visible',
-    paddingRight: '0.5em',
-    width: '100%',
+    color: "var(--black)",
+    overflow: "visible",
+    paddingRight: "0.5em",
+    width: "100%",
   }),
 };
 

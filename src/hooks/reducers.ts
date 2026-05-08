@@ -1,13 +1,13 @@
-import { IConversionState, IConverterAction } from '../types';
+import { IConversionState, IConverterAction } from "../types";
 
 export const defaultState: IConversionState = {
   loading: true,
   timestamp: undefined,
   errors: {
-    _error: '',
-    amountFrom: '',
-    currencyFrom: '',
-    currencyTo: '',
+    _error: "",
+    amountFrom: "",
+    currencyFrom: "",
+    currencyTo: "",
   },
   data: {
     amountFrom: undefined,
@@ -31,31 +31,31 @@ const converterReducer = (
   action: IConverterAction,
 ): IConversionState => {
   switch (action.type) {
-    case 'SET_USER':
+    case "SET_USER":
       return {
         ...state,
         user: action.payload,
       };
 
-    case 'SET_TIMESTAMP':
+    case "SET_TIMESTAMP":
       return {
         ...state,
         timestamp: action.payload,
       };
 
-    case 'SET_CURRENCIES':
+    case "SET_CURRENCIES":
       return {
         ...state,
         currencies: action.payload,
       };
 
-    case 'SET_CURRENCY_LIST':
+    case "SET_CURRENCY_LIST":
       return {
         ...state,
         currencyList: action.payload,
       };
 
-    case 'SET_CURRENCY_FROM':
+    case "SET_CURRENCY_FROM":
       return {
         ...state,
         data: {
@@ -68,7 +68,7 @@ const converterReducer = (
         },
       };
 
-    case 'SET_INVALID_CURRENCY_FROM':
+    case "SET_INVALID_CURRENCY_FROM":
       return {
         ...state,
         invalid: {
@@ -77,7 +77,7 @@ const converterReducer = (
         },
       };
 
-    case 'SET_CURRENCY_TO':
+    case "SET_CURRENCY_TO":
       return {
         ...state,
         data: {
@@ -90,7 +90,7 @@ const converterReducer = (
         },
       };
 
-    case 'SET_INVALID_CURRENCY_TO':
+    case "SET_INVALID_CURRENCY_TO":
       return {
         ...state,
         invalid: {
@@ -99,7 +99,7 @@ const converterReducer = (
         },
       };
 
-    case 'SWITCH_CURRENCIES':
+    case "SWITCH_CURRENCIES":
       return {
         ...state,
         data: {
@@ -109,7 +109,7 @@ const converterReducer = (
         },
       };
 
-    case 'SET_AMOUNT_FROM':
+    case "SET_AMOUNT_FROM":
       return {
         ...state,
         data: {
@@ -122,7 +122,7 @@ const converterReducer = (
         },
       };
 
-    case 'SET_INVALID_AMOUNT_FROM':
+    case "SET_INVALID_AMOUNT_FROM":
       return {
         ...state,
         invalid: {
@@ -131,7 +131,7 @@ const converterReducer = (
         },
       };
 
-    case 'SET_AMOUNT_TO':
+    case "SET_AMOUNT_TO":
       return {
         ...state,
         data: {
@@ -140,7 +140,7 @@ const converterReducer = (
         },
       };
 
-    case 'SET_RATE':
+    case "SET_RATE":
       return {
         ...state,
         data: {
@@ -149,13 +149,13 @@ const converterReducer = (
         },
       };
 
-    case 'SET_LOADING':
+    case "SET_LOADING":
       return {
         ...state,
         loading: action.payload,
       };
 
-    case 'SET_ERRORS':
+    case "SET_ERRORS":
       return {
         ...state,
         errors: action.payload,

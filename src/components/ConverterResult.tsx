@@ -1,9 +1,9 @@
-import React, { Fragment, useContext } from 'react';
-import ConverterContext from '../hooks/context';
-import Error from './Error';
-import Card from './Card';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlayCircle } from '@fortawesome/duotone-light-svg-icons/faPlayCircle';
+import React, { Fragment, useContext } from "react";
+import ConverterContext from "../hooks/context";
+import Error from "./Error";
+import Card from "./Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlayCircle } from "@fortawesome/duotone-light-svg-icons/faPlayCircle";
 
 function ConverterResult(): React.JSX.Element {
   const {
@@ -23,20 +23,20 @@ function ConverterResult(): React.JSX.Element {
           <p>
             <strong>
               {currencyFrom?.symbol} {amountFrom} {currencyFrom?.value}
-            </strong>{' '}
+            </strong>{" "}
             equals
             <span
               className="text--primary text--large m-t-md m-b-xl"
-              style={{ display: 'block' }}
+              style={{ display: "block" }}
             >
               <strong>
-                {currencyTo?.symbol} {Number(amountTo).toFixed(3)}{' '}
+                {currencyTo?.symbol} {Number(amountTo).toFixed(3)}{" "}
                 {currencyTo?.value}
               </strong>
             </span>
           </p>
           <p className="text--muted">
-            Exchange rate: {currencyFrom?.value} 1 = {currencyTo?.value}{' '}
+            Exchange rate: {currencyFrom?.value} 1 = {currencyTo?.value}{" "}
             {rate.toPrecision(4)}
             <br />
             <small>{asOf && `As of ${asOf.toUTCString()}`}</small>

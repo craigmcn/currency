@@ -16,6 +16,9 @@
 # production
 /dist
 
+# TypeScript
+tsconfig.tsbuildinfo
+
 # Netlify
 /netlify
 

@@ -4,29 +4,28 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-} from 'react';
-import { SingleValue } from 'react-select';
-import { FormatOptionLabelMeta } from 'react-select/dist/declarations/src/Select';
-import Loader from './Loader';
-import { TextField } from '../fields/TextField';
-import { SelectField } from '../fields/SelectField';
-import ConverterContext from '../hooks/context';
-import { ICurrency, ICurrencyOption } from '../types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationCircle } from '@fortawesome/duotone-light-svg-icons/faExclamationCircle';
-import _isEqual from 'lodash/isEqual';
-import { isBrowser } from 'react-device-detect';
-import SwitchButton from './SwitchButton';
-import '../styles/currencyOptions.css';
+} from "react";
+import { FormatOptionLabelMeta, SingleValue } from "react-select";
+import Loader from "./Loader";
+import { TextField } from "../fields/TextField";
+import { SelectField } from "../fields/SelectField";
+import ConverterContext from "../hooks/context";
+import { ICurrency, ICurrencyOption } from "../types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/duotone-light-svg-icons/faExclamationCircle";
+import _isEqual from "lodash/isEqual";
+import { isBrowser } from "react-device-detect";
+import SwitchButton from "./SwitchButton";
+import "../styles/currencyOptions.css";
 
 const formatCurrencySelectOption = (
   { value, label, symbol, flag }: ICurrencyOption,
   { context, selectValue }: FormatOptionLabelMeta<ICurrencyOption>,
 ): React.JSX.Element => {
   const hl =
-    context === 'menu' && selectValue?.[0]?.value === value
-      ? ' option__label--secondary-hl'
-      : '';
+    context === "menu" && selectValue?.[0]?.value === value
+      ? " option__label--secondary-hl"
+      : "";
 
   return (
     <div className="option">
@@ -65,7 +64,7 @@ function ConverterForm(): React.JSX.Element {
   const setErrors = useCallback(
     (error: { [key: string]: string }): void => {
       dispatch({
-        type: 'SET_ERRORS',
+        type: "SET_ERRORS",
         payload: {
           ...errors,
           ...error,
@@ -79,13 +78,13 @@ function ConverterForm(): React.JSX.Element {
     (type: string): void => {
       let payload: number | ICurrencyOption | undefined;
       switch (type) {
-        case 'SET_AMOUNT_FROM':
+        case "SET_AMOUNT_FROM":
           payload = invalidAmountFrom;
           break;
-        case 'SET_CURRENCY_FROM':
+        case "SET_CURRENCY_FROM":
           payload = invalidCurrencyFrom;
           break;
-        case 'SET_CURRENCY_TO':
+        case "SET_CURRENCY_TO":
           payload = invalidCurrencyTo;
           break;
         default:
@@ -110,9 +109,9 @@ function ConverterForm(): React.JSX.Element {
         currencies?.find((c: ICurrency) => c.code === currencyTo?.value)
           ?.rate ?? 1;
 
-      dispatch({ type: 'SET_RATE', payload: rateTo / rateFrom });
+      dispatch({ type: "SET_RATE", payload: rateTo / rateFrom });
       dispatch({
-        type: 'SET_AMOUNT_TO',
+        type: "SET_AMOUNT_TO",
         payload: amountFrom && amountFrom * (rateTo / rateFrom),
       });
     }
@@ -124,14 +123,14 @@ function ConverterForm(): React.JSX.Element {
         (!invalidCurrencyTo && _isEqual(value, currencyTo)) ||
         (invalidCurrencyTo && _isEqual(value, invalidCurrencyTo))
       ) {
-        setErrors({ currencyFrom: 'Currencies must be different' });
-        dispatch({ type: 'SET_INVALID_CURRENCY_FROM', payload: value });
+        setErrors({ currencyFrom: "Currencies must be different" });
+        dispatch({ type: "SET_INVALID_CURRENCY_FROM", payload: value });
       } else {
-        setErrors({ currencyFrom: '', currencyTo: '' });
-        dispatch({ type: 'SET_CURRENCY_FROM', payload: value });
+        setErrors({ currencyFrom: "", currencyTo: "" });
+        dispatch({ type: "SET_CURRENCY_FROM", payload: value });
 
-        restoreInvalid('SET_CURRENCY_TO');
-        restoreInvalid('SET_AMOUNT_FROM');
+        restoreInvalid("SET_CURRENCY_TO");
+        restoreInvalid("SET_AMOUNT_FROM");
       }
     },
     [invalidCurrencyTo, currencyTo, setErrors, dispatch, restoreInvalid],
@@ -143,14 +142,14 @@ function ConverterForm(): React.JSX.Element {
         (!invalidCurrencyFrom && _isEqual(value, currencyFrom)) ||
         (invalidCurrencyFrom && _isEqual(value, invalidCurrencyFrom))
       ) {
-        setErrors({ currencyTo: 'Currencies must be different' });
-        dispatch({ type: 'SET_INVALID_CURRENCY_TO', payload: value });
+        setErrors({ currencyTo: "Currencies must be different" });
+        dispatch({ type: "SET_INVALID_CURRENCY_TO", payload: value });
       } else {
-        setErrors({ currencyFrom: '', currencyTo: '' });
-        dispatch({ type: 'SET_CURRENCY_TO', payload: value });
+        setErrors({ currencyFrom: "", currencyTo: "" });
+        dispatch({ type: "SET_CURRENCY_TO", payload: value });
 
-        restoreInvalid('SET_CURRENCY_FROM');
-        restoreInvalid('SET_AMOUNT_FROM');
+        restoreInvalid("SET_CURRENCY_FROM");
+        restoreInvalid("SET_AMOUNT_FROM");
       }
     },
     [invalidCurrencyFrom, currencyFrom, setErrors, dispatch, restoreInvalid],
@@ -160,15 +159,15 @@ function ConverterForm(): React.JSX.Element {
     (e: ChangeEvent<HTMLInputElement>): void => {
       const amount = Number(e.currentTarget.value);
       if (isNaN(amount) || amount === 0) {
-        setErrors({ amountFrom: 'Amount must be a number.' });
+        setErrors({ amountFrom: "Amount must be a number." });
       } else if (errors.currencyFrom || errors.currencyTo) {
-        dispatch({ type: 'SET_INVALID_AMOUNT_FROM', payload: amount });
+        dispatch({ type: "SET_INVALID_AMOUNT_FROM", payload: amount });
       } else {
-        setErrors({ amountFrom: '' });
-        dispatch({ type: 'SET_AMOUNT_FROM', payload: amount });
+        setErrors({ amountFrom: "" });
+        dispatch({ type: "SET_AMOUNT_FROM", payload: amount });
 
-        restoreInvalid('SET_CURRENCY_FROM');
-        restoreInvalid('SET_CURRENCY_TO');
+        restoreInvalid("SET_CURRENCY_FROM");
+        restoreInvalid("SET_CURRENCY_TO");
       }
     },
     [errors, setErrors, dispatch, restoreInvalid],
@@ -176,7 +175,7 @@ function ConverterForm(): React.JSX.Element {
 
   const handleAmountEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>): void => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         (e.target as HTMLInputElement).blur();
       }
     },

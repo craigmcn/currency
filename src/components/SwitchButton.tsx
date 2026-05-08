@@ -1,8 +1,8 @@
-import React, { useCallback, useContext } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSwap } from '@fortawesome/duotone-light-svg-icons';
-import ConverterContext from '../hooks/context';
-import '../styles/switchButton.css';
+import React, { useCallback, useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSwap } from "@fortawesome/duotone-light-svg-icons";
+import ConverterContext from "../hooks/context";
+import "../styles/switchButton.css";
 
 function SwitchButton(): React.JSX.Element {
   const {
@@ -14,7 +14,7 @@ function SwitchButton(): React.JSX.Element {
 
   const handleCurrencySwitch = useCallback((): void => {
     if (currencyFrom && currencyTo) {
-      dispatch({ type: 'SWITCH_CURRENCIES' });
+      dispatch({ type: "SWITCH_CURRENCIES" });
     }
   }, [currencyFrom, currencyTo, dispatch]);
 

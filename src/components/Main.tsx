@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 interface IProps {
   fixed?: boolean;
@@ -6,7 +6,7 @@ interface IProps {
 }
 
 function Main({ fixed, children }: IProps): React.JSX.Element {
-  const mainFixed = fixed ? ' main--fixed' : '';
+  const mainFixed = fixed ? " main--fixed" : "";
 
   return <main className={`main${mainFixed}`}>{children}</main>;
 }

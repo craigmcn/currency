@@ -51,7 +51,7 @@ A single-page React 19 + TypeScript app (Vite 8) that converts amounts between c
 
 ## ESLint + Prettier
 
-Formatting is handled by Prettier (`.prettierrc`): single quotes, semicolons, 2-space indent. Run `yarn format` to apply. `.vscode/settings.json` sets Prettier as the default formatter with `formatOnSave`.
+Formatting is handled by Prettier (`.prettierrc` is `{}` — all defaults). Run `yarn format` to apply or `yarn format:check` to verify. `.vscode/settings.json` sets Prettier as the default formatter with `formatOnSave`.
 
 ESLint (`eslint.config.mjs`, ESLint 9 flat config, no `.eslintrc`) handles code quality only. Run `yarn lint` (read-only, fails on any error) or `yarn lint:fix`.
 
@@ -75,9 +75,9 @@ Rules in force:
 - **Prettier over `@stylistic`** — removed `@stylistic/eslint-plugin` in favour of Prettier + `eslint-config-prettier`. All formatting rules stripped from ESLint; `ecmaVersion: 5` and `sourceType: 'script'` bugs in the old config were fixed, which surfaced 12 real `comma-dangle` errors (auto-fixed).
 - **`.vscode/settings.json` committed** — `.gitignore` changed from `.vscode` → `.vscode/*` + `!.vscode/settings.json` so project editor settings are shared.
 
-## Modernization tasks (in-progress)
+## Modernization tasks — COMPLETE
 
-Branch `vite-migration` — 9 commits, not yet merged to main:
+PR #53 merged (2026-04-29). Branch `vite-migration` — all tasks done:
 
 - [x] Migrate Webpack + Babel → Vite 8; bump Node to 24
 - [x] Replace Sass with plain CSS; remove `sass` devDependency
@@ -90,12 +90,22 @@ Branch `vite-migration` — 9 commits, not yet merged to main:
 - [x] **Branch protection** — require PR, 1 approval, require `test` status check, dismiss stale reviews, block force push + deletion. Owner bypass is implicit (personal repo, `enforce_admins: false`).
 - [x] **Favicon** — no action needed. Favicons are served from the `craigmcnaughton` parent app at `www.craigmcn.com`; sub-path deploys inherit them correctly from the official domain.
 
+## Tooling sync — COMPLETE
+
+PR #54 open: https://github.com/craigmcn/currency/pull/54 — merge when CI passes. Branch `chore/sync-tooling`:
+
+- [x] Reset `.prettierrc` to `{}` (all Prettier defaults); run format pass — switches from single→double quotes, etc.
+- [x] Add `format:check` script to `package.json`
+- [x] Add Husky — `prepare: husky` in `package.json`; `.husky/pre-commit` runs `prettier --check . && yarn lint && yarn tsc -b && yarn test --run`
+- [x] Bump Yarn 4.9.1 → 4.14.1
+- [x] Add `src/vite-env.d.ts` (`/// <reference types="vite/client" />`) — fixes `import.meta.env` and CSS import type errors surfaced by the Yarn bump
+- [x] Import `FormatOptionLabelMeta` from `"react-select"` root (not deep internal path) — required under `moduleResolution: "bundler"`
+
 ## Follow-up items (non-blocking)
 
 - **`onKeyPress` → `onKeyDown`** in `src/fields/TextField.tsx` — `onKeyPress` is deprecated in React 17+ and removed from React 19 synthetic event types. Migrate to `onKeyDown`.
 - **`ConverterForm` integration test** — the same-currency validation logic (`restoreInvalid`, `setErrors` interactions) and the `useEffect` conversion math are currently untested. Worth adding a test for the duplicate-currency error path.
 - **`SelectField` interaction test** — no test for `handleChange` being called when the user selects an option (equivalent of the `TextField` `handleChange` test). Fiddly with react-select but the gap is real.
-- **CI Corepack** — `setup-node` does not enable Corepack automatically; must run `corepack enable` before the cached `setup-node` step so Yarn 4 is available. Already fixed in `test.yml`.
 
 ## Test suite notes
 
