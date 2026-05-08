@@ -103,7 +103,7 @@ PR #54 merged (2026-05-08). Branch `chore/sync-tooling`:
 
 ## Follow-up items — COMPLETE
 
-PR #55 merged. Branch `fix/follow-ups`:
+PR #55 merged (2026-05-08). Branch `fix/follow-ups`:
 
 - [x] `onKeyPress` → `onKeyDown` in `src/fields/TextField.tsx`, `TextField.test.tsx`, and `ConverterForm.tsx`
 - [x] `ConverterForm` integration test — duplicate-currency error path in `src/components/ConverterForm.test.tsx`; uses a real `useReducer` wrapper to exercise the full `handleCurrencyToChange` → `setErrors` → context update path
