@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { SelectField } from "./SelectField";
 
 const options = [
@@ -49,5 +50,23 @@ describe("SelectField", () => {
       />,
     );
     expect(screen.getByText("Euro")).toBeInTheDocument();
+  });
+
+  it("calls handleChange when an option is selected", async () => {
+    const handleChange = vi.fn();
+    render(
+      <SelectField
+        id="currency"
+        label="Currency"
+        options={options}
+        handleChange={handleChange}
+      />,
+    );
+    await userEvent.click(screen.getByRole("combobox"));
+    await userEvent.click(screen.getAllByRole("option")[0]);
+    expect(handleChange).toHaveBeenCalledWith(
+      options[0],
+      expect.objectContaining({ action: "select-option" }),
+    );
   });
 });

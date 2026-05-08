@@ -92,7 +92,7 @@ PR #53 merged (2026-04-29). Branch `vite-migration` — all tasks done:
 
 ## Tooling sync — COMPLETE
 
-PR #54 open: https://github.com/craigmcn/currency/pull/54 — merge when CI passes. Branch `chore/sync-tooling`:
+PR #54 merged (2026-05-08). Branch `chore/sync-tooling`:
 
 - [x] Reset `.prettierrc` to `{}` (all Prettier defaults); run format pass — switches from single→double quotes, etc.
 - [x] Add `format:check` script to `package.json`
@@ -101,11 +101,13 @@ PR #54 open: https://github.com/craigmcn/currency/pull/54 — merge when CI pass
 - [x] Add `src/vite-env.d.ts` (`/// <reference types="vite/client" />`) — fixes `import.meta.env` and CSS import type errors surfaced by the Yarn bump
 - [x] Import `FormatOptionLabelMeta` from `"react-select"` root (not deep internal path) — required under `moduleResolution: "bundler"`
 
-## Follow-up items (non-blocking)
+## Follow-up items — COMPLETE
 
-- **`onKeyPress` → `onKeyDown`** in `src/fields/TextField.tsx` — `onKeyPress` is deprecated in React 17+ and removed from React 19 synthetic event types. Migrate to `onKeyDown`.
-- **`ConverterForm` integration test** — the same-currency validation logic (`restoreInvalid`, `setErrors` interactions) and the `useEffect` conversion math are currently untested. Worth adding a test for the duplicate-currency error path.
-- **`SelectField` interaction test** — no test for `handleChange` being called when the user selects an option (equivalent of the `TextField` `handleChange` test). Fiddly with react-select but the gap is real.
+PR #55 merged. Branch `fix/follow-ups`:
+
+- [x] `onKeyPress` → `onKeyDown` in `src/fields/TextField.tsx`, `TextField.test.tsx`, and `ConverterForm.tsx`
+- [x] `ConverterForm` integration test — duplicate-currency error path in `src/components/ConverterForm.test.tsx`; uses a real `useReducer` wrapper to exercise the full `handleCurrencyToChange` → `setErrors` → context update path
+- [x] `SelectField` `handleChange` interaction test — click to open menu, click option, assert callback; note react-select passes `(value, actionMeta)` so assertion uses `expect.objectContaining({ action: "select-option" })`
 
 ## Test suite notes
 

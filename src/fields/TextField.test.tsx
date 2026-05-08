@@ -45,12 +45,12 @@ describe("TextField", () => {
     expect(handleChange).toHaveBeenCalled();
   });
 
-  it("calls handleKeyPress when a key is pressed", async () => {
-    const handleKeyPress = vi.fn();
+  it("calls handleKeyDown when a key is pressed", async () => {
+    const handleKeyDown = vi.fn();
     render(
-      <TextField id="amount" label="Amount" handleKeyPress={handleKeyPress} />,
+      <TextField id="amount" label="Amount" handleKeyDown={handleKeyDown} />,
     );
     await userEvent.type(screen.getByLabelText("Amount"), "{Enter}");
-    expect(handleKeyPress).toHaveBeenCalled();
+    expect(handleKeyDown).toHaveBeenCalled();
   });
 });

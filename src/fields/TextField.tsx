@@ -9,7 +9,7 @@ interface IProps {
   label?: string;
   error?: string;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleKeyPress?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  handleKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 type TProps = DetailedHTMLProps<
@@ -24,7 +24,7 @@ export function TextField({
   inputMode,
   error,
   handleChange,
-  handleKeyPress,
+  handleKeyDown,
 }: TProps): React.JSX.Element {
   return (
     <div className="form__group">
@@ -41,7 +41,7 @@ export function TextField({
         type="text"
         inputMode={inputMode}
         onChange={handleChange}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyDown}
       />
     </div>
   );

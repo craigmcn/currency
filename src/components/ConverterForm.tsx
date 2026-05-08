@@ -224,7 +224,7 @@ function ConverterForm(): React.JSX.Element {
             label="Amount"
             inputMode="decimal"
             handleChange={handleAmountChange}
-            handleKeyPress={handleAmountEnter}
+            handleKeyDown={handleAmountEnter}
             error={errors.amountFrom}
           />
         </form>
