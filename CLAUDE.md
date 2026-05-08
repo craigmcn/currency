@@ -10,6 +10,7 @@ yarn build        # Build to dist/
 yarn build:netlify  # Build to netlify/ (root) and netlify/currency/ (sub-path)
 yarn preview      # Preview the production build locally
 yarn format       # Prettier on all files
+yarn format:check # Prettier check (read-only — used in CI and pre-commit)
 yarn lint         # ESLint check on src/ (no auto-fix — fails on any error)
 yarn lint:fix     # ESLint with auto-fix on src/
 ```
@@ -74,6 +75,7 @@ Rules in force:
 - **ESLint flat config API quirks** — `typescriptEslint.configs['flat/eslint-recommended']` is a plain object (not an array); `typescriptEslint.configs['flat/recommended']` is an array (spread with `...`). For react-hooks, use `reactHooks.configs['recommended-latest']` — the `'recommended'` key is the legacy string-array format and will fail in flat config.
 - **Prettier over `@stylistic`** — removed `@stylistic/eslint-plugin` in favour of Prettier + `eslint-config-prettier`. All formatting rules stripped from ESLint; `ecmaVersion: 5` and `sourceType: 'script'` bugs in the old config were fixed, which surfaced 12 real `comma-dangle` errors (auto-fixed).
 - **`.vscode/settings.json` committed** — `.gitignore` changed from `.vscode` → `.vscode/*` + `!.vscode/settings.json` so project editor settings are shared.
+- **`.yarnrc.yml` — no `enableScripts` or `approvedGitRepositories`** — Yarn 4.14.1 auto-injects these during upgrade for backward compatibility, but no package in this tree uses lifecycle scripts and there are no git-sourced deps. Both were removed; the Yarn 4 secure default (scripts disabled) is preferable.
 
 ## Modernization tasks — COMPLETE
 
@@ -114,3 +116,5 @@ PR #55 merged (2026-05-08). Branch `fix/follow-ups`:
 - **IPData mock** must use `function()` not an arrow function — arrow functions cannot be used as constructors with `new`.
 - **react-select** without `classNamePrefix` uses CSS-in-JS (no `.react-select__control` class). Use `screen.getByRole('combobox')` to find the select input.
 - **"no country list" branch** in `fetchCurrencies` is unreachable — EUR is always present as the reduce accumulator seed; no test needed for it.
+- **`ConverterForm` test wrapper** uses a real `useReducer(converterReducer, state)` + `ConverterContext.Provider` — do not mock `dispatch`; the reducer itself is what needs exercising. Set `loading: false` in the initial state so the form renders (not `<Loader />`).
+- **react-select `onChange` passes two args**: `(value, actionMeta)` — assertions must account for the second argument. Use `expect.objectContaining({ action: "select-option" })` rather than asserting exact equality on the full call.
