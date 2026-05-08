@@ -92,7 +92,7 @@ PR #53 merged (2026-04-29). Branch `vite-migration` — all tasks done:
 
 ## Tooling sync — COMPLETE
 
-PR #54 merged. Branch `chore/sync-tooling`:
+PR #54 open: https://github.com/craigmcn/currency/pull/54 — merge when CI passes. Branch `chore/sync-tooling`:
 
 - [x] Reset `.prettierrc` to `{}` (all Prettier defaults); run format pass — switches from single→double quotes, etc.
 - [x] Add `format:check` script to `package.json`
