@@ -13,7 +13,6 @@ import ConverterContext from "../hooks/context";
 import { ICurrency, ICurrencyOption } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/duotone-light-svg-icons/faExclamationCircle";
-import _isEqual from "lodash/isEqual";
 import { isBrowser } from "react-device-detect";
 import SwitchButton from "./SwitchButton";
 import "../styles/currencyOptions.css";
@@ -120,8 +119,8 @@ function ConverterForm(): React.JSX.Element {
   const handleCurrencyFromChange = useCallback(
     (value: SingleValue<ICurrencyOption>): void => {
       if (
-        (!invalidCurrencyTo && _isEqual(value, currencyTo)) ||
-        (invalidCurrencyTo && _isEqual(value, invalidCurrencyTo))
+        (!invalidCurrencyTo && value?.value === currencyTo?.value) ||
+        (invalidCurrencyTo && value?.value === invalidCurrencyTo?.value)
       ) {
         setErrors({ currencyFrom: "Currencies must be different" });
         dispatch({ type: "SET_INVALID_CURRENCY_FROM", payload: value });
@@ -139,8 +138,8 @@ function ConverterForm(): React.JSX.Element {
   const handleCurrencyToChange = useCallback(
     (value: SingleValue<ICurrencyOption>): void => {
       if (
-        (!invalidCurrencyFrom && _isEqual(value, currencyFrom)) ||
-        (invalidCurrencyFrom && _isEqual(value, invalidCurrencyFrom))
+        (!invalidCurrencyFrom && value?.value === currencyFrom?.value) ||
+        (invalidCurrencyFrom && value?.value === invalidCurrencyFrom?.value)
       ) {
         setErrors({ currencyTo: "Currencies must be different" });
         dispatch({ type: "SET_INVALID_CURRENCY_TO", payload: value });
