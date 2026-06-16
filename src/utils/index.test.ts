@@ -66,6 +66,39 @@ describe("fetchCurrencies", () => {
     );
   });
 
+  it("populates name, symbol, and flag from static metadata for API-returned codes", async () => {
+    mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
+
+    await fetchCurrencies(dispatch);
+
+    const setCurrenciesCall = dispatch.mock.calls.find(
+      ([action]) => action.type === "SET_CURRENCIES",
+    );
+    const currencies: {
+      code: string;
+      name: string;
+      symbol: string;
+      flag: string;
+      rate: number;
+    }[] = setCurrenciesCall?.[0].payload;
+
+    const usd = currencies.find((c) => c.code === "USD");
+    expect(usd).toMatchObject({
+      name: "United States dollar",
+      symbol: "$",
+      flag: "🇺🇸",
+      rate: 1.1,
+    });
+
+    const gbp = currencies.find((c) => c.code === "GBP");
+    expect(gbp).toMatchObject({
+      name: "Pound sterling",
+      symbol: "£",
+      flag: "🇬🇧",
+      rate: 0.85,
+    });
+  });
+
   it("currencies are sorted alphabetically by name", async () => {
     mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
 

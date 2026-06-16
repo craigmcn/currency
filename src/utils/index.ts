@@ -62,8 +62,8 @@ const fetchUserData = async (
 const fetchCurrencies = async (
   dispatch: Dispatch<IConverterAction>,
 ): Promise<void> => {
-  let currencies: { [code: string]: number };
-  let countries: ICurrency[] = [];
+  let rates: { [code: string]: number };
+  let currencyList: ICurrency[] = [];
 
   try {
     const fetchRates = await fetch(
@@ -74,13 +74,13 @@ const fetchCurrencies = async (
     if (fetchRatesJson?.error) {
       throw new Error(fetchRatesJson?.error?.message);
     }
-    currencies = fetchRatesJson?.rates;
+    rates = fetchRatesJson?.rates;
     dispatch({ type: "SET_TIMESTAMP", payload: fetchRatesJson?.timestamp });
 
-    if (currencies) {
-      countries = Object.entries(currencyMetadata).reduce(
+    if (rates) {
+      currencyList = Object.entries(currencyMetadata).reduce(
         (a: ICurrency[], [code, meta]) => {
-          const rate = code === "EUR" ? 1 : currencies[code];
+          const rate = code === "EUR" ? 1 : rates[code];
           if (rate !== undefined) {
             a.push({ ...meta, code, rate });
           }
@@ -89,7 +89,7 @@ const fetchCurrencies = async (
         [],
       );
 
-      countries.sort((a: ICurrency, b: ICurrency) => {
+      currencyList.sort((a: ICurrency, b: ICurrency) => {
         if (a.name < b.name) {
           return -1;
         }
@@ -100,10 +100,10 @@ const fetchCurrencies = async (
       });
     }
 
-    dispatch({ type: "SET_CURRENCIES", payload: countries });
+    dispatch({ type: "SET_CURRENCIES", payload: currencyList });
 
-    if (countries?.length) {
-      const countryOptions = countries.map(
+    if (currencyList?.length) {
+      const currencyOptions = currencyList.map(
         (a: ICurrency): ICurrencyOption => ({
           value: a.code,
           label: a.name,
@@ -111,9 +111,9 @@ const fetchCurrencies = async (
           flag: a.flag,
         }),
       );
-      dispatch({ type: "SET_CURRENCY_LIST", payload: countryOptions });
+      dispatch({ type: "SET_CURRENCY_LIST", payload: currencyOptions });
     } else {
-      const error = "No country list available";
+      const error = "No currency list available";
       dispatch({
         type: "SET_ERRORS",
         payload: { _error: error },
