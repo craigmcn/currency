@@ -55,12 +55,6 @@ export interface ICurrencyOption extends ISelectOption {
   flag?: string;
 }
 
-export interface IRestCountry {
-  cca3: string;
-  currencies: ICurrencies;
-  flag?: string;
-}
-
 export interface IIpData extends LookupResponse {
   message?: string;
 }

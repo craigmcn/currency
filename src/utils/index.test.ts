@@ -23,20 +23,6 @@ const mockRatesResponse = {
   timestamp: 1234567890,
 };
 
-// Only USD and GBP are in the currencyCountries map with their matching cca3 codes
-const mockCountriesResponse = [
-  {
-    cca3: "USA",
-    currencies: { USD: { name: "US Dollar", symbol: "$" } },
-    flag: "🇺🇸",
-  },
-  {
-    cca3: "GBR",
-    currencies: { GBP: { name: "Pound Sterling", symbol: "£" } },
-    flag: "🇬🇧",
-  },
-];
-
 describe("fetchCurrencies", () => {
   const dispatch = vi.fn();
 
@@ -45,9 +31,7 @@ describe("fetchCurrencies", () => {
   });
 
   it("dispatches SET_TIMESTAMP, SET_CURRENCIES, SET_CURRENCY_LIST, SET_LOADING on success", async () => {
-    mockFetch
-      .mockResolvedValueOnce(mockJsonResponse(mockRatesResponse))
-      .mockResolvedValueOnce(mockJsonResponse(mockCountriesResponse));
+    mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
 
     await fetchCurrencies(dispatch);
 
@@ -68,9 +52,7 @@ describe("fetchCurrencies", () => {
   });
 
   it("includes EUR as the base currency in SET_CURRENCIES", async () => {
-    mockFetch
-      .mockResolvedValueOnce(mockJsonResponse(mockRatesResponse))
-      .mockResolvedValueOnce(mockJsonResponse(mockCountriesResponse));
+    mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
 
     await fetchCurrencies(dispatch);
 
@@ -84,9 +66,7 @@ describe("fetchCurrencies", () => {
   });
 
   it("currencies are sorted alphabetically by name", async () => {
-    mockFetch
-      .mockResolvedValueOnce(mockJsonResponse(mockRatesResponse))
-      .mockResolvedValueOnce(mockJsonResponse(mockCountriesResponse));
+    mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
 
     await fetchCurrencies(dispatch);
 

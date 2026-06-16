@@ -4,45 +4,47 @@ import {
   IConverterAction,
   IIpData,
   ICurrency,
-  IRestCountry,
   ICurrencyOption,
 } from "../types";
 
 const ipdataco = import.meta.env.VITE_IPDATA_CO ?? "";
 
-const currencyCountries: { [key: string]: string } = {
-  CAD: "CAN",
-  HKD: "HKG",
-  ISK: "ISL",
-  PHP: "PHL",
-  DKK: "DNK",
-  HUF: "HUN",
-  CZK: "CZE",
-  AUD: "AUS",
-  RON: "ROU",
-  SEK: "SWE",
-  IDR: "IDN",
-  INR: "IND",
-  BRL: "BRA",
-  RUB: "RUS",
-  HRK: "HRV",
-  JPY: "JPN",
-  THB: "THA",
-  CHF: "CHE",
-  SGD: "SGP",
-  PLN: "POL",
-  BGN: "BGR",
-  TRY: "TUR",
-  CNY: "CHN",
-  NOK: "NOR",
-  NZD: "NZL",
-  ZAR: "ZAF",
-  USD: "USA",
-  MXN: "MEX",
-  ILS: "ISR",
-  GBP: "GBR",
-  KRW: "KOR",
-  MYR: "MYS",
+const currencyMetadata: {
+  [code: string]: { name: string; symbol: string; flag: string };
+} = {
+  AUD: { name: "Australian dollar", symbol: "A$", flag: "🇦🇺" },
+  BGN: { name: "Bulgarian lev", symbol: "лв", flag: "🇧🇬" },
+  BRL: { name: "Brazilian real", symbol: "R$", flag: "🇧🇷" },
+  CAD: { name: "Canadian dollar", symbol: "CA$", flag: "🇨🇦" },
+  CHF: { name: "Swiss franc", symbol: "Fr", flag: "🇨🇭" },
+  CNY: { name: "Chinese yuan", symbol: "¥", flag: "🇨🇳" },
+  CZK: { name: "Czech koruna", symbol: "Kč", flag: "🇨🇿" },
+  DKK: { name: "Danish krone", symbol: "kr", flag: "🇩🇰" },
+  EUR: { name: "European euro", symbol: "€", flag: "🇪🇺" },
+  GBP: { name: "Pound sterling", symbol: "£", flag: "🇬🇧" },
+  HKD: { name: "Hong Kong dollar", symbol: "HK$", flag: "🇭🇰" },
+  HRK: { name: "Croatian kuna", symbol: "kn", flag: "🇭🇷" },
+  HUF: { name: "Hungarian forint", symbol: "Ft", flag: "🇭🇺" },
+  IDR: { name: "Indonesian rupiah", symbol: "Rp", flag: "🇮🇩" },
+  ILS: { name: "Israeli new shekel", symbol: "₪", flag: "🇮🇱" },
+  INR: { name: "Indian rupee", symbol: "₹", flag: "🇮🇳" },
+  ISK: { name: "Icelandic króna", symbol: "kr", flag: "🇮🇸" },
+  JPY: { name: "Japanese yen", symbol: "¥", flag: "🇯🇵" },
+  KRW: { name: "South Korean won", symbol: "₩", flag: "🇰🇷" },
+  MXN: { name: "Mexican peso", symbol: "$", flag: "🇲🇽" },
+  MYR: { name: "Malaysian ringgit", symbol: "RM", flag: "🇲🇾" },
+  NOK: { name: "Norwegian krone", symbol: "kr", flag: "🇳🇴" },
+  NZD: { name: "New Zealand dollar", symbol: "NZ$", flag: "🇳🇿" },
+  PHP: { name: "Philippine peso", symbol: "₱", flag: "🇵🇭" },
+  PLN: { name: "Polish złoty", symbol: "zł", flag: "🇵🇱" },
+  RON: { name: "Romanian leu", symbol: "lei", flag: "🇷🇴" },
+  RUB: { name: "Russian ruble", symbol: "₽", flag: "🇷🇺" },
+  SEK: { name: "Swedish krona", symbol: "kr", flag: "🇸🇪" },
+  SGD: { name: "Singapore dollar", symbol: "S$", flag: "🇸🇬" },
+  THB: { name: "Thai baht", symbol: "฿", flag: "🇹🇭" },
+  TRY: { name: "Turkish lira", symbol: "₺", flag: "🇹🇷" },
+  USD: { name: "United States dollar", symbol: "$", flag: "🇺🇸" },
+  ZAR: { name: "South African rand", symbol: "R", flag: "🇿🇦" },
 };
 
 const fetchUserData = async (
@@ -77,35 +79,15 @@ const fetchCurrencies = async (
     dispatch({ type: "SET_TIMESTAMP", payload: fetchRatesJson?.timestamp });
 
     if (currencies) {
-      const fetchCountries = await fetch(
-        "https://restcountries.com/v3.1/all?fields=cca3,currencies,flag",
-      );
-      const fetchCountriesJson = await fetchCountries?.json();
-
-      countries = fetchCountriesJson?.reduce(
-        (a: ICurrency[], c: IRestCountry) => {
-          const code = Object.keys(c?.currencies)[0];
-          if (c.cca3 === currencyCountries[code]) {
-            a.push({
-              name: c.currencies[code].name,
-              code: code,
-              symbol: c.currencies[code].symbol,
-              flag: c.flag,
-              rate: currencies[code],
-            });
+      countries = Object.entries(currencyMetadata).reduce(
+        (a: ICurrency[], [code, meta]) => {
+          const rate = code === "EUR" ? 1 : currencies[code];
+          if (rate !== undefined) {
+            a.push({ ...meta, code, rate });
           }
           return a;
         },
-        [
-          {
-            // EUR is the base currency, not included in currencies data
-            name: "European euro",
-            code: "EUR",
-            symbol: "€",
-            flag: "🇪🇺",
-            rate: 1,
-          },
-        ],
+        [],
       );
 
       countries.sort((a: ICurrency, b: ICurrency) => {
