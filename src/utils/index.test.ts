@@ -49,6 +49,7 @@ describe("fetchCurrencies", () => {
       type: "SET_LOADING",
       payload: false,
     });
+    expect(mockFetch).toHaveBeenCalledTimes(1);
   });
 
   it("includes EUR as the base currency in SET_CURRENCIES", async () => {

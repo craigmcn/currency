@@ -23,7 +23,6 @@ const currencyMetadata: {
   EUR: { name: "European euro", symbol: "€", flag: "🇪🇺" },
   GBP: { name: "Pound sterling", symbol: "£", flag: "🇬🇧" },
   HKD: { name: "Hong Kong dollar", symbol: "HK$", flag: "🇭🇰" },
-  HRK: { name: "Croatian kuna", symbol: "kn", flag: "🇭🇷" },
   HUF: { name: "Hungarian forint", symbol: "Ft", flag: "🇭🇺" },
   IDR: { name: "Indonesian rupiah", symbol: "Rp", flag: "🇮🇩" },
   ILS: { name: "Israeli new shekel", symbol: "₪", flag: "🇮🇱" },
