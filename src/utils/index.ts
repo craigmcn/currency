@@ -66,9 +66,7 @@ const fetchCurrencies = async (
   let currencyList: ICurrency[] = [];
 
   try {
-    const fetchRates = await fetch(
-      "https://api.craigmcn.com/v1/exchange-rates/latest",
-    );
+    const fetchRates = await fetch("/api/exchange-rates/latest");
     const fetchRatesJson = await fetchRates?.json();
 
     if (fetchRatesJson?.error) {
