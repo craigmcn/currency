@@ -1,0 +1,12 @@
+[build]
+  command = "yarn build:netlify"
+  publish = "netlify"
+
+[dev]
+  command = "yarn dev"
+  port = 3035
+  targetPort = 3030
+  framework = "vite"
+
+[functions]
+  directory = "functions"

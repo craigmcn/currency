@@ -21,6 +21,7 @@ tsconfig.tsbuildinfo
 
 # Netlify
 /netlify
+deno.lock
 
 # misc
 .DS_Store
@@ -47,3 +48,6 @@ yarn-error.log*
 # VS Code
 .vscode/*
 !.vscode/settings.json
+
+# Local Netlify folder
+.netlify
