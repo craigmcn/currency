@@ -23,20 +23,6 @@ const mockRatesResponse = {
   timestamp: 1234567890,
 };
 
-// Only USD and GBP are in the currencyCountries map with their matching cca3 codes
-const mockCountriesResponse = [
-  {
-    cca3: "USA",
-    currencies: { USD: { name: "US Dollar", symbol: "$" } },
-    flag: "🇺🇸",
-  },
-  {
-    cca3: "GBR",
-    currencies: { GBP: { name: "Pound Sterling", symbol: "£" } },
-    flag: "🇬🇧",
-  },
-];
-
 describe("fetchCurrencies", () => {
   const dispatch = vi.fn();
 
@@ -45,9 +31,7 @@ describe("fetchCurrencies", () => {
   });
 
   it("dispatches SET_TIMESTAMP, SET_CURRENCIES, SET_CURRENCY_LIST, SET_LOADING on success", async () => {
-    mockFetch
-      .mockResolvedValueOnce(mockJsonResponse(mockRatesResponse))
-      .mockResolvedValueOnce(mockJsonResponse(mockCountriesResponse));
+    mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
 
     await fetchCurrencies(dispatch);
 
@@ -65,12 +49,11 @@ describe("fetchCurrencies", () => {
       type: "SET_LOADING",
       payload: false,
     });
+    expect(mockFetch).toHaveBeenCalledTimes(1);
   });
 
   it("includes EUR as the base currency in SET_CURRENCIES", async () => {
-    mockFetch
-      .mockResolvedValueOnce(mockJsonResponse(mockRatesResponse))
-      .mockResolvedValueOnce(mockJsonResponse(mockCountriesResponse));
+    mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
 
     await fetchCurrencies(dispatch);
 
@@ -83,10 +66,41 @@ describe("fetchCurrencies", () => {
     );
   });
 
+  it("populates name, symbol, and flag from static metadata for API-returned codes", async () => {
+    mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
+
+    await fetchCurrencies(dispatch);
+
+    const setCurrenciesCall = dispatch.mock.calls.find(
+      ([action]) => action.type === "SET_CURRENCIES",
+    );
+    const currencies: {
+      code: string;
+      name: string;
+      symbol: string;
+      flag: string;
+      rate: number;
+    }[] = setCurrenciesCall?.[0].payload;
+
+    const usd = currencies.find((c) => c.code === "USD");
+    expect(usd).toMatchObject({
+      name: "United States dollar",
+      symbol: "$",
+      flag: "🇺🇸",
+      rate: 1.1,
+    });
+
+    const gbp = currencies.find((c) => c.code === "GBP");
+    expect(gbp).toMatchObject({
+      name: "Pound sterling",
+      symbol: "£",
+      flag: "🇬🇧",
+      rate: 0.85,
+    });
+  });
+
   it("currencies are sorted alphabetically by name", async () => {
-    mockFetch
-      .mockResolvedValueOnce(mockJsonResponse(mockRatesResponse))
-      .mockResolvedValueOnce(mockJsonResponse(mockCountriesResponse));
+    mockFetch.mockResolvedValueOnce(mockJsonResponse(mockRatesResponse));
 
     await fetchCurrencies(dispatch);
 
