@@ -103,6 +103,10 @@ PR #54 merged (2026-05-08). Branch `chore/sync-tooling`:
 - [x] Add `src/vite-env.d.ts` (`/// <reference types="vite/client" />`) — fixes `import.meta.env` and CSS import type errors surfaced by the Yarn bump
 - [x] Import `FormatOptionLabelMeta` from `"react-select"` root (not deep internal path) — required under `moduleResolution: "bundler"`
 
+## Open TODOs
+
+Tracked as issues in the [currency GitHub Project](https://github.com/users/craigmcn/projects/4) (GitHub Actions bump, axe tooling, Playwright E2E).
+
 ## Follow-up items — COMPLETE
 
 PR #55 merged (2026-05-08). Branch `fix/follow-ups`:
