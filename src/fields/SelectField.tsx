@@ -89,7 +89,7 @@ export function SelectField(props: TProps): React.JSX.Element {
       </label>
       {error && <div className="form__control-error">{error}</div>}
       <Select
-        id={id}
+        inputId={id}
         name={id}
         options={options}
         styles={customStyles}

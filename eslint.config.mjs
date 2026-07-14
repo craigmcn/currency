@@ -2,6 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import js from "@eslint/js";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import jsxA11y from "eslint-plugin-jsx-a11y";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import prettierConfig from "eslint-config-prettier";
 
@@ -12,6 +13,7 @@ export default defineConfig([
   ...typescriptEslint.configs["flat/recommended"],
   react.configs.flat.recommended,
   reactHooks.configs["recommended-latest"],
+  jsxA11y.flatConfigs.recommended,
   prettierConfig,
   {
     languageOptions: {

@@ -40,6 +40,13 @@ describe("SelectField", () => {
     expect(screen.getByRole("combobox")).toBeInTheDocument();
   });
 
+  it("associates the label with the select control via a matching id", () => {
+    render(<SelectField id="currency" label="Currency" options={options} />);
+    expect(screen.getByLabelText("Currency")).toBe(
+      screen.getByRole("combobox"),
+    );
+  });
+
   it("displays the selected option", () => {
     render(
       <SelectField
