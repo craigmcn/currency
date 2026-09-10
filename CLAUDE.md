@@ -52,7 +52,7 @@ A single-page React 19 + TypeScript app (Vite 8) that converts amounts between c
 
 ## ESLint + Prettier
 
-Formatting is handled by Prettier (`.prettierrc` is `{}` — all defaults). Run `yarn format` to apply or `yarn format:check` to verify. `.vscode/settings.json` sets Prettier as the default formatter with `formatOnSave`.
+Formatting is handled by Prettier (`.prettierrc` is `{}` — all defaults). Run `yarn format` to apply or `yarn format:check` to verify.
 
 ESLint (`eslint.config.mjs`, ESLint 9 flat config, no `.eslintrc`) handles code quality only. Run `yarn lint` (read-only, fails on any error) or `yarn lint:fix`.
 
@@ -74,7 +74,6 @@ Rules in force:
 - **`jsx: "react-jsx"`** in tsconfig — uses the modern JSX transform; existing `import React from 'react'` imports in components are harmless and were left in place.
 - **ESLint flat config API quirks** — `typescriptEslint.configs['flat/eslint-recommended']` is a plain object (not an array); `typescriptEslint.configs['flat/recommended']` is an array (spread with `...`). For react-hooks, use `reactHooks.configs['recommended-latest']` — the `'recommended'` key is the legacy string-array format and will fail in flat config.
 - **Prettier over `@stylistic`** — removed `@stylistic/eslint-plugin` in favour of Prettier + `eslint-config-prettier`. All formatting rules stripped from ESLint; `ecmaVersion: 5` and `sourceType: 'script'` bugs in the old config were fixed, which surfaced 12 real `comma-dangle` errors (auto-fixed).
-- **`.vscode/settings.json` committed** — `.gitignore` changed from `.vscode` → `.vscode/*` + `!.vscode/settings.json` so project editor settings are shared.
 - **`.yarnrc.yml` — no `enableScripts` or `approvedGitRepositories`** — Yarn 4.14.1 auto-injects these during upgrade for backward compatibility, but no package in this tree uses lifecycle scripts and there are no git-sourced deps. Both were removed; the Yarn 4 secure default (scripts disabled) is preferable.
 
 ## Modernization tasks — COMPLETE
