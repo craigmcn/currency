@@ -12,7 +12,7 @@ export default defineConfig([
   typescriptEslint.configs["flat/eslint-recommended"],
   ...typescriptEslint.configs["flat/recommended"],
   react.configs.flat.recommended,
-  reactHooks.configs["recommended-latest"],
+  reactHooks.configs.flat.recommended,
   jsxA11y.flatConfigs.recommended,
   prettierConfig,
   {
