@@ -68,6 +68,7 @@ Rules in force:
 
 ## Key decisions
 
+- **Security headers in `netlify.toml` (Netlify only)** — CSP `style-src` needs `'unsafe-inline'` because react-select injects emotion `<style>` tags at runtime (static headers can't carry a nonce); `connect-src` allows `https://api.ipdata.co` for the browser-side home-currency lookup. `index.html`'s inline redirect script is allowed by SHA-256 hash — editing it means updating the hash; `src/securityHeaders.test.ts` fails until you do.
 - **Vite `base: './'`** — both the local `dist/` build and the two Netlify builds use relative asset paths, so the same build config works when the app is served from the domain root or the `/currency/` sub-path.
 - **`REACT_APP_IPDATA_CO` → `VITE_IPDATA_CO`** — Vite only exposes env vars prefixed with `VITE_`; the key was renamed in `.env` and in `src/utils/index.ts` (now uses `import.meta.env.VITE_IPDATA_CO`). Update the Netlify environment variable to match.
 - **Sass removed** — the two `.scss` files had no Sass features beyond nesting and a single `rgba(hex, alpha)` interpolation. BEM nesting was expanded to flat selectors; `#{rgba(#005b99, 0.1)}` became `rgba(0, 91, 153, 0.1)`. No CSS nesting used — kept genuinely plain.

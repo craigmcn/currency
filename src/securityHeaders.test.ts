@@ -14,9 +14,13 @@ async function sha256Base64(text: string): Promise<string> {
 // the script must update netlify.toml too, or browsers will block it.
 describe("Content-Security-Policy", () => {
   it("allows every inline script in index.html by its hash", async () => {
-    const scripts = [...indexHtml.matchAll(/<script>(.*?)<\/script>/gs)].map(
-      (match) => match[1],
-    );
+    // Match tags with attributes too (e.g. type="module"); src= scripts are
+    // external and covered by 'self', so only inline bodies need a hash.
+    const scripts = [
+      ...indexHtml.matchAll(/<script\b([^>]*)>(.*?)<\/script>/gs),
+    ]
+      .filter(([, attrs]) => !/\bsrc\s*=/.test(attrs))
+      .map(([, , body]) => body);
     expect(scripts.length).toBeGreaterThan(0);
 
     for (const script of scripts) {
