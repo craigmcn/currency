@@ -10,3 +10,14 @@
 
 [functions]
   directory = "functions"
+
+# script-src hash-allows index.html's inline trailing-slash redirect (src/securityHeaders.test.ts
+# guards the hash). style-src 'unsafe-inline': react-select injects emotion <style> tags at
+# runtime and static headers can't carry a nonce. albertcss @imports Google Fonts.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-FGALV05D4g7G4BENEzItcsKln/YAzSyPZhwTWZS+i2g='; style-src 'self' 'unsafe-inline' https://albertcss.craigmcn.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.ipdata.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
