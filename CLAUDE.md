@@ -118,6 +118,7 @@ PR #55 merged (2026-05-08). Branch `fix/follow-ups`:
 
 ## Test suite notes
 
+- **Playwright e2e runs against the production build** (`yarn build && yarn preview` on port 3031, never reusing a server), not `yarn dev` — dev-mode CJS interop differs from the bundle, which is how #88 shipped a build-only crash. An auto fixture in `e2e/converter.spec.ts` fails any test that logs an uncaught page error. `vite preview` doesn't serve `/api/exchange-rates/latest`, so the `page.route` mocks are still required.
 - **IPData mock** must use `function()` not an arrow function — arrow functions cannot be used as constructors with `new`.
 - **react-select** without `classNamePrefix` uses CSS-in-JS (no `.react-select__control` class). Use `screen.getByRole('combobox')` to find the select input.
 - **"no country list" branch** in `fetchCurrencies` is unreachable — EUR is always present as the reduce accumulator seed; no test needed for it.
