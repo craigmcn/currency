@@ -19,6 +19,7 @@ yarn lint:fix     # ESLint with auto-fix on src/
 yarn test         # Vitest in watch mode
 yarn test:run     # Vitest single run
 yarn coverage     # Vitest with v8 coverage report
+yarn test:e2e     # Playwright e2e against the production build (vite preview, port 3031)
 ```
 
 ## Architecture
