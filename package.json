@@ -28,7 +28,6 @@
   ],
   "author": "Craig McNaughton",
   "license": "GPL-3.0-or-later",
-  "type": "module",
   "dependencies": {
     "@fortawesome/duotone-light-svg-icons": "^6.7.2",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
