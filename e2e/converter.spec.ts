@@ -1,4 +1,18 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test as base, expect, type Page } from "@playwright/test";
+
+// Fail on any uncaught page error: #88's `new IPData()` crash left the UI
+// rendering normally, so visibility checks alone passed.
+const test = base.extend<{ failOnPageError: void }>({
+  failOnPageError: [
+    async ({ page }, run) => {
+      const errors: string[] = [];
+      page.on("pageerror", (error) => errors.push(error.message));
+      await run();
+      expect(errors).toEqual([]);
+    },
+    { auto: true },
+  ],
+});
 
 const mockRates = {
   rates: { USD: 1.1, GBP: 0.85 },
@@ -29,6 +43,17 @@ test("loads the currency converter and shows the currency fields", async ({
     timeout: 15000,
   });
   await expect(page.getByLabel("Amount")).toBeVisible();
+});
+
+test("preselects the home currency from the ipdata lookup", async ({
+  page,
+}) => {
+  await mockBackend(page);
+  await page.goto("/");
+
+  await expect(page.getByText("United States dollar")).toBeVisible({
+    timeout: 15000,
+  });
 });
 
 test("converts an amount between currencies", async ({ page }) => {

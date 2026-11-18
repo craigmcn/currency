@@ -7,7 +7,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: "html",
   use: {
-    baseURL: "http://localhost:3030",
+    baseURL: "http://localhost:3031",
     trace: "on-first-retry",
   },
   projects: [
@@ -16,9 +16,12 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
+  // Test the production build: dev-mode CJS interop differs from the bundle
+  // (#88 broke only the build). Own port and no reuse, so a running dev
+  // server on 3030 can't stand in for it.
   webServer: {
-    command: "yarn dev",
-    url: "http://localhost:3030",
-    reuseExistingServer: !process.env.CI,
+    command: "yarn build && yarn preview --port 3031 --strictPort",
+    url: "http://localhost:3031",
+    reuseExistingServer: false,
   },
 });
