@@ -1,12 +1,18 @@
 import { test as base, expect, type Page } from "@playwright/test";
 
-// Fail on any uncaught page error: #88's `new IPData()` crash left the UI
-// rendering normally, so visibility checks alone passed.
-const test = base.extend<{ failOnPageError: void }>({
-  failOnPageError: [
+// Fail on uncaught page errors and CSP violations: both can leave the UI
+// rendering (#88's `new IPData()` crash did), so visibility checks miss them.
+// The preview server sends netlify.toml's CSP (see vite.config.mts).
+const test = base.extend<{ failOnBrowserErrors: void }>({
+  failOnBrowserErrors: [
     async ({ page }, run) => {
       const errors: string[] = [];
       page.on("pageerror", (error) => errors.push(error.message));
+      page.on("console", (message) => {
+        if (/Content Security Policy/i.test(message.text())) {
+          errors.push(message.text());
+        }
+      });
       await run();
       expect(errors).toEqual([]);
     },
