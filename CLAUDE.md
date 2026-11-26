@@ -88,7 +88,7 @@ PR #53 merged (2026-04-29). Branch `vite-migration` — all tasks done:
 - [x] Clean up ESLint — deleted `.eslintrc`; rewrote `eslint.config.mjs` natively; removed `@eslint/compat` and `@eslint/eslintrc`
 - [x] Add Prettier; streamline ESLint to quality rules only; remove `@stylistic/eslint-plugin`
 - [x] **Vitest + Testing Library + tests** — 39 tests covering `converterReducer` (all 15 action types), `fetchCurrencies`/`fetchUserData` (mocked fetch/ipdata), `TextField`, `SelectField`. `vitest.config.ts` uses `mergeConfig` pattern; setup in `tests/setup.ts`; globals type augmentation in `src/types/vitest.d.ts`.
-- [x] **`test.yml` CI workflow** — lint → build → coverage on push to main and on PRs. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` set as secrets in GitHub repo settings.
+- [x] **`test.yml` CI workflow** — lint → build → coverage on PRs and weekly on main. Needs `VITE_IPDATA_CO` and `FONTAWESOME_NPM_AUTH_TOKEN` set as secrets in GitHub repo settings.
 - [x] **Update README** — usage, stack, development, testing, and deployment sections.
 - [x] **`.github/CODEOWNERS`** — `* @craigmcn`.
 - [x] **Branch protection** — require PR, 1 approval, require `test` status check, dismiss stale reviews, block force push + deletion. Owner bypass is implicit (personal repo, `enforce_admins: false`).
